@@ -2,7 +2,7 @@
 layout: page
 title: Wiki
 description: 人越学越觉得自己无知
-keywords: 刘方亭的维基, Wiki
+keywords: 张艳冲的维基, Wiki
 comments: false
 menu: 维基
 permalink: /wiki/
