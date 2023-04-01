@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>这是用gin搭建的app用例,如果你是小白，那它适合你练手！ &mdash; 张三的技术.博客</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2023/03/22/%E5%B0%8F%E7%99%BD%E5%AD%A6%E4%B9%A0gin%E6%A1%86%E6%9E%B6%E5%86%99%E6%9C%8D%E5%8A%A1/">
+    <link rel="alternate" type="application/atom+xml" title="张三的技术.博客" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="这是用gin搭建的app用例,如果你是小白，那它适合你练手！">
+      
+    <meta name="keywords" content="gin">
+    <meta name="og:keywords" content="gin">
+      
+    <meta name="description" content="这是用gin搭建的app用例,如果你是小白，那它适合你练手！gin 框架文档https://gin-gonic.com/docs">
+    <meta name="og:description" content="这是用gin搭建的app用例,如果你是小白，那它适合你练手！gin 框架文档https://gin-gonic.com/docs">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2023/03/22/%E5%B0%8F%E7%99%BD%E5%AD%A6%E4%B9%A0gin%E6%A1%86%E6%9E%B6%E5%86%99%E6%9C%8D%E5%8A%A1/">
+    <meta property="og:site_name" content="张三的技术.博客">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2023-03-22">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="张三的技术.博客"><span class="octicon octicon-mark-github"></span> 张三的技术.博客</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="首页">首页</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="分类">分类</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="维基">维基</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="链接">链接</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="关于作者">关于作者</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+    <section class="collection-head small geopattern" data-pattern-id="这是用gin搭建的app用例,">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">这是用gin搭建的app用例,如果你是小白，那它适合你练手！</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2023/03/22
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#go" title="go">go</a>
+          </span>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>这是用gin搭建的app用例,如果你是小白，那它适合你练手！</p>
+<h2 id="gin-框架文档">gin 框架文档</h2>
+<p><a href="https://gin-gonic.com/docs">https://gin-gonic.com/docs</a></p>
+
+<ol>
+  <li>
+    <p>新增日志中间件</p>
+  </li>
+  <li>
+    <p>新增recover中间件</p>
+  </li>
+  <li>
+    <p>新增异常捕获中间件</p>
+  </li>
+  <li>
+    <p>新增跨域中间件</p>
+  </li>
+  <li>
+    <p>新增热启动(执行make run即可)</p>
+  </li>
+  <li>
+    <p>新增平滑启动(kill -1 pid)</p>
+  </li>
+</ol>
+
+<h2 id="一项目结构">一、项目结构</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>├── Makefile
+├── README.md
+├── boot
+│   └── boot.go
+├── config
+│   └── app.toml
+├── docs
+│   ├── docs.go
+│   ├── swagger.json
+│   └── swagger.yaml
+├── go.mod
+├── go.sum
+├── internal
+│   ├── api
+│   │   └── order.go
+│   ├── router
+│   │   └── router.go
+│   └── service
+│       └── order.go
+├── main.go
+├── pkg
+│   ├── cache
+│   │   ├── cache.go
+│   │   └── config.go
+│   ├── db
+│   │   ├── config.go
+│   │   └── db.go
+│   ├── gerror
+│   │   ├── code.go
+│   │   ├── gerror.go
+│   │   └── msg.go
+│   ├── logs
+│   │   └── logs.go
+│   ├── middleware
+│   │   ├── catch.go
+│   │   ├── logger.go
+│   │   ├── middleware.go
+│   │   └── recovery.go
+│   ├── model
+│   │   └── order.go
+│   └── response
+│       └── response.go
+├── runtime
+│   └── logs
+│       ├── a-2023-02-27T10-28-57.646.log
+│       ├── a-2023-02-27T10-29-01.987.log
+│       ├── a-2023-02-27T10-29-05.857.log
+│       ├── a-2023-02-27T10-41-41.139.log
+│       └── a.log
+└── swagger
+    └── swagger.go
+
+</code></pre></div></div>
+
+<h3 id="boot">boot</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>项目启动包,配置初始化，mysql,redis初始化；
+</code></pre></div></div>
+
+<h3 id="config">config</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>项目的配置文件
+</code></pre></div></div>
+
+<h3 id="internal">internal</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>内部包目录,禁止其他go项目引入里面的包
+</code></pre></div></div>
+
+<h3 id="pkg">pkg</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>公共包目录，任何go项目都可引入公共包
+</code></pre></div></div>
+
+<h2 id="二快速体验">二、快速体验</h2>
+
+<h3 id="1搭建go环境-mac下安装">1）搭建go环境（ mac下安装）</h3>
+
+<h4 id="1-1安装">1-1、安装：</h4>
+
+<p>http://c.biancheng.net/view/3994.html</p>
+
+<h4 id="1-2设置go环境变量">1-2、设置go环境变量:</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  项目目录：{你的项目地址}/goweb,goweb目录下新建三个目录如下
+  bin pkg src
+  
+  打开.bash_profile 文件写入以下go环境配置
+ 
+  export GOROOT=/usr/local/go
+  export GOPATH={你的项目地址}/goweb
+  export GOBIN=$GOPATH/bin
+  export PATH=$GOBIN:$PATH
+</code></pre></div></div>
+
+<h4 id="1-3开启go-mod">1-3、开启go mod</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  export GO111MODULE=on
+</code></pre></div></div>
+
+<h4 id="1-4设置拉取依赖库代理地址">1-4、设置拉取依赖库代理地址</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>go env -w GOPROXY=https://goproxy.cn,direct
+</code></pre></div></div>
+
+<h3 id="2-拉取项目">2) 拉取项目</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone git@github.com:echo-music/go-blog.git
+</code></pre></div></div>
+
+<h3 id="3更新依赖包项目根目录下执行">3）更新依赖包（项目根目录下执行)</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>go mod download
+go mod tidy
+
+注意:确保go.mod文件存在，否则执行 go mod init github.com/echo-music/go-blog ）
+
+</code></pre></div></div>
+
+<h3 id="4项目配置文件修改数据库redis配置">4）项目配置文件,修改数据库，redis配置</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[app]
+name = "go_gin"
+port = 8081
+version = "1.0.0"
+
+[mysql]
+type = "mysql"
+link = "root:123456@tcp(localhost:3306)/test"
+charset = "utf8mb4"
+maxIdle = 10
+maxOpen = 100
+maxLifetime = "30s"
+
+[redis]
+host = "127.0.0.1:6379"
+password = "123456"
+db = 0
+
+[logger]
+fileName = "./runtime/logs/a.log"
+maxSize = 1
+maxBackups = 30
+maxAges = 7
+compress = true
+level = ""
+</code></pre></div></div>
+
+<h3 id="5项目跑起来项目根目录下执行">5）项目跑起来（项目根目录下执行）</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## 项目首次启动运行该命令
+make init
+
+## 项目跑起来
+make run
+</code></pre></div></div>
+
+<h3 id="6-访问接口">6) 访问接口</h3>
+
+<p>http://127.0.0.1:8081/orders/</p>
+
+<h3 id="7-访问swagger接口文档">7) 访问swagger接口文档</h3>
+
+<p>http://localhost:8081/swagger/index.html</p>
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: decodeURI('/2023/03/22/%E5%B0%8F%E7%99%BD%E5%AD%A6%E4%B9%A0gin%E6%A1%86%E6%9E%B6%E5%86%99%E6%9C%8D%E5%8A%A1/'),
+            clientID: '8b219ee2ae6e026b9aef',
+            clientSecret: 'bf75351baf3c53614a859649a96c98d18b713391',
+            repo: 'echo-music.github.io',
+            owner: 'echo-music',
+            admin: ['echo-music'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2020
+                    <span title="张艳冲">张艳冲</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="https://github.com/echo-music/echo-music.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="首页" target="">首页</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="分类" target="">分类</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="维基" target="">维基</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="链接" target="">链接</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="关于作者" target="">关于作者</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>

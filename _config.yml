@@ -2,25 +2,25 @@
 #   Main Configs   #
 # ---------------- #
 baseurl:
-#url: https://echo-music.github.io/
+#url: https://zhangyanchong.github.io/
 date_format: "ordinal"
-title: 亭哥的技术.博客
+title: 张三的技术.博客
 subtitle: "水滴石穿"
-description: "亭哥的个人博客"
-keywords: echo_music, Fangting Liu, 刘方亭, php_fangting,  echo-music ,亭哥的个人博客
+description: "张三的个人博客"
+keywords: 张艳冲, zhangsan, php_zhangyanchong, zhangyanchong ,张艳冲的个人博客
 encoding: "utf-8"
 side_bar_repo_limit: 5
-repository: echo-music/echo-music.github.io
+repository: zhangyanchong/zhangyanchong.github.io
 
 # ---------------- #
 #      Author      #
 # ---------------- #
-author: Fangting Liu
+author: 张艳冲
 organization:
 organization_url:
-github_username: echo-music
+github_username: zhangyanchong
 location: Beijing, China
-email: php_fangting@126.com
+email: 510466486@126.com
 
 # ---------------- #
 #    Navigation    #

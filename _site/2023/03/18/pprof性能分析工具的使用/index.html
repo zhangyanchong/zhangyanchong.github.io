@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>性能分析工具pprof找出程序潜在的bug &mdash; 张三的技术.博客</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2023/03/18/pprof%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/">
+    <link rel="alternate" type="application/atom+xml" title="张三的技术.博客" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="性能分析工具pprof找出程序潜在的bug">
+      
+    <meta name="keywords" content="pprof">
+    <meta name="og:keywords" content="pprof">
+      
+    <meta name="description" content="性能分析工具pprof的使用">
+    <meta name="og:description" content="性能分析工具pprof的使用">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2023/03/18/pprof%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/">
+    <meta property="og:site_name" content="张三的技术.博客">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2023-03-18">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="张三的技术.博客"><span class="octicon octicon-mark-github"></span> 张三的技术.博客</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="首页">首页</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="分类">分类</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="维基">维基</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="链接">链接</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="关于作者">关于作者</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+    <section class="collection-head small geopattern" data-pattern-id="性能分析工具pprof找出程序">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">性能分析工具pprof找出程序潜在的bug</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2023/03/18
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#go" title="go">go</a>
+          </span>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <h1 id="性能分析工具pprof的使用">性能分析工具pprof的使用</h1>
+
+<h2 id="一什么是pprof">一、什么是pprof？</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pprof可以对程序运行时占用CPU、内存、磁盘 IO、网络这些指标数据进行采样分析，并且提供了可视化的功能。
+它包含了两个库：
+1、runtime/pprof 对于只跑一次的程序，例如每天只跑一次的离线预处理程序，调用 pprof 包提供的函数，手动开启性能数据采集。
+2、net/http/pprof 对于在线服务，对于一个 HTTP Server，访问 pprof 提供的 HTTP 接口，获得性能数据。
+当然，实际上这里底层也是调用的 runtime/pprof 提供的函数，封装成接口对外提供网络访问。
+</code></pre></div></div>
+
+<h2 id="二影响程序性能指标数据有哪些">二、影响程序性能指标数据有哪些？</h2>
+
+<p><a href="https://imgse.com/i/ppwLHsA"><img src="https://s1.ax1x.com/2023/03/23/ppwLHsA.png" alt="ppwLHsA.png" /></a></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1、当 CPU 性能分析启用后，Go runtime 会每 10ms 就暂停一下，记录当前运行的 goroutine 的调用堆栈及相关数据。
+   当性能分析数据保存到硬盘后，我们就可以分析代码中的热点了。
+2、内存性能分析则是在堆（Heap）分配的时候，记录一下调用堆栈。默认情况下，是每 1000 次分配，取样一次，这个数值可以改变。
+  栈(Stack)分配 由于会随时释放，因此不会被内存分析所记录。由于内存分析是取样方式，并且也因为其记录的是分配内存，而不是使用内存。
+  因此使用内存性能分析工具来准确判断程序具体的内存使用是比较困难的。   
+3、阻塞分析是一个很独特的分析，它有点儿类似于 CPU 性能分析，但是它所记录的是 goroutine 等待资源所花的时间。
+  阻塞分析对分析程序并发瓶颈非常有帮助，阻塞性能分析可以显示出什么时候出现了大批的 goroutine 被阻塞了。阻塞性能分析是特殊的分析工具，
+  在排除 CPU 和内存瓶颈前，不应该用它来分析。  
+</code></pre></div></div>
+
+<h2 id="三pprof如何使用">三、pprof如何使用？</h2>
+
+<h3 id="runtimepprof">runtime/pprof</h3>
+
+<p>1、创建一个main.go文件,编写如下代码</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>func main(){
+	f, _ := os.OpenFile("cpu.profile", os.O_CREATE|os.O_RDWR, 0644)
+	defer f.Close()
+	pprof.StartCPUProfile(f)
+	defer pprof.StopCPUProfile()
+	sayHellowold()
+ 
+ }
+ func sayHellowold() {
+	hellowold(10000)
+	say(100000)
+}
+
+func hellowold(times int) {
+	time.Sleep(time.Second * 2)
+	var counter int
+	for i := 0; i &lt; times; i++ {
+		for j := 0; j &lt; times; j++ {
+			counter++
+		}
+	}
+}
+
+func say(times int) {
+	time.Sleep(time.Second * 2)
+	var counter int
+	for i := 0; i &lt; times; i++ {
+		for j := 0; j &lt; times; j++ {
+			counter++
+		}
+	}
+}
+
+</code></pre></div></div>
+
+<p>2、使用go run main.go执行程序</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> go run main.go 生成需要分析的cpu或内存的文件 
+ example: cpu.profile
+</code></pre></div></div>
+
+<p><a href="https://imgse.com/i/ppNJssJ"><img src="https://s1.ax1x.com/2023/03/20/ppNJssJ.png" alt="ppNJssJ.png" /></a></p>
+
+<p>3、对采集的程序指标数据进行分析</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> 另启一个终端 go tool pprof [文件路径] 分析cpu 或内存的使用情况
+ example:  go tool pprof  cpu.profile|pprof.samples.cpu.032.pb.gz
+</code></pre></div></div>
+
+<p><a href="https://imgse.com/i/ppNY3Y6"><img src="https://s1.ax1x.com/2023/03/20/ppNY3Y6.png" alt="ppNY3Y6.png" /></a></p>
+
+<p>发现cpu执行时间较长的是say函数,使用list main.say查看详情：
+<a href="https://imgse.com/i/ppNYDtP"><img src="https://s1.ax1x.com/2023/03/20/ppNYDtP.png" alt="ppNYDtP.png" /></a></p>
+
+<h3 id="nethttppprof">net/http/pprof</h3>
+
+<p>1、创建一个main.go文件,编写如下代码</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>func main() {
+
+	http.HandleFunc("/", sayHelloHandler) //	设置访问路由
+	log.Fatal(http.ListenAndServe(":9999", nil))
+
+}
+
+func sayHelloHandler(w http.ResponseWriter, r *http.Request) {
+
+	hellowold(10000)
+	fmt.Println("path", r.URL.Path)
+	fmt.Println("scheme", r.URL.Scheme)
+	fmt.Fprintf(w, "Hello world!\n") //这个写入到w的是输出到客户端的
+	say(100000)
+}
+
+func hellowold(times int) {
+	time.Sleep(time.Second * 2)
+	var counter int
+	for i := 0; i &lt; times; i++ {
+		for j := 0; j &lt; times; j++ {
+			counter++
+		}
+	}
+}
+
+func say(times int) {
+	time.Sleep(time.Second * 2)
+	var counter int
+	for i := 0; i &lt; times; i++ {
+		for j := 0; j &lt; times; j++ {
+			counter++
+		}
+	}
+}
+
+
+</code></pre></div></div>
+
+<p>2、使用go run main.go执行程序</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>服务启动后，直接在浏览器上访问：
+
+http://localhost:9999/debug/pprof/
+
+得到了一个性能指标数据的汇总页面。
+</code></pre></div></div>
+<p><a href="https://imgse.com/i/ppwOOX9"><img src="https://s1.ax1x.com/2023/03/23/ppwOOX9.png" alt="ppwOOX9.png" /></a></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>可以直接点击上面的链接，进入子页面，查看相关的汇总信息。
+
+关于 goroutine 的信息有两个链接，goroutine 和 full goroutine stack dump，前者是一个汇总的消息，可以查看 goroutines 的总体情况，后者则可以看到每一个 goroutine 的状态
+点击 profile 和 trace 则会在后台进行一段时间的数据采样(默认30秒)，采样完成后，返回给浏览器一个 profile 文件，之后在本地通过 go tool pprof 工具进行分析。
+</code></pre></div></div>
+
+<p><a href="https://imgse.com/i/ppwXntf"><img src="https://s1.ax1x.com/2023/03/23/ppwXntf.png" alt="ppwXntf.png" /></a>
+然后使用list查看命令占用cpu时间最长的函数的时间消耗详情
+<a href="https://imgse.com/i/ppwX4jH"><img src="https://s1.ax1x.com/2023/03/23/ppwX4jH.png" alt="ppwX4jH.png" /></a></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>当然如果不想通过浏览器下载，也可以通过交互模式采集并下载要分析的指标数据文件
+
+go tool pprof http://localhost:9999/debug/pprof/profile
+
+默认采集时间30秒，当然你可以重新设置采集时间，像下面这样：
+go tool pprof http://localhost:9999/debug/pprof/profile\?seconds\=60
+
+其他采集命令：
+# 下载 cpu profile，默认从当前开始收集 30s 的 cpu 使用情况，需要等待 30s
+go tool pprof http://localhost:9999/debug/pprof/profile
+# wait 120s
+go tool pprof http://localhost:9999/debug/pprof/profile?seconds=120     
+
+# 下载 heap profile
+go tool pprof -inuse_space http://127.0.0.1:9999/debug/pprof/heap\?seconds\=60
+go tool pprof http://localhost:9999/debug/pprof/heap
+
+# 下载 goroutine profile
+go tool pprof http://localhost:9999/debug/pprof/goroutine
+
+# 下载 block profile
+go tool pprof http://localhost:9999/debug/pprof/block
+
+# 下载 mutex profile
+go tool pprof http://localhost:9999/debug/pprof/mutex
+
+
+
+在采集的过程中，也别忘了访问你觉得有性能的接口，比如
+
+http://localhost:9999/
+
+采集完成后会直接进入交互模式。如下图所示：
+红框部分就行采集后生成的cpu性能指标数据文件
+
+</code></pre></div></div>
+<p><a href="https://imgse.com/i/ppwvFeA"><img src="https://s1.ax1x.com/2023/03/23/ppwvFeA.png" alt="ppwvFeA.png" /></a></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>如果在以上交互模式下退出，还可以继续使用如下命令进入交互模式
+go tool pprof [文件路径] 分析cpu 或内存的使用情况,比如下面例子：
+go tool pprof /Users/liufangting/pprof/pprof.samples.cpu.042.pb.gz  
+
+如果不想在终端交互模式下做指标数据性能分析，那还可以在浏览器里进行交互
+go tool pprof -http :8081  [采集信息文件路径]或者 采集url
+
+example:
+go tool pprof -http :8081 cpu.profile
+go tool pprof -http :8081 /Users/liufangting/pprof/pprof.samples.cpu.042.pb.gz
+go tool pprof -http :8081  http://localhost:8080/debug/pprof/profile\?seconds\=60
+</code></pre></div></div>
+<p><a href="https://imgse.com/i/ppwzVxS"><img src="https://s1.ax1x.com/2023/03/23/ppwzVxS.png" alt="ppwzVxS.png" /></a></p>
+
+<p>3 如果查看火焰图？</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  y 轴表示调用栈，每一层都是一个函数。调用栈越深，火焰就越高，下方就是正在执行的函数，顶部都是它的父函数
+  x 轴表示抽样数，如果一个函数在 x 轴占据的宽度越宽，就表示它被抽到的次数多，即执行的时间长。注意，x 轴不代表时间，而是所有的调用栈合并后，按字母顺序排列的。
+  火焰图就是看顶层的哪个函数占据的宽度最大。只要有"平顶"（plateaus），就表示该函数可能存在性能问题
+  
+  //https://www.ruanyifeng.com/blog/2017/09/flame-graph.html
+  
+</code></pre></div></div>
+<p><a href="https://imgse.com/i/ppwzOds"><img src="https://s1.ax1x.com/2023/03/23/ppwzOds.png" alt="ppwzOds.png" /></a></p>
+
+<p>4 测试代码地址</p>
+
+<p><a href="https://github.com/echo-music/go-learn/blob/master/monitor/pprofs/cmd/main.go">示例完整代码</a></p>
+
+<p>总结
+使用pprof进行性能指标分析两大步：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>第一步：性能指标数据采集
+1、代码中采集并保存文件；runtime/pprof
+2、终端采集自动生成可分析的指标数据文件；net/http/pprof
+3、web端访问击 profile 和 trace 采集；net/http/pprof
+
+第一步：对采集的性能指标数据进行分析
+1、终端交互模式下使用top,list,traces 分析；
+2、web端交互模式下，查看火焰图，程序的调用图进行性能分析；
+</code></pre></div></div>
+
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: decodeURI('/2023/03/18/pprof%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/'),
+            clientID: '8b219ee2ae6e026b9aef',
+            clientSecret: 'bf75351baf3c53614a859649a96c98d18b713391',
+            repo: 'echo-music.github.io',
+            owner: 'echo-music',
+            admin: ['echo-music'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2020
+                    <span title="张艳冲">张艳冲</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="https://github.com/echo-music/echo-music.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="首页" target="">首页</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="分类" target="">分类</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="维基" target="">维基</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="链接" target="">链接</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="关于作者" target="">关于作者</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>

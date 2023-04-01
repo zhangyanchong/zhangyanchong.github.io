@@ -9,7 +9,7 @@
   
   
     {
-      "title"    : "About",
+      "title"    : "About echo🎶",
       "url"      : "http://localhost:4000/about/"
     } ,
   
@@ -58,59 +58,61 @@
   
   
   
+  
+  
 
   
     {
       "title"    : "Mac 中安装、使用 git 和 Sourcetree",
-      "category" : "Mac,",
+      "category" : "git",
       "url"      : "http://localhost:4000/2018/02/26/mac-git-sourcetree/"
     } ,
   
     {
+      "title"    : "这些都是你想要的学习资料，链接我都放在下面了自己看看哦",
+      "category" : "go",
+      "url"      : "http://localhost:4000/2018/08/07/%E4%BD%A0%E6%83%B3%E8%A6%81%E7%9A%84%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/"
+    } ,
+  
+    {
+      "title"    : "go后端面试题，你值得拥有！",
+      "category" : "go",
+      "url"      : "http://localhost:4000/2019/08/05/GO%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98/"
+    } ,
+  
+    {
       "title"    : "在 Mac 上安装软件",
-      "category" : "Mac",
+      "category" : "mac",
       "url"      : "http://localhost:4000/2020/05/10/mac-install-soft/"
     } ,
   
     {
       "title"    : "试用装",
-      "category" : "Mac,",
+      "category" : "other",
       "url"      : "http://localhost:4000/2020/05/15/%E8%AF%95%E7%94%A8%E8%A3%85%E5%B0%B1%E6%98%AF%E5%A5%BD/"
     } ,
   
     {
       "title"    : "Mac下使用Jekyll和github搭建个人博客",
-      "category" : "Mac,",
+      "category" : "mac",
       "url"      : "http://localhost:4000/2020/05/20/mac-jekyll-github-blog/"
     } ,
   
     {
-      "title"    : "关于项目引入 webpack.optimize.UglifyJsPlugin插件打包报错的问题",
-      "category" : "Mac,",
-      "url"      : "http://localhost:4000/2020/05/25/%E5%85%B3%E4%BA%8E%E9%A1%B9%E7%9B%AE%E5%BC%95%E5%85%A5-webpack.optimize.UglifyJsPlugin%E6%8F%92%E4%BB%B6%E6%89%93%E5%8C%85%E6%8A%A5%E9%94%99%E7%9A%84%E9%97%AE%E9%A2%98/"
-    } ,
-  
-    {
-      "title"    : "总结!",
-      "category" : "私有",
-      "url"      : "http://localhost:4000/2020/05/26/%E6%80%BB%E7%BB%93/"
-    } ,
-  
-    {
       "title"    : "react-express-mongodb",
-      "category" : "react,express,redux,mongodb",
+      "category" : "js",
       "url"      : "http://localhost:4000/2020/06/04/react-express-mongodb/"
     } ,
   
     {
       "title"    : "babel 基本使用",
-      "category" : "Mac,window,babel",
+      "category" : "js",
       "url"      : "http://localhost:4000/2020/06/08/babel-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"
     } ,
   
     {
       "title"    : "JS",
-      "category" : "js,JS",
+      "category" : "js",
       "url"      : "http://localhost:4000/2020/06/09/JS-%E5%9F%BA%E7%A1%80/"
     } ,
   
@@ -128,44 +130,92 @@
   
     {
       "title"    : "Common JS 和 ES6 Module 区别",
-      "category" : "CommonJS,JS,ES6",
+      "category" : "js",
       "url"      : "http://localhost:4000/2020/06/24/CommonJS.-%E5%92%8CES6-Module-%E7%9A%84%E5%8C%BA%E5%88%AB/"
     } ,
   
     {
       "title"    : "了解webpack",
-      "category" : "webpack,JS,WEBPACK",
+      "category" : "js",
       "url"      : "http://localhost:4000/2020/07/03/%E4%BA%86%E8%A7%A3webpack/"
     } ,
   
     {
       "title"    : "nginx代理配置",
-      "category" : "node,nginx",
+      "category" : "nginx",
       "url"      : "http://localhost:4000/2020/07/20/nginx%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/"
     } ,
   
     {
       "title"    : "自动切换node 版本",
-      "category" : "node",
+      "category" : "js",
       "url"      : "http://localhost:4000/2020/07/20/%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2node%E7%89%88%E6%9C%AC-copy/"
     } ,
   
     {
       "title"    : "Mac电脑安装Homebrew和oh-my-zsh",
-      "category" : "Mac,Homebrew,oh-my-zsh",
+      "category" : "mac",
       "url"      : "http://localhost:4000/2020/07/28/Mac%E7%94%B5%E8%84%91%E5%AE%89%E8%A3%85Homebrew%E5%92%8Coh-my-zsh-copy/"
     } ,
   
     {
       "title"    : "Mac &amp;&amp; iOS safari 屏幕滚动橡皮筋效果取消已经无法滚动问题",
-      "category" : "Mac",
+      "category" : "mac",
       "url"      : "http://localhost:4000/2020/10/15/Mac-&&-iOS-safari-%E5%B1%8F%E5%B9%95%E6%BB%9A%E5%8A%A8%E6%A9%A1%E7%9A%AE%E7%AD%8B%E6%95%88%E6%9E%9C%E5%8F%96%E6%B6%88%E5%B7%B2%E7%BB%8F%E6%97%A0%E6%B3%95%E6%BB%9A%E5%8A%A8%E9%97%AE%E9%A2%98/"
     } ,
   
     {
-      "title"    : "Vue codemirror 如何设置tab标识符为空格",
-      "category" : "codemirror",
+      "title"    : "Vue  如何设置tab标识符为空格",
+      "category" : "js",
       "url"      : "http://localhost:4000/2020/12/12/Vue-codemirror-%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AEtab%E6%A0%87%E8%AF%86%E7%AC%A6%E4%B8%BA%E7%A9%BA%E6%A0%BC/"
+    } ,
+  
+    {
+      "title"    : "你说你搞懂了defer？我不信！",
+      "category" : "go",
+      "url"      : "http://localhost:4000/2020/12/20/%E4%BD%A0%E8%AF%B4%E4%BD%A0%E6%90%9E%E6%87%82%E4%BA%86defer/"
+    } ,
+  
+    {
+      "title"    : "偷偷的告诉你go语言map的底层实现是这样的",
+      "category" : "go",
+      "url"      : "http://localhost:4000/2021/12/01/map%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/"
+    } ,
+  
+    {
+      "title"    : "你说你会用反射，我觉得你在吹牛逼",
+      "category" : "go",
+      "url"      : "http://localhost:4000/2022/01/20/%E4%BD%A0%E7%9A%84%E9%A1%B9%E7%9B%AE%E6%98%AF%E5%90%A6%E7%94%A8%E5%88%B0%E4%BA%86%E5%8F%8D%E5%B0%84/"
+    } ,
+  
+    {
+      "title"    : "go语言内存逃逸场景分析",
+      "category" : "go",
+      "url"      : "http://localhost:4000/2022/05/06/%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8%E5%9C%BA%E6%99%AF/"
+    } ,
+  
+    {
+      "title"    : "小白学习docker入门到放弃",
+      "category" : "docker",
+      "url"      : "http://localhost:4000/2023/03/17/docker%E5%B0%8F%E7%99%BD%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%89%8B%E8%AE%B0/"
+    } ,
+  
+    {
+      "title"    : "性能分析工具pprof找出程序潜在的bug",
+      "category" : "go",
+      "url"      : "http://localhost:4000/2023/03/18/pprof%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/"
+    } ,
+  
+    {
+      "title"    : "这是用gin搭建的app用例,如果你是小白，那它适合你练手！",
+      "category" : "go",
+      "url"      : "http://localhost:4000/2023/03/22/%E5%B0%8F%E7%99%BD%E5%AD%A6%E4%B9%A0gin%E6%A1%86%E6%9E%B6%E5%86%99%E6%9C%8D%E5%8A%A1/"
+    } ,
+  
+    {
+      "title"    : "holmes服务性能指标监控，让bug无处遁行！",
+      "category" : "go",
+      "url"      : "http://localhost:4000/2023/03/23/holmes%E6%9C%8D%E5%8A%A1%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E7%9B%91%E6%8E%A7/"
     } ,
   
     {
