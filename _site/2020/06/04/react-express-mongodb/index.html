@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>react-express-mongodb &mdash; 刘方亭.blog</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2020/06/04/react-express-mongodb/">
+    <link rel="alternate" type="application/atom+xml" title="刘方亭.blog" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="react-express-mongodb">
+      
+    <meta name="keywords" content="react">
+    <meta name="og:keywords" content="react">
+      
+    <meta name="description" content="1、创建初始化react项目 使用cli   npx create-react-app my-app2、安装antd-mobile   npm install antd-mobile --save  同时引入样式,修改 src/App.css，在文件顶部引入 antd/dist/antd-mobile.css。    import 'antd/dist/antd-mobile.css'; // or 'antd/dist/antd.less'      ">
+    <meta name="og:description" content="1、创建初始化react项目 使用cli   npx create-react-app my-app2、安装antd-mobile   npm install antd-mobile --save  同时引入样式,修改 src/App.css，在文件顶部引入 antd/dist/antd-mobile.css。    import 'antd/dist/antd-mobile.css'; // or 'antd/dist/antd.less'      ">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2020/06/04/react-express-mongodb/">
+    <meta property="og:site_name" content="刘方亭.blog">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2020-06-04">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="刘方亭.blog"><span class="octicon octicon-mark-github"></span> 刘方亭.blog</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="首页">首页</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="分类">分类</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="维基">维基</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="链接">链接</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="关于">关于</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+    <section class="collection-head small geopattern" data-pattern-id="react-express-m">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">react-express-mongodb</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2020/06/04
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#react,express,redux,mongodb" title="react,express,redux,mongodb">react,express,redux,mongodb</a>
+          </span>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <h2 id="1创建初始化react项目-使用cli">1、创建初始化react项目 使用cli</h2>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   npx create-react-app my-app
+</code></pre></div></div>
+<h2 id="2安装antd-mobile">2、安装antd-mobile</h2>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   npm <span class="nb">install </span>antd-mobile <span class="nt">--save</span>
+</code></pre></div></div>
+<ul>
+  <li>同时引入样式,修改 src/App.css，在文件顶部引入 antd/dist/antd-mobile.css。
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="dl">'</span><span class="s1">antd/dist/antd-mobile.css</span><span class="dl">'</span><span class="p">;</span> <span class="c1">// or 'antd/dist/antd.less'</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="3脚手架创建成功后的项目结构是如下">3、脚手架创建成功后的项目结构是如下：</h2>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>├── README.md
+├── node_modules
+├── package-lock.json
+├── package.json
+├── public
+└── src
+
+</code></pre></div></div>
+<h2 id="4使用npm-run-eject-进行项目扩展-项目结构如下">4、使用npm run eject 进行项目扩展 项目结构如下</h2>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>├── README.md
+├── config
+├── node_modules
+├── package-lock.json
+├── package.json
+├── public
+├── scripts
+└── src
+</code></pre></div></div>
+<h2 id="5使用brew安装mongodb">5、使用brew安装mongodb</h2>
+<ul>
+  <li>由于mongodb不开源了，brew install mongodb 是无法安装的，使用社区版可以进行安装
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code> Error: No available formula with the name <span class="s1">'mongodb'</span>
+</code></pre></div>    </div>
+  </li>
+  <li>设置
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   brew tap mongodb/brew
+</code></pre></div>    </div>
+  </li>
+  <li>安装 安装MongoDB社区服务器的最新可用生产版本（包括所有命令行工具）。这将安装MongoDB 4.2.x
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   brew <span class="nb">install </span>mongodb-community
+</code></pre></div>    </div>
+  </li>
+  <li>安装生产版本 安装MongoDB社区服务器和命令行工具的最新4.2.x生产版本：
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   brew <span class="nb">install </span>mongodb-community@4.2
+</code></pre></div>    </div>
+  </li>
+  <li>安装MongoDB社区服务器和命令行工具的最新4.0.x生产版本：
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    brew <span class="nb">install </span>mongodb-community@4.0
+</code></pre></div>    </div>
+  </li>
+  <li>安装MongoDB社区服务器和命令行工具的最新3.6.x生产版本：
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    brew <span class="nb">install </span>mongodb-community@3.6
+</code></pre></div>    </div>
+  </li>
+  <li>仅安装最新的mongoshell以连接到远程MongoDB实例：
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    brew <span class="nb">install </span>mongodb-community-shell
+</code></pre></div>    </div>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>如果报错如下：    ```shelll    An exception occurred within a child process    An exception occurred within a child process:    DownloadError: Failed to download resource "mongodb-community"    Download failed: https://fastdl.mongodb.org/osx/mongodb-macos-x86_64-4.2.0.tgz    ```
+</code></pre></div>    </div>
+  </li>
+  <li>重新执行一下上面的命令
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code> brew <span class="nb">install </span>mongodb-community@4.2
+</code></pre></div>    </div>
+  </li>
+  <li>文件路径
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   配置文件：/usr/local/etc/mongod.conf
+   日志目录路径：/usr/local/var/log/mongodb
+   数据目录路径：/usr/local/var/mongodb
+</code></pre></div>    </div>
+  </li>
+  <li>启动 &amp;&amp; 停止 mongodb-community服务器 ,mongod作为服务运行</li>
+</ul>
+
+<p>若要launchd启动mongod立即重启也登录时，使用</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      brew services start mongodb-community
+</code></pre></div></div>
+<ul>
+  <li>如果您mongod作为服务进行管理，它将使用上面列出的默认路径。要停止服务器实例，请使用：</li>
+</ul>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   brew services stop mongodb-community
+</code></pre></div></div>
+<ul>
+  <li>手动启动 mongod
+   如果您不想要或不需要后台MongoDB服务，您可以运行：
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code> mongod <span class="nt">--config</span> /usr/local/etc/mongod.conf
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>注意：如果您不包含–config带有配置文件路径的选项，则MongoDB服务器没有默认配置文件或日志目录路径，并将使用数据目录路径/data/db。</p>
+
+<p>要mongod手动关闭，请使用admin数据库并运行db.shutdownServer()：</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      mongo admin <span class="nt">--eval</span> <span class="s2">"db.shutdownServer()"</span>
+</code></pre></div></div>
+
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2020/06/04/react-express-mongodb/',
+            clientID: 'f1b37e802c634863604a',
+            clientSecret: '3185e464e62d9eab0a432c06daebfa3a6af7e874',
+            repo: 'echomusic.github.io',
+            owner: 'echo-music',
+            admin: ['echo-music'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2020
+                    <span title="Fangting Liu">Fangting Liu</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="https://github.com/echo-music/echomusic.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="首页" target="">首页</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="分类" target="">分类</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="维基" target="">维基</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="链接" target="">链接</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="关于" target="">关于</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>

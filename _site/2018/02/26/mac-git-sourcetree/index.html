@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Mac 中安装、使用 git 和 Sourcetree &mdash; 刘方亭.blog</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2018/02/26/mac-git-sourcetree/">
+    <link rel="alternate" type="application/atom+xml" title="刘方亭.blog" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="Mac 中安装、使用 git 和 Sourcetree">
+      
+    <meta name="keywords" content="Mac, git, Sourcetree">
+    <meta name="og:keywords" content="Mac, git, Sourcetree">
+      
+    <meta name="description" content="git安装1、git官网下载dmg文件直接安装">
+    <meta name="og:description" content="git安装1、git官网下载dmg文件直接安装">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2018/02/26/mac-git-sourcetree/">
+    <meta property="og:site_name" content="刘方亭.blog">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2018-02-26">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="刘方亭.blog"><span class="octicon octicon-mark-github"></span> 刘方亭.blog</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="首页">首页</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="分类">分类</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="维基">维基</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="链接">链接</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="关于">关于</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+    <section class="collection-head small geopattern" data-pattern-id="Mac 中安装、使用 git ">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">Mac 中安装、使用 git 和 Sourcetree</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2018/02/26
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#Mac," title="Mac,">Mac,</a>
+          </span>
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#git," title="git,">git,</a>
+          </span>
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#Sourcetree" title="Sourcetree">Sourcetree</a>
+          </span>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <h2 id="git安装">git安装</h2>
+<p>1、<a href="https://git-scm.com/">git官网</a>下载dmg文件直接安装</p>
+
+<p>2、用brew install git安装</p>
+
+<h2 id="key问题">key问题</h2>
+<p>查看mac上是否已经存在key</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> /Users/liufangting/.ssh
+</code></pre></div></div>
+<p>如果没有，即生成新的key</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>ssh-keygen <span class="nt">-t</span> rsa
+</code></pre></div></div>
+<p>把公钥上传到gitlab的ssh-keys,这个地方支持上传多个key,因此不用担心覆盖掉了windows及其它设备的key</p>
+
+<h2 id="在mac上初始化git设置全局属性">在mac上初始化git(设置全局属性)</h2>
+<p>每个机器都必须自报家门：你的名字和Email地址</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git config <span class="nt">--global</span> user.name liu.yw-mac
+<span class="nv">$ </span>git config <span class="nt">--global</span> user.email liu.yw@wonhigh.cn
+</code></pre></div></div>
+<p>注意git config命令的–global参数，用了这个参数，表示你这台机器上所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址。</p>
+
+<h2 id="设置版本库本地仓库">设置版本库（本地仓库）</h2>
+<p>版本库又名仓库，英文名repository，你可以简单理解成一个目录，这个目录里面的所有文件都可以被Git管理起来，每个文件的修改、删除，Git都能跟踪，以便任何时刻都可以追踪历史，或者在将来某个时刻可以“还原”。</p>
+
+<p>创建一个版本库非常简单，首先，选择一个合适的地方，创建一个空目录：</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span><span class="nb">mkdir </span>my_git
+ <span class="nv">$ </span><span class="nb">pwd</span>
+ <span class="nv">$ </span>/Users/liufangting/my_git
+</code></pre></div></div>
+
+<p>第二步，通过git init命令把这个目录变成Git可以管理的仓库：</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nv">$ </span>git init
+Initialized empty Git repository <span class="k">in</span> /Users/liufangting/my_git/.git/
+</code></pre></div></div>
+<p>一个空的仓库（empty Git repository）就建好了，没事不要去修改隐藏目录.git的文件，这个目录是Git用来跟踪管理版本库的，改乱了，就把Git仓库给破坏了。</p>
+
+<h2 id="git基本操作">Git基本操作</h2>
+<p>1、把文本添加到版本库
+创建一个test.txt文件，内容如下：</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Git is a version control system.
+Git is free software.
+</code></pre></div></div>
+<p>文件一定要存放在/Users/liufangting/my_git目录或者其子目录下，要不然git会找不到</p>
+
+<p>2、用命令git add告诉Git,把文件添加到仓库</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git add test.txt
+或者
+<span class="nv">$ </span>git add <span class="nt">--all</span>
+</code></pre></div></div>
+<p>3、用命令git commit告诉Git,把文件提交到仓库</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git commit <span class="nt">-m</span> <span class="s2">"wrote a test file"</span>
+</code></pre></div></div>
+<p>4、克隆代码库</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span> <span class="n">git</span> <span class="n">clone</span> <span class="n">ssh</span><span class="p">:</span><span class="o">//</span><span class="n">git</span><span class="o">@</span><span class="n">gitlab</span><span class="p">.</span><span class="n">belle</span><span class="p">.</span><span class="n">cn</span><span class="p">:</span><span class="mi">10022</span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">bf</span><span class="o">-</span><span class="n">config</span><span class="o">-</span><span class="n">new</span><span class="p">.</span><span class="n">git</span>
+<span class="n">Cloning</span> <span class="n">into</span> <span class="s">'bf-config-new'</span><span class="p">...</span>
+<span class="n">The</span> <span class="n">authenticity</span> <span class="n">of</span> <span class="n">host</span> <span class="s">'[gitlab.belle.cn]:10022 ([172.20.32.132]:10022)'</span> <span class="n">can</span><span class="s">'t be established.
+ECDSA key fingerprint is SHA256:/Xac/5alCkOVwE0zet2N+vJ9oWuej1giAo+lv5PMxzc.
+Are you sure you want to continue connecting (yes/no)? yes
+</span></code></pre></div></div>
+<p>这里提示yes/no ,要输入yes,不然clone失败</p>
+
+<p>5、拉取代码</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git pull
+</code></pre></div></div>
+<p>6、提交所有改动</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git commit <span class="nt">-am</span> <span class="s2">"注释内容"</span>
+</code></pre></div></div>
+<p>7、推送到服务器</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git push
+</code></pre></div></div>
+<p>8、随时掌握工作区状态</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git status
+</code></pre></div></div>
+<p>9、查看文件修改内容，常和git status一起用</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git diff
+</code></pre></div></div>
+
+<h2 id="注意的问题和git的局限性">注意的问题和Git的局限性</h2>
+<p>1、Git只能版本控制纯文本文件，对于图片，视频和word文档这些二进制格式的文件，无法追踪内容的改动，只能看到文件大小的变化</p>
+
+<p>2、文本编码建议使用标准的UTF-8编码，即解决冲突又为所有平台所支持</p>
+
+<h2 id="参考资料">参考资料</h2>
+<p><a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000">廖雪峰的博客</a></p>
+
+<h1 id="sourcetree安装配置">Sourcetree安装配置</h1>
+<p><a href="https://www.sourcetreeapp.com/">官网</a>下载Mac版的安装包，直接拖到“应用程序”就可以</p>
+
+<p>Sourcetree是免费的开源软件，但是要注册后免费使用，特别是新版一定要输入注册的用户名和密码（不可以跳过）才能正常使用。注册的时候要输入一个邮箱号来接收确认邮件，我是用QQ邮箱才注册成功的（163的邮箱不行），即使用QQ邮箱确认邮件也有延迟，隔了一晚上才收到，所以暂时没有收到确认邮件不要着急上火。</p>
+
+<p>软件开启来后，一般是要“添加已经存在的仓库”，这时候在Mac上会出现选择不到本地仓库文件夹的情况，此时需要在打开“finder”在finder的“偏好设置”中“边栏”选项，把个人家目录，相关的图片，音乐文件夹什么的勾选显示在“个人收藏”中，这样就方便在界面上选择了。</p>
+
+<p>有很多工程项目的时候，可以在sourcetree里建立分组文件夹，加以区分，会清晰很多，形如这样的就很好：</p>
+
+<p><img src="/images/posts/mac/markdown-img-paste-20180302163956748.png" alt="aa1" /></p>
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2018/02/26/mac-git-sourcetree/',
+            clientID: 'f1b37e802c634863604a',
+            clientSecret: '3185e464e62d9eab0a432c06daebfa3a6af7e874',
+            repo: 'echomusic.github.io',
+            owner: 'echo-music',
+            admin: ['echo-music'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2020
+                    <span title="Fangting Liu">Fangting Liu</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="https://github.com/echo-music/echomusic.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="首页" target="">首页</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="分类" target="">分类</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="维基" target="">维基</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="链接" target="">链接</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="关于" target="">关于</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>

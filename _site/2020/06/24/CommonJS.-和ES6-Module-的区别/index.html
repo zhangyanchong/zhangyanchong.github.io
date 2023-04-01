@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Common JS 和 ES6 Module 区别 &mdash; 刘方亭.blog</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2020/06/24/CommonJS.-%E5%92%8CES6-Module-%E7%9A%84%E5%8C%BA%E5%88%AB/">
+    <link rel="alternate" type="application/atom+xml" title="刘方亭.blog" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="Common JS 和 ES6 Module 区别">
+      
+    <meta name="keywords" content="js">
+    <meta name="og:keywords" content="js">
+      
+    <meta name="description" content="CommonJS 规范在 ES6 之前，ECMAScript 并没有提供代码组织的方式，那时候通常是基于 IIFE 来实现“模块化”，随着 JavaScript 在前端大规模的应用，以及服务端 Javascript 的推动，原先浏览器端的模块规范不利于大规模应用。于是早期便有了 CommonJS 规范，其目标是为了定义模块，提供通用的模块组织方式。">
+    <meta name="og:description" content="CommonJS 规范在 ES6 之前，ECMAScript 并没有提供代码组织的方式，那时候通常是基于 IIFE 来实现“模块化”，随着 JavaScript 在前端大规模的应用，以及服务端 Javascript 的推动，原先浏览器端的模块规范不利于大规模应用。于是早期便有了 CommonJS 规范，其目标是为了定义模块，提供通用的模块组织方式。">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2020/06/24/CommonJS.-%E5%92%8CES6-Module-%E7%9A%84%E5%8C%BA%E5%88%AB/">
+    <meta property="og:site_name" content="刘方亭.blog">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2020-06-24">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="刘方亭.blog"><span class="octicon octicon-mark-github"></span> 刘方亭.blog</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="首页">首页</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="分类">分类</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="维基">维基</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="链接">链接</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="关于">关于</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+    <section class="collection-head small geopattern" data-pattern-id="Common JS 和 ES6">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">Common JS 和 ES6 Module 区别</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2020/06/24
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#CommonJS,JS,ES6" title="CommonJS,JS,ES6">CommonJS,JS,ES6</a>
+          </span>
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#Module" title="Module">Module</a>
+          </span>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <h3 id="commonjs-规范">CommonJS 规范</h3>
+<p>在 ES6 之前，ECMAScript 并没有提供代码组织的方式，那时候通常是基于 IIFE 来实现“模块化”，随着 JavaScript 在前端大规模的应用，以及服务端 Javascript 的推动，原先浏览器端的模块规范不利于大规模应用。于是早期便有了 CommonJS 规范，其目标是为了定义模块，提供通用的模块组织方式。</p>
+
+<h3 id="模块定义和使用">模块定义和使用</h3>
+<p>在CommonJ当中 ，一个文件就是一个模块。定义一个模块导出通过 exports || module.exports 挂载即可</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">export</span><span class="p">.</span><span class="nx">count</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</code></pre></div></div>
+<p>导入一个模块也是so easy的，通过require 对应的模块拿到exports 对象</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">const</span> <span class="nx">counter</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./counter</span><span class="dl">'</span><span class="p">)</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">counter</span><span class="p">.</span><span class="nx">count</span><span class="p">);</span>  <span class="c1">// 1</span>
+</code></pre></div></div>
+<h3 id="commonjs的模块主要是由原生模块module来实现的这个类上的一些属性对我们理解有很大的帮助">CommonJS的模块主要是由原生模块module来实现的，这个类上的一些属性对我们理解有很大的帮助</h3>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">Module</span> <span class="p">{</span>
+    <span class="nl">id</span><span class="p">:</span> <span class="dl">'</span><span class="s1">.</span><span class="dl">'</span><span class="p">,</span> <span class="c1">// 如果是 mainModule id 固定为 '.'，如果不是则为模块绝对路径</span>
+    <span class="nx">exports</span><span class="p">:</span> <span class="p">{},</span> <span class="c1">// 模块最终 exports</span>
+    <span class="nx">filename</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/absolute/path/to/entry.js</span><span class="dl">'</span><span class="p">,</span> <span class="c1">// 当前模块的绝对路径</span>
+    <span class="nx">loaded</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="c1">// 模块是否已加载完毕</span>
+    <span class="nx">children</span><span class="p">:</span> <span class="p">[],</span> <span class="c1">// 被该模块引用的模块</span>
+    <span class="nx">parent</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span> <span class="c1">// 第一个引用该模块的模块</span>
+    <span class="nx">paths</span><span class="p">:</span> <span class="p">[</span> <span class="c1">// 模块的搜索路径</span>
+    <span class="dl">'</span><span class="s1">/absolute/path/to/node_modules</span><span class="dl">'</span><span class="p">,</span>
+    <span class="dl">'</span><span class="s1">/absolute/path/node_modules</span><span class="dl">'</span><span class="p">,</span>
+    <span class="dl">'</span><span class="s1">/absolute/node_modules</span><span class="dl">'</span><span class="p">,</span>
+    <span class="dl">'</span><span class="s1">/node_modules</span><span class="dl">'</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+
+</code></pre></div></div>
+<h3 id="require-从哪里来">require 从哪里来？</h3>
+<p>在编写 CommonJS 模块的时候，我们会使用 require 来加载模块，使用 exports 来做模块输出，还有 module，__filename, __dirname 这些变量，为什么它们不需要引入就能使用？原因是 Node 在解析 JS 模块时，会先按文本读取内容，然后将模块内容进行包裹，在外层裹了一个 function，传入变量。再通过 vm.runInThisContext 将字符串转成 Function形成作用域，避免全局污染</p>
+<pre><code class="language-JS">    let wrap = function(script) {
+    return Module.wrapper[0] + script + Module.wrapper[1];
+  };
+    const wrapper = [
+      '(function (exports, require, module, __filename, __dirname) { ',
+      '\n});'
+    ];
+
+</code></pre>
+<p>于是在 CommmonJS 的模块中可以不需要 require，直接访问到这些方法，变量。参数中的 module 是当前模块的的 module 实例（尽管这个时候模块代码还没编译执行），exports 是 module.exports 的别名，最终被 require 的时候是输出 module.exports 的值。require 最终调用的也是 Module._load 方法。__filename，__dirname 则分别是当前模块在系统中的绝对路径和当前文件夹路径。</p>
+
+<h3 id="模块的查找过程">模块的查找过程</h3>
+<p>开发者在使用 require 时非常简单，但实际上为了兼顾各种写法，不同类型的模块，node_modules packages 等模块的查找过程稍微有点麻烦。首先，在创建模块对象时，会有 paths 属性，其值是由当前文件路径计算得到的，从当前目录一直到系统根目录的 node_modules。可以在模块中打印 module.paths 看看。</p>
+<pre><code class="language-JS">  [ 
+  '/Users/evan/Desktop/demo/node_modules',
+  '/Users/evan/Desktop/node_modules',
+  '/Users/evan/node_modules',
+  '/Users/node_modules',
+  '/node_modules'
+]
+
+</code></pre>
+<p>除此之外，还会查找全局路径（如果存在的话）</p>
+
+<pre><code class="language-JS">  [
+    execPath/../../lib/node_modules, // 当前 node 执行文件相对路径下的 lib/node_modules
+    NODE_PATH, // 全局变量 NODE_PATH
+    HOME/.node_modules, // HOME 目录下的 .node_module
+    HOME/.node_libraries' // HOME 目录下的 .node-libraries
+  ]
+
+</code></pre>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  按照官方文档给出的查找过程已经足够详细，这里只给出大概流程。   ```JS
+  从 Y 路径运行 require(X)
+
+1. 如果 X 是内置模块（比如 require('http'）)
+&amp;emsp;&amp;emsp;a. 返回该模块。
+&amp;emsp;&amp;emsp;b. 不再继续执行。
+
+2. 如果 X 是以 '/' 开头、
+  a. 设置 Y 为 '/'
+
+3. 如果 X 是以 './' 或 '/' 或 '../' 开头
+  a. 依次尝试加载文件，如果找到则不再执行
+      - (Y + X)
+      - (Y + X).js
+      - (Y + X).json
+      - (Y + X).node
+  b. 依次尝试加载目录，如果找到则不再执行
+      - (Y + X + package.json 中的 main 字段).js
+      - (Y + X + package.json 中的 main 字段).json
+      - (Y + X + package.json 中的 main 字段).node
+&amp;emsp;&amp;emsp;c. 抛出 "not found"
+4. 遍历 module paths 查找，如果找到则不再执行
+5. 抛出 "not found"
+</code></pre></div></div>
+
+<p>```
+  模块查找过程会将软链替换为系统中的真实路径，例如 lib/foo/node_moduels/bar 软链到 lib/bar，bar 包中又 require(‘quux’)，最终运行 foo module 时，require(‘quux’) 的查找路径是 lib/bar/node_moduels/quux 而不是 lib/foo/node_moduels/quux。
+  ### 模块加载相关
+   MainModule
+  当运行 node index.js 时，Node 调用 Module 类上的静态方法 _load(process.argv[1])加载这个模块，并标记为主模块，赋值给 process.mainModule 和 require.main，可以通过这两个字段判断当前模块是主模块还是被 require 进来的。
+  CommonJS 规范是在代码运行时同步阻塞性地加载模块，在执行代码过程中遇到 require(X)时会停下来等待，直到新的模块加载完成之后再继续执行接下去的代码。
+  虽说是同步阻塞性，但这一步实际上非常快，和浏览器上阻塞性下载、解析、执行 js 文件不是一个级别，硬盘上读文件比网络请求快得多。</p>
+
+<p>### 缓存和循环引用
+    文件模块查找挺耗时的，如果每次 require 都需要重新遍历文件夹查找，性能会比较差；还有在实际开发中，模块可能包含副作用代码，例如在模块顶层执行 addEventListener ，如果 require 过程中被重复执行多次可能会出现问题
+    CommonJS 中的缓存可以解决重复查找和重复执行的问题。模块加载过程中会以模块绝对路径为 key, module 对象为 value 写入 cache。在读取模块的时候会优先判断是否已在缓存中，如果在，直接返回 module.exports；如果不在，则会进入模块查找的流程，找到模块之后再写入 cache。
+    也就是说，如果重复循环引用会直接读取cache 中数据</p>
+
+<p>### ES6 模块
+    ES6 模块是前端开发同学更为熟悉的方式，使用 import, export 关键字来进行模块输入输出。ES6 不再是使用闭包和函数封装的方式进行模块化，而是从语法层面提供了模块化的功能。
+    ES6 模块中不存在 require, module.exports, __filename 等变量，CommonJS 中也不能使用 import。两种规范是不兼容的，一般来说平日里写的 ES6 模块代码最终都会经由 Babel, Typescript 等工具处理成 CommonJS 代码。
+    使用 Node 原生 ES6 模块需要将 js 文件后缀改成 mjs，或者 package.json “type”`` 字段改为 “module”，通过这种形式告知Node使用ES Module` 的形式加载模块。
+  ### ES6模块加载过程
+    ES6 模块的加载过程分为三步：</p>
+<ul>
+  <li>
+    <ol>
+      <li>查找，下载，解析，构建所有模块实例。
+ES6 模块会在程序开始前先根据模块关系查找到所有模块，生成一个无环关系图，并将所有模块实例都创建好，这种方式天然地避免了循环引用的问题，当然也有模块加载缓存，重复 import 同一个模块，只会执行一次代码。</li>
+    </ol>
+  </li>
+  <li>
+    <ol>
+      <li>在内存中腾出空间给即将 export 的内容（此时尚未写入 export value）。然后使 import 和 export 指向内存中的这些空间，这个过程也叫连接。</li>
+    </ol>
+  </li>
+</ul>
+
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2020/06/24/CommonJS.-%E5%92%8CES6-Module-%E7%9A%84%E5%8C%BA%E5%88%AB/',
+            clientID: 'f1b37e802c634863604a',
+            clientSecret: '3185e464e62d9eab0a432c06daebfa3a6af7e874',
+            repo: 'echomusic.github.io',
+            owner: 'echo-music',
+            admin: ['echo-music'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2020
+                    <span title="Fangting Liu">Fangting Liu</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="https://github.com/echo-music/echomusic.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="首页" target="">首页</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="分类" target="">分类</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="维基" target="">维基</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="链接" target="">链接</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="关于" target="">关于</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>

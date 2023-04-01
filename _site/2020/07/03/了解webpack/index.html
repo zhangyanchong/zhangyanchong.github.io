@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>了解webpack &mdash; 刘方亭.blog</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2020/07/03/%E4%BA%86%E8%A7%A3webpack/">
+    <link rel="alternate" type="application/atom+xml" title="刘方亭.blog" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="了解webpack">
+      
+    <meta name="keywords" content="webpack,JS,WEBPACK">
+    <meta name="og:keywords" content="webpack,JS,WEBPACK">
+      
+    <meta name="description" content="webpack 常用配置参数">
+    <meta name="og:description" content="webpack 常用配置参数">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2020/07/03/%E4%BA%86%E8%A7%A3webpack/">
+    <meta property="og:site_name" content="刘方亭.blog">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2020-07-03">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="刘方亭.blog"><span class="octicon octicon-mark-github"></span> 刘方亭.blog</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="首页">首页</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="分类">分类</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="维基">维基</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="链接">链接</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="关于">关于</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+    <section class="collection-head small geopattern" data-pattern-id="了解webpack">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">了解webpack</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2020/07/03
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#webpack,JS,WEBPACK" title="webpack,JS,WEBPACK">webpack,JS,WEBPACK</a>
+          </span>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <h3 id="webpack-常用配置参数">webpack 常用配置参数</h3>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">path</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">merge</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">webpack-merge</span><span class="dl">'</span><span class="p">)</span><span class="c1">// merge 将webpack 公共文件meige 到指定的配置中</span>
+<span class="kd">const</span> <span class="nx">webpack</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">webpack</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">HtmlWebpackPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">html-webpack-plugin</span><span class="dl">'</span><span class="p">)</span>  <span class="c1">// 1、为html文件中引入的外部资源如script、link动态添加每次compile后的hash，防止引用缓存的外部文件问题 2、可以生成创建html入口文件，比如单页面可以生成一个html文件入口，配置N个html-webpack-plugin可以生成N个页面入口</span>
+<span class="kd">const</span> <span class="nx">commonConfig</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./webpack.common.config.js</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">../config</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">utils</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./utils</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">portfinder</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">portfinder</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">FriendlyErrorsPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">friendly-errors-webpack-plugin</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">VueLoaderPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">vue-loader/lib/plugin</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="kd">const</span> <span class="nx">configuration</span> <span class="o">=</span> <span class="nx">merge</span><span class="p">(</span><span class="nx">commonConfig</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">mode</span><span class="p">:</span> <span class="dl">'</span><span class="s1">development</span><span class="dl">'</span><span class="p">,</span> <span class="c1">// </span>
+  <span class="na">devtool</span><span class="p">:</span> <span class="dl">'</span><span class="s1">inline-source-map</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">entry</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">app</span><span class="p">:</span> <span class="dl">'</span><span class="s1">./examples/main</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">vendors</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">vue</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">vue-router</span><span class="dl">'</span><span class="p">]</span>
+  <span class="p">},</span>
+  <span class="na">output</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">path</span><span class="p">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="dl">'</span><span class="s1">../examples/dist</span><span class="dl">'</span><span class="p">),</span>
+    <span class="na">publicPath</span><span class="p">:</span> <span class="nx">config</span><span class="p">.</span><span class="nx">build</span><span class="p">.</span><span class="nx">assetsPublicPath</span><span class="p">,</span>
+    <span class="na">filename</span><span class="p">:</span> <span class="dl">'</span><span class="s1">[name].js</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">chunkFilename</span><span class="p">:</span> <span class="dl">'</span><span class="s1">[name].chunk.js</span><span class="dl">'</span>
+  <span class="p">},</span>
+  <span class="na">devServer</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">host</span><span class="p">:</span> <span class="nx">config</span><span class="p">.</span><span class="nx">dev</span><span class="p">.</span><span class="nx">host</span><span class="p">,</span>
+    <span class="na">port</span><span class="p">:</span> <span class="nx">config</span><span class="p">.</span><span class="nx">dev</span><span class="p">.</span><span class="nx">port</span><span class="p">,</span>
+    <span class="na">compress</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span><span class="c1">// 一切服务都启用gzip 压缩：</span>
+    <span class="na">open</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="c1">// 启动后自动打开浏览器</span>
+    <span class="na">hot</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="c1">//启用 webpack 的模块热替换特性：</span>
+    <span class="na">clientLogLevel</span><span class="p">:</span> <span class="dl">'</span><span class="s1">warning</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">overlay</span><span class="p">:</span> <span class="nx">config</span><span class="p">.</span><span class="nx">dev</span><span class="p">.</span><span class="nx">errorOverlay</span> <span class="c1">//当出现编译器错误或警告时，在浏览器中显示全屏覆盖。默认情况下禁用。如果您只想显示编译器错误</span>
+      <span class="p">?</span> <span class="p">{</span> <span class="na">warnings</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="na">errors</span><span class="p">:</span> <span class="kc">true</span> <span class="p">}</span>
+      <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">publicPath</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span><span class="c1">// 此路径下的打包文件可以在浏览器中访问，假设服务器运行在 http://localhost:8080 并且 output.filename 被设置为 bundle.js。默认 publicPath 是 "/"，所以你的包(bundle)可以通过 http://localhost:8080/bundle.js 访问。</span>
+    <span class="na">quiet</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="c1">//启用 quiet 后，除了初始启动信息之外的任何内容都不会被打印到控制台。这也意味着来自 webpack 的错误或警告在控制台不可见</span>
+    <span class="na">progress</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="c1">// 运行进度输出到控制台</span>
+    <span class="na">watchOptions</span><span class="p">:</span> <span class="p">{</span> <span class="c1">// 与监视文件相关的控制选项。 一般false</span>
+      <span class="na">poll</span><span class="p">:</span> <span class="nx">config</span><span class="p">.</span><span class="nx">dev</span><span class="p">.</span><span class="nx">poll</span><span class="p">,</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="na">module</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">rules</span><span class="p">:</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">styleLoaders</span><span class="p">({</span>
+      <span class="na">sourceMap</span><span class="p">:</span> <span class="nx">config</span><span class="p">.</span><span class="nx">dev</span><span class="p">.</span><span class="nx">cssSourceMap</span><span class="p">,</span>
+      <span class="na">usePostCSS</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">})</span>
+  <span class="p">},</span>
+  <span class="na">plugins</span><span class="p">:</span> <span class="p">[</span>
+    <span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">HotModuleReplacementPlugin</span><span class="p">(),</span>
+    <span class="k">new</span> <span class="nx">HtmlWebpackPlugin</span><span class="p">({</span>
+      <span class="c1">// 输出的html的文件名称</span>
+      <span class="na">filename</span><span class="p">:</span> <span class="dl">'</span><span class="s1">index.html</span><span class="dl">'</span><span class="p">,</span>
+      <span class="c1">// html模板所在的文件路径</span>
+      <span class="c1">//根据自己的指定的模板文件来生成特定的 html 文件。这里的模板类型可以是任意你喜欢的模板，可以是 html, jade, ejs, hbs, 等等，但是要注意的是，使用自定义的模板文件时，需要提前安装对应的 loader， 否则webpack不能正确解析。如果你设置的 title 和 filename于模板中发生了冲突，那么以你的title 和 filename 的配置值为准。</span>
+      <span class="na">template</span><span class="p">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="dl">'</span><span class="s1">../examples/index.html</span><span class="dl">'</span><span class="p">),</span>
+      <span class="c1">// 注入选项。有四个选项值 true, body, head, false.</span>
+      <span class="c1">// true：默认值，script标签位于html文件的 body 底部</span>
+      <span class="c1">// body：script标签位于html文件的 body 底部（同 true）</span>
+      <span class="c1">// head：script 标签位于 head 标签内</span>
+      <span class="c1">// false：不插入生成的 js 文件，只是单纯的生成一个 html 文件</span>
+      <span class="na">inject</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">})</span>
+  <span class="p">]</span>
+<span class="p">})</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">portfinder</span><span class="p">.</span><span class="nx">basePort</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PORT</span> <span class="o">||</span> <span class="nx">config</span><span class="p">.</span><span class="nx">dev</span><span class="p">.</span><span class="nx">port</span>
+  <span class="nx">portfinder</span><span class="p">.</span><span class="nx">getPort</span><span class="p">((</span><span class="nx">err</span><span class="p">,</span> <span class="nx">port</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">reject</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="c1">// publish the new Port, necessary for e2e tests</span>
+      <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PORT</span> <span class="o">=</span> <span class="nx">port</span>
+      <span class="c1">// add port to devServer config</span>
+      <span class="nx">configuration</span><span class="p">.</span><span class="nx">devServer</span><span class="p">.</span><span class="nx">port</span> <span class="o">=</span> <span class="nx">port</span>
+
+      <span class="c1">// Add FriendlyErrorsPlugin</span>
+      <span class="nx">configuration</span><span class="p">.</span><span class="nx">plugins</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">new</span> <span class="nx">FriendlyErrorsPlugin</span><span class="p">({</span>
+        <span class="na">compilationSuccessInfo</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">messages</span><span class="p">:</span> <span class="p">[</span><span class="s2">`Your application is running here: http://</span><span class="p">${</span><span class="nx">configuration</span><span class="p">.</span><span class="nx">devServer</span><span class="p">.</span><span class="nx">host</span><span class="p">}</span><span class="s2">:</span><span class="p">${</span><span class="nx">port</span><span class="p">}</span><span class="s2">`</span><span class="p">],</span>
+        <span class="p">},</span>
+        <span class="na">onErrors</span><span class="p">:</span> <span class="nx">config</span><span class="p">.</span><span class="nx">dev</span><span class="p">.</span><span class="nx">notifyOnErrors</span>
+        <span class="p">?</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">createNotifierCallback</span><span class="p">()</span>
+        <span class="p">:</span> <span class="kc">undefined</span>
+      <span class="p">}))</span>
+
+      <span class="nx">resolve</span><span class="p">(</span><span class="nx">configuration</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2020/07/03/%E4%BA%86%E8%A7%A3webpack/',
+            clientID: 'f1b37e802c634863604a',
+            clientSecret: '3185e464e62d9eab0a432c06daebfa3a6af7e874',
+            repo: 'echomusic.github.io',
+            owner: 'echo-music',
+            admin: ['echo-music'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2020
+                    <span title="Fangting Liu">Fangting Liu</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="https://github.com/echo-music/echomusic.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="首页" target="">首页</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="分类" target="">分类</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="维基" target="">维基</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="链接" target="">链接</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="关于" target="">关于</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>

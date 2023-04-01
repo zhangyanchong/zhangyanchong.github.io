@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>vue 响应式原理 &mdash; 刘方亭.blog</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2020/06/19/vue-%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/">
+    <link rel="alternate" type="application/atom+xml" title="刘方亭.blog" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="vue 响应式原理">
+      
+    <meta name="keywords" content="js">
+    <meta name="og:keywords" content="js">
+      
+    <meta name="description" content="响应式系统我们都知道，只要在 Vue 实例中声明过的数据，那么这个数据就是响应式的。什么是响应式，也即是说，数据发生改变的时候，视图会重新渲染，匹配更新为最新的值。也正是因为这个系统，让我们可以脱离界面的束缚，只需要操作数据。我们可以问出下面三个问题  1、Vue 是怎么知道数据改变？">
+    <meta name="og:description" content="响应式系统我们都知道，只要在 Vue 实例中声明过的数据，那么这个数据就是响应式的。什么是响应式，也即是说，数据发生改变的时候，视图会重新渲染，匹配更新为最新的值。也正是因为这个系统，让我们可以脱离界面的束缚，只需要操作数据。我们可以问出下面三个问题  1、Vue 是怎么知道数据改变？">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2020/06/19/vue-%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/">
+    <meta property="og:site_name" content="刘方亭.blog">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2020-06-19">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="刘方亭.blog"><span class="octicon octicon-mark-github"></span> 刘方亭.blog</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="首页">首页</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="分类">分类</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="维基">维基</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="链接">链接</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="关于">关于</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+    <section class="collection-head small geopattern" data-pattern-id="vue 响应式原理">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">vue 响应式原理</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2020/06/19
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#js" title="js">js</a>
+          </span>
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#vue,JS" title="vue,JS">vue,JS</a>
+          </span>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <h3 id="响应式系统">响应式系统</h3>
+<p>我们都知道，只要在 Vue 实例中声明过的数据，那么这个数据就是响应式的。
+什么是响应式，也即是说，数据发生改变的时候，视图会重新渲染，匹配更新为最新的值。
+也正是因为这个系统，让我们可以脱离界面的束缚，只需要操作数据。
+我们可以问出下面三个问题</p>
+<ul>
+  <li>
+    <p>1、Vue 是怎么知道数据改变？</p>
+  </li>
+  <li>
+    <p>2、Vue 在数据改变时，怎么知道通知哪些视图更新？</p>
+  </li>
+  <li>
+    <p>3、Vue 在数据改变时，视图怎么知道什么时候更新？</p>
+  </li>
+</ul>
+
+<p>问题的谜底将在下面一一解开
+现在，我将会讲解三个重要的概念
+Object.defineProperty，依赖收集，依赖更新</p>
+
+<h3 id="objectdefineproperty">Object.defineProperty</h3>
+<p>这个方法，是 Vue 响应式系统的精髓，骨髓，脑髓
+使用 Object.defineProperty 可以为对象中的每一个属性，设置 get 和 set 方法
+Object.defineProperty 可以为属性设置很多特性，例如 configurable，enumerable，但是现在不过多解释，重点只放在 get 和 set</p>
+
+<p>那么 get 和 set 方法有什么用？</p>
+
+<p>get 值是一个函数，当属性被访问时，会触发 get 函数 set 值同样是一个函数，当属性被赋值时，会触发 set 函数</p>
+
+<p>举个例子</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">obj</span><span class="o">=</span><span class="p">{</span>    
+    <span class="na">name</span><span class="p">:</span><span class="dl">"</span><span class="s2">hello</span><span class="dl">"</span>
+<span class="p">}</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">,{</span>
+    <span class="kd">get</span><span class="p">(){</span>        
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">get 被触发</span><span class="dl">"</span><span class="p">)</span>
+    <span class="p">},</span>
+    <span class="kd">set</span><span class="p">(</span><span class="nx">val</span><span class="p">){</span>        
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">set 被触发</span><span class="dl">"</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</code></pre></div></div>
+<p>当我访问 obj.name 时，会打印 ‘ get 被触发 ‘
+当我为 obj.name 赋值时，obj.name = 5，会打印 ‘ set 被触发 ‘
+这便可以回答了我开篇的第一个问题
+Vue 是怎么知道数据改变的呢？
+恩，Vue 在 属性的 set 方法中做了手脚，因而当数据改变时，触发 属性的 set 方法，Vue 就能知道数据有改变</p>
+
+<h3 id="依赖收集">依赖收集</h3>
+<p>简单地说
+data 中的声明的每个属性，都拥有一个数组，保存着 谁依赖（使用）了 它
+举个例子</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>    
+    <span class="nx">data</span><span class="p">(){</span>        
+        <span class="k">return</span> <span class="p">{</span>            
+            <span class="na">name</span><span class="p">:</span><span class="dl">"</span><span class="s2">你瞅啥</span><span class="dl">"</span>        
+        <span class="p">}</span>    
+    <span class="p">}</span>
+<span class="p">})</span>
+
+</code></pre></div></div>
+<p>然后 页面A 引用了name</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div&gt;</span>{name}<span class="nt">&lt;/div&gt;</span>
+
+</code></pre></div></div>
+<p>此时，name 把 页面 A 存在它的后宫中（这个页面依赖我）</p>
+
+<p>为什么呢？
+因为它知道谁依赖它之后，它就可以在发生改变的时候，通知 依赖它的页面，从而让页面完成更新</p>
+
+<p>TIP
+实际上，会依赖 name 的地方，不只是页面，还会有 computed，watch…. 等等，但是这里我们全部使用页面一词替代</p>
+
+<p>这就是依赖收集，把 依赖了我（使用了我的东西），统统保存起来。可是，保存在哪里，具体保存的是什么东西，我们这里暂时不深入，因为这是白话文。</p>
+
+<p>我按上面的例子，从Vue 内部打印一份数据供大家简单了解即可</p>
+
+<p>可以看到，name 属性，使用了 一个 dep 保存了 页面A 这个依赖，而保存的实际上是 页面A的 Watcher。</p>
+
+<p>TIP
+简单说一下，watcher 是什么，每个 Vue 实例都会拥有一个专属的 watcher，可用于实例更新</p>
+
+<p>总结一下</p>
+<ul>
+  <li>
+    <p>1、data 中每个声明的属性，都会有一个 专属的依赖收集器 subs</p>
+  </li>
+  <li>
+    <p>2、当页面使用到 某个属性时，页面的 watcher 就会被 放到 依赖收集器 subs 中</p>
+  </li>
+</ul>
+
+<p>数据 是在什么时候进行 收集依赖 的呢？答案是，ObjectdefineProperty - get</p>
+
+<p>当 页面 A 读取了 name 时，会触发 name 的 get 函数，此时，name 就会保存 页面A 的 watcher 啦！
+这便可以回答了我开篇的第二个问题</p>
+
+<p>Vue 在数据改变时，怎么知道通知哪些视图更新？恩，通知那些存在 依赖收集器中的 视图</p>
+
+<h3 id="依赖更新">依赖更新</h3>
+<p>依赖更新，就是，通知所有的依赖进行更新,经过上面的讲解，我们都知道，每个属性都会保存有一个 依赖收集器 subs
+而这个 依赖收集器，是用来在 数据变化时，通知更新的数据 是在 什么时候进行 依赖更新 的呢？
+答案是，Object.defineProperty - set</p>
+
+<p>以上面的 Vue 实例 为例 ,当 name 改变的时候，name 会遍历自己的 依赖收集器 subs，逐个通知 watcher，让 watcher 完成更新
+这里 name 会通知 页面A，页面A 重新读取新的 name ，然后完成渲染</p>
+
+<p>这便可以回答了我开篇的第二个问题
+Vue 在数据改变时，视图怎么知道什么时候更新?恩，在数据变化触发 set 函数时，通知视图，视图开始更新</p>
+
+<p>简单总结</p>
+<ul>
+  <li>
+    <p>1、Object.defineProperty - get ，用于 依赖收集</p>
+  </li>
+  <li>
+    <p>2、Object.defineProperty - set，用于 依赖更新</p>
+  </li>
+  <li>
+    <p>3、每个 data 声明的属性，都拥有一个的专属依赖收集器 subs</p>
+  </li>
+  <li>
+    <p>4、依赖收集器 subs 保存的依赖是 watcher</p>
+  </li>
+  <li>
+    <p>5、watcher 可用于 进行视图更新</p>
+  </li>
+</ul>
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2020/06/19/vue-%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/',
+            clientID: 'f1b37e802c634863604a',
+            clientSecret: '3185e464e62d9eab0a432c06daebfa3a6af7e874',
+            repo: 'echomusic.github.io',
+            owner: 'echo-music',
+            admin: ['echo-music'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2020
+                    <span title="Fangting Liu">Fangting Liu</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="https://github.com/echo-music/echomusic.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="首页" target="">首页</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="分类" target="">分类</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="维基" target="">维基</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="链接" target="">链接</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="关于" target="">关于</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>

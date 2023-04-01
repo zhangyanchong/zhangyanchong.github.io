@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Mac下使用Jekyll和github搭建个人博客 &mdash; 刘方亭.blog</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2020/05/20/mac-jekyll-github-blog/">
+    <link rel="alternate" type="application/atom+xml" title="刘方亭.blog" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="Mac下使用Jekyll和github搭建个人博客">
+      
+    <meta name="keywords" content="Mac, Jekyll, Github">
+    <meta name="og:keywords" content="Mac, Jekyll, Github">
+      
+    <meta name="description" content="1、安装ruby使用brew安装$ brew install ruby查看ruby版本$ ruby -vruby 2.5.0p0 (2017-12-25 revision 61468) [x86_64-darwin17]2、安装gemMac机器已经自带gem,没有gem的参考网站安装$ gem -v2.7.4给gem更换国内的源，原始源由于“墙”的原因，很蛋疼``` python查看原始源列表$ gem sources -lhttps://rubygems.org/">
+    <meta name="og:description" content="1、安装ruby使用brew安装$ brew install ruby查看ruby版本$ ruby -vruby 2.5.0p0 (2017-12-25 revision 61468) [x86_64-darwin17]2、安装gemMac机器已经自带gem,没有gem的参考网站安装$ gem -v2.7.4给gem更换国内的源，原始源由于“墙”的原因，很蛋疼``` python查看原始源列表$ gem sources -lhttps://rubygems.org/">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2020/05/20/mac-jekyll-github-blog/">
+    <meta property="og:site_name" content="刘方亭.blog">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2020-05-20">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="刘方亭.blog"><span class="octicon octicon-mark-github"></span> 刘方亭.blog</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="首页">首页</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="分类">分类</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="维基">维基</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="链接">链接</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="关于">关于</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+    <section class="collection-head small geopattern" data-pattern-id="Mac下使用Jekyll和gi">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">Mac下使用Jekyll和github搭建个人博客</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2020/05/20
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#Mac," title="Mac,">Mac,</a>
+          </span>
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#Jekyll," title="Jekyll,">Jekyll,</a>
+          </span>
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#Github," title="Github,">Github,</a>
+          </span>
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#blog" title="blog">blog</a>
+          </span>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <h2 id="1安装ruby">1、安装ruby</h2>
+<p>使用brew安装</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span> <span class="n">brew</span> <span class="n">install</span> <span class="n">ruby</span>
+</code></pre></div></div>
+<p>查看ruby版本</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span> <span class="n">ruby</span> <span class="o">-</span><span class="n">v</span>
+<span class="n">ruby</span> <span class="mf">2.5</span><span class="p">.</span><span class="mi">0</span><span class="n">p0</span> <span class="p">(</span><span class="mi">2017</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">25</span> <span class="n">revision</span> <span class="mi">61468</span><span class="p">)</span> <span class="p">[</span><span class="n">x86_64</span><span class="o">-</span><span class="n">darwin17</span><span class="p">]</span>
+</code></pre></div></div>
+<h2 id="2安装gem">2、安装gem</h2>
+<p>Mac机器已经自带gem,没有gem的<a href="https://rubygems.org/pages/download">参考网站</a>安装</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span> <span class="n">gem</span> <span class="o">-</span><span class="n">v</span>
+<span class="mf">2.7</span><span class="p">.</span><span class="mi">4</span>
+</code></pre></div></div>
+<p>给gem更换国内的源，原始源由于“墙”的原因，很蛋疼</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 查看原始源列表
+</span><span class="err">$</span> <span class="n">gem</span> <span class="n">sources</span> <span class="o">-</span><span class="n">l</span>
+<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">rubygems</span><span class="p">.</span><span class="n">org</span><span class="o">/</span>
+
+<span class="c1">#将源移除
+</span><span class="err">$</span> <span class="n">gem</span> <span class="n">sources</span> <span class="o">--</span><span class="n">remove</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">rubygems</span><span class="p">.</span><span class="n">org</span><span class="o">/</span>
+
+<span class="c1">#添加国内源
+</span><span class="err">$</span> <span class="n">gem</span> <span class="n">sources</span> <span class="o">--</span><span class="n">add</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">gems</span><span class="p">.</span><span class="n">ruby</span><span class="o">-</span><span class="n">china</span><span class="p">.</span><span class="n">org</span><span class="o">/</span>
+
+<span class="c1">#缓存源
+</span><span class="err">$</span> <span class="n">gem</span> <span class="n">sources</span> <span class="o">-</span><span class="n">u</span>
+
+<span class="c1">#再次查看源列表，确认源已更新
+</span><span class="err">$</span> <span class="n">gem</span> <span class="n">sources</span> <span class="o">-</span><span class="n">l</span>
+<span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">gems</span><span class="p">.</span><span class="n">ruby</span><span class="o">-</span><span class="n">china</span><span class="p">.</span><span class="n">org</span><span class="o">/</span>
+</code></pre></div></div>
+<p>注意：这里使用http://gems.ruby-china.org ，而不是 https://gems.ruby-china.org ，是因为可能有SSL证书问题</p>
+
+<h2 id="3安装jekyll">3、安装jekyll</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span> <span class="n">sudo</span> <span class="n">gem</span> <span class="n">install</span> <span class="n">jekyll</span>
+</code></pre></div></div>
+
+<h2 id="4安装博客">4、安装博客</h2>
+<p>安装以下组件</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">1</span> <span class="err">$</span> <span class="n">sudo</span> <span class="n">gem</span> <span class="n">install</span> <span class="n">bundler</span>
+<span class="mi">2</span> <span class="err">$</span> <span class="n">sudo</span> <span class="n">gem</span> <span class="n">install</span> <span class="n">jekyll</span><span class="o">-</span><span class="n">paginate</span>
+<span class="mi">3</span> <span class="err">$</span> <span class="n">sudo</span> <span class="n">gem</span> <span class="n">install</span> <span class="n">jekyll</span><span class="o">-</span><span class="n">gist</span>
+</code></pre></div></div>
+<p>创建博客(如果没有找到jekyll命令，重启下终端)</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span> <span class="n">sudo</span> <span class="n">jekyll</span> <span class="n">new</span> <span class="n">echomusicblog</span>
+</code></pre></div></div>
+<p>安装过程会显示一堆安装内容，关注最后一行</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">New</span> <span class="n">jekyll</span> <span class="n">site</span> <span class="n">installed</span> <span class="ow">in</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">liufangting</span><span class="o">/</span><span class="n">echomusicblog</span><span class="p">.</span>
+</code></pre></div></div>
+
+<h2 id="5本地启动博客">5、本地启动博客</h2>
+<p>进入到安装目录执行命令</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span> <span class="n">cd</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">liufangting</span><span class="o">/</span><span class="n">echomusicblog</span>
+<span class="err">$</span> <span class="n">sudo</span> <span class="n">jekyll</span> <span class="n">serve</span>
+</code></pre></div></div>
+<p>输出</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Password</span><span class="p">:</span>
+<span class="n">Configuration</span> <span class="nb">file</span><span class="p">:</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">liufangting</span><span class="o">/</span><span class="n">echomusicblog</span><span class="o">/</span><span class="n">_config</span><span class="p">.</span><span class="n">yml</span>
+            <span class="n">Source</span><span class="p">:</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">liufangting</span><span class="o">/</span><span class="n">echomusicblog</span>
+       <span class="n">Destination</span><span class="p">:</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">liufangting</span><span class="o">/</span><span class="n">echomusicblog</span><span class="o">/</span><span class="n">_site</span>
+ <span class="n">Incremental</span> <span class="n">build</span><span class="p">:</span> <span class="n">disabled</span><span class="p">.</span> <span class="n">Enable</span> <span class="k">with</span> <span class="o">--</span><span class="n">incremental</span>
+      <span class="n">Generating</span><span class="p">...</span>
+                    <span class="n">done</span> <span class="ow">in</span> <span class="mf">0.415</span> <span class="n">seconds</span><span class="p">.</span>
+ <span class="n">Auto</span><span class="o">-</span><span class="n">regeneration</span><span class="p">:</span> <span class="n">enabled</span> <span class="k">for</span> <span class="s">'/Users/liufangting/echomusicblog'</span>
+    <span class="n">Server</span> <span class="n">address</span><span class="p">:</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">127.0</span><span class="p">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">4000</span><span class="o">/</span>
+  <span class="n">Server</span> <span class="n">running</span><span class="p">...</span> <span class="n">press</span> <span class="n">ctrl</span><span class="o">-</span><span class="n">c</span> <span class="n">to</span> <span class="n">stop</span><span class="p">.</span>
+</code></pre></div></div>
+<p>将http://127.0.0.1:4000/复制到浏览器，能打开就表示正常了。
+<img src="https://i.loli.net/2020/05/25/9wAstdqeESUZQRP.png" alt="WX20200525-173904.png" /></p>
+
+<h2 id="6部署到github">6、部署到github</h2>
+<p>  按照自己的github账号创建一个仓库,固定格式username.github.io，这个代码仓库就是博客源码存放地，博客公网链接就是：https://echo-music.github.io</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">echo-music</span><span class="o">/</span><span class="n">echo-music</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">git</span>
+</code></pre></div></div>
+<p>将本地内容和github上的仓库关联</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">1</span> <span class="err">$</span> <span class="n">cd</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">liufangting</span><span class="o">/</span><span class="n">echomusicblog</span>
+<span class="mi">2</span> <span class="err">$</span> <span class="n">sudo</span> <span class="n">git</span> <span class="n">init</span>
+<span class="mi">3</span> <span class="err">$</span> <span class="n">sudo</span> <span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
+<span class="mi">4</span> <span class="err">$</span> <span class="n">sudo</span> <span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">"first commit"</span>
+<span class="mi">5</span> <span class="err">$</span> <span class="n">sudo</span> <span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">origin</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">echo-music</span><span class="o">/</span><span class="n">echo-music</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">git</span>
+<span class="mi">6</span> <span class="err">$</span> <span class="n">sudo</span> <span class="n">git</span> <span class="n">push</span> <span class="o">-</span><span class="n">u</span> <span class="n">origin</span> <span class="n">master</span>
+</code></pre></div></div>
+<p>  这里注意替换为你自己的地址，在执行git push的时候，需要输入github的账号和密码。
+完成后在浏览器上输入: echo-music.github.io，就可以看见博客了。</p>
+
+<h2 id="7使用主题">7、使用主题</h2>
+<p>  使用jekyll new出来的博客实在是太原始，太简陋，完全没有“高大上”的感觉，我们需要“高颜值”的主题（对于 jekyll ，主题就是一套完整的博客框架源码），<a href="http://jekyllthemes.org/">jekyllthemes</a>提供了很多的主题，比如我选择的主题就是基于<a href="http://jekyllthemes.org/themes/yummy-theme/">yummy-theme</a>扩展的。</p>
+
+<p>  把自己的github 空仓库git clone 到本地，拿到的框架源码拷贝到空仓库目录下</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span> <span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">echo-music</span><span class="o">/</span><span class="n">echo-music</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">git</span>
+</code></pre></div></div>
+<p>  刚拿到的主题，内容还是别人的，我们需要了解一下博客的<a href="https://www.jekyll.com.cn/">基本目录结构</a>，然后加以修改成自己的博客框架。
+
+<img src="https://i.loli.net/2020/06/04/Wbhv19f2sYZ7XeB.jpg" alt="1591254493711.jpg" />
+</p>
+<ol>
+  <li>
+    <p>修改域名</p>
+
+    <p>如果你需要绑定自己的域名，那么修改 CNAME 文件的内容；如果不需要绑定自己的域名，那么删掉 CNAME 文件。</p>
+  </li>
+  <li>
+    <p>修改配置</p>
+
+    <p>网站的配置基本都集中在 _config.yml 文件中，将其中与个人信息相关的部分替换成你自己的，比如网站的 url、title、subtitle 和第三方评论模块的配置等。</p>
+  </li>
+  <li>
+    <p>删除文章与图片</p>
+
+    <p>如下文件夹中除了 template.md 文件外，都可以全部删除，然后添加自己的内容。</p>
+
+    <ul>
+      <li>_posts 文件夹中是已发布的博客文章</li>
+      <li>_drafts 文件夹中是尚未发布的草稿文章</li>
+      <li>_wiki 文件夹中是已发布的 wiki 页面</li>
+      <li>images 文件夹中是文章和页面里使用的图片</li>
+    </ul>
+  </li>
+  <li>
+    <p>修改「关于」页面</p>
+
+    <p>pages/about.md 文件内容对应网站的「关于」页面，里面的内容多为个人相关，将它们替换成自己的信息，包括 _data 目录下的 skills.yml 和 social.yml 文件里的数据。</p>
+  </li>
+  <li>
+    <p>修改 favicon.ico 图标，选一个自己喜欢的图标替换</p>
+  </li>
+</ol>
+
+<p>经过以上整理，一个全新的博客框架基本成型，后面就需要自己慢慢完善了。</p>
+
+<h2 id="8运行博客框架">8、运行博客框架</h2>
+<p>运行方法和步骤5是一样的，只是我在本地运行获取到的主题框架时遇到了报错</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span> <span class="n">cd</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">liufangting</span><span class="o">/</span><span class="n">my_git</span><span class="o">/</span><span class="n">echo-music</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">io</span>
+<span class="err">$</span> <span class="n">sudo</span> <span class="n">jekyll</span> <span class="n">serve</span>         
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+        <span class="mi">10</span><span class="p">:</span> <span class="k">from</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">jekyll</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="ow">in</span> <span class="err">`</span><span class="o">&lt;</span><span class="n">main</span><span class="o">&gt;</span><span class="s">'
+         9: from /usr/local/bin/jekyll:23:in `load'</span>
+         <span class="mi">8</span><span class="p">:</span> <span class="k">from</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">ruby</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="mf">2.5</span><span class="p">.</span><span class="mi">0</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="n">jekyll</span><span class="o">-</span><span class="mf">3.7</span><span class="p">.</span><span class="mi">0</span><span class="o">/</span><span class="n">exe</span><span class="o">/</span><span class="n">jekyll</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="ow">in</span> <span class="err">`</span><span class="o">&lt;</span><span class="n">top</span> <span class="p">(</span><span class="n">required</span><span class="p">)</span><span class="o">&gt;</span><span class="s">'
+         7: from /usr/local/lib/ruby/gems/2.5.0/gems/jekyll-3.7.0/lib/jekyll/plugin_manager.rb:50:in `require_from_bundler'</span>
+         <span class="mi">6</span><span class="p">:</span> <span class="k">from</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">ruby</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="mf">2.5</span><span class="p">.</span><span class="mi">0</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="n">bundler</span><span class="o">-</span><span class="mf">1.16</span><span class="p">.</span><span class="mi">1</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">bundler</span><span class="p">.</span><span class="n">rb</span><span class="p">:</span><span class="mi">107</span><span class="p">:</span><span class="ow">in</span> <span class="err">`</span><span class="n">setup</span><span class="s">'
+         5: from /usr/local/lib/ruby/gems/2.5.0/gems/bundler-1.16.1/lib/bundler/runtime.rb:26:in `setup'</span>
+         <span class="mi">4</span><span class="p">:</span> <span class="k">from</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">ruby</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="mf">2.5</span><span class="p">.</span><span class="mi">0</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="n">bundler</span><span class="o">-</span><span class="mf">1.16</span><span class="p">.</span><span class="mi">1</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">bundler</span><span class="o">/</span><span class="n">runtime</span><span class="p">.</span><span class="n">rb</span><span class="p">:</span><span class="mi">26</span><span class="p">:</span><span class="ow">in</span> <span class="err">`</span><span class="nb">map</span><span class="s">'
+         3: from /usr/local/Cellar/ruby/2.5.0/lib/ruby/2.5.0/forwardable.rb:229:in `each'</span>
+         <span class="mi">2</span><span class="p">:</span> <span class="k">from</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">Cellar</span><span class="o">/</span><span class="n">ruby</span><span class="o">/</span><span class="mf">2.5</span><span class="p">.</span><span class="mi">0</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">ruby</span><span class="o">/</span><span class="mf">2.5</span><span class="p">.</span><span class="mi">0</span><span class="o">/</span><span class="n">forwardable</span><span class="p">.</span><span class="n">rb</span><span class="p">:</span><span class="mi">229</span><span class="p">:</span><span class="ow">in</span> <span class="err">`</span><span class="n">each</span><span class="s">'
+         1: from /usr/local/lib/ruby/gems/2.5.0/gems/bundler-1.16.1/lib/bundler/runtime.rb:31:in `block in setup'</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">ruby</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="mf">2.5</span><span class="p">.</span><span class="mi">0</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="n">bundler</span><span class="o">-</span><span class="mf">1.16</span><span class="p">.</span><span class="mi">1</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">bundler</span><span class="o">/</span><span class="n">runtime</span><span class="p">.</span><span class="n">rb</span><span class="p">:</span><span class="mi">313</span><span class="p">:</span><span class="ow">in</span> <span class="sb">`check_for_activated_spec!': You have already activated public_suffix 3.0.1, but your Gemfile requires public_suffix 2.0.5. Prepending `</span><span class="n">bundle</span> <span class="k">exec</span><span class="err">`</span> <span class="n">to</span> <span class="n">your</span> <span class="n">command</span> <span class="n">may</span> <span class="n">solve</span> <span class="n">this</span><span class="p">.</span> <span class="p">(</span><span class="n">Gem</span><span class="p">::</span><span class="n">LoadError</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>看提示大概是gem软件版本方面的问题，网上找到用bundle exec来启动的，试了下果然能成功
+如果项目启动报错：缺啥插件下啥插件，提示 jekyll 版本不对可以使用 bundle update 来更新 
+使用 sudo bundle exec jekyll serve</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>bundle <span class="nb">exec </span>jekyll serve <span class="nt">--watch</span>
+Configuration file: /Users/liufangting/my_git/echo-music.github.io/_config.yml
+       Deprecation: The <span class="s1">'gems'</span> configuration option has been renamed to <span class="s1">'plugins'</span><span class="nb">.</span> Please update your config file accordingly.
+            Source: /Users/liufangting/my_git/echo-music.github.io
+       Destination: /Users/liufangting/my_git/echo-music.github.io/_site
+ Incremental build: disabled. Enable with <span class="nt">--incremental</span>
+      Generating...
+   GitHub Metadata: No GitHub API authentication could be found. Some fields may be missing or have incorrect data.
+    Liquid Warning: Liquid syntax error <span class="o">(</span>line 2<span class="o">)</span>: Expected dotdot but found pipe <span class="k">in</span> <span class="s2">"{"</span><span class="nb">id</span><span class="s2">"=&gt;53229751, "</span>node_id<span class="s2">"=&gt;"</span><span class="nv">MDEwOlJlcG9zaXRvcnk1MzIyOTc1MQ</span><span class="o">==</span><span class="s2">", "</span>name<span class="s2">"=&gt;"</span>php-webp<span class="s2">", "</span>full_name<span class="s2">"=&gt;"</span>echo-music/php-webp<span class="s2">", "</span>private<span class="s2">"=&gt;false, "</span>owner<span class="s2">"=&gt;{"</span>login<span class="s2">"=&gt;"</span>echo-music<span class="s2">", "</span><span class="nb">id</span><span class="s2">"=&gt;5945928, "</span>node_id<span class="s2">"=&gt;"</span><span class="nv">MDQ6VXNlcjU5NDU5Mjg</span><span class="o">=</span><span class="s2">", "</span>avatar_url<span class="s2">"=&gt;"</span>https://avatars.githubusercontent.com/u/5945928?v<span class="o">=</span>4<span class="s2">", "</span>gravatar_id<span class="s2">"=&gt;"", "</span>url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music<span class="s2">", "</span>html_url<span class="s2">"=&gt;"</span>https://github.com/echo-music<span class="s2">", "</span>followers_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/followers<span class="s2">", "</span>following_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/following<span class="o">{</span>/other_user<span class="o">}</span><span class="s2">", "</span>gists_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/gists<span class="o">{</span>/gist_id<span class="o">}</span><span class="s2">", "</span>starred_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/starred<span class="o">{</span>/owner<span class="o">}{</span>/repo<span class="o">}</span><span class="s2">", "</span>subscriptions_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/subscriptions<span class="s2">", "</span>organizations_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/orgs<span class="s2">", "</span>repos_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/repos<span class="s2">", "</span>events_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/events<span class="o">{</span>/privacy<span class="o">}</span><span class="s2">", "</span>received_events_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/received_events<span class="s2">", "</span><span class="nb">type</span><span class="s2">"=&gt;"</span>User<span class="s2">", "</span>site_admin<span class="s2">"=&gt;false}, "</span>html_url<span class="s2">"=&gt;"</span>https://github.com/echo-music/php-webp<span class="s2">", "</span>description<span class="s2">"=&gt;"</span>图片格式转换<span class="o">(</span>webp<span class="o">)</span>,适用于安卓、ios<span class="s2">", "</span>fork<span class="s2">"=&gt;false, "</span>url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp<span class="s2">", "</span>forks_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/forks<span class="s2">", "</span>keys_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/keys<span class="o">{</span>/key_id<span class="o">}</span><span class="s2">", "</span>collaborators_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/collaborators<span class="o">{</span>/collaborator<span class="o">}</span><span class="s2">", "</span>teams_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/teams<span class="s2">", "</span>hooks_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/hooks<span class="s2">", "</span>issue_events_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/issues/events<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>events_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/events<span class="s2">", "</span>assignees_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/assignees<span class="o">{</span>/user<span class="o">}</span><span class="s2">", "</span>branches_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/branches<span class="o">{</span>/branch<span class="o">}</span><span class="s2">", "</span>tags_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/tags<span class="s2">", "</span>blobs_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/git/blobs<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>git_tags_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/git/tags<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>git_refs_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/git/refs<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>trees_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/git/trees<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>statuses_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/statuses/<span class="o">{</span>sha<span class="o">}</span><span class="s2">", "</span>languages_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/languages<span class="s2">", "</span>stargazers_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/stargazers<span class="s2">", "</span>contributors_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/contributors<span class="s2">", "</span>subscribers_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/subscribers<span class="s2">", "</span>subscription_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/subscription<span class="s2">", "</span>commits_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/commits<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>git_commits_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/git/commits<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>comments_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/comments<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>issue_comment_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/issues/comments<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>contents_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/contents/<span class="o">{</span>+path<span class="o">}</span><span class="s2">", "</span>compare_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/compare/<span class="o">{</span>base<span class="o">}</span>...<span class="o">{</span><span class="nb">head</span><span class="o">}</span><span class="s2">", "</span>merges_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/merges<span class="s2">", "</span>archive_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/<span class="o">{</span>archive_format<span class="o">}{</span>/ref<span class="o">}</span><span class="s2">", "</span>downloads_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/downloads<span class="s2">", "</span>issues_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/issues<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>pulls_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/pulls<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>milestones_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/milestones<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>notifications_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/notifications<span class="o">{</span>?since,all,participating<span class="o">}</span><span class="s2">", "</span>labels_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/labels<span class="o">{</span>/name<span class="o">}</span><span class="s2">", "</span>releases_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/releases<span class="o">{</span>/id<span class="o">}</span><span class="s2">", "</span>deployments_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-webp/deployments<span class="s2">", "</span>created_at<span class="s2">"=&gt;2016-03-06 00:16:38 UTC, "</span>updated_at<span class="s2">"=&gt;2020-12-10 07:00:22 UTC, "</span>pushed_at<span class="s2">"=&gt;2017-03-27 02:55:32 UTC, "</span>git_url<span class="s2">"=&gt;"</span>git://github.com/echo-music/php-webp.git<span class="s2">", "</span>ssh_url<span class="s2">"=&gt;"</span>git@github.com:echo-music/php-webp.git<span class="s2">", "</span>clone_url<span class="s2">"=&gt;"</span>https://github.com/echo-music/php-webp.git<span class="s2">", "</span>svn_url<span class="s2">"=&gt;"</span>https://github.com/echo-music/php-webp<span class="s2">", "</span>homepage<span class="s2">"=&gt;nil, "</span>size<span class="s2">"=&gt;821, "</span>stargazers_count<span class="s2">"=&gt;1, "</span>watchers_count<span class="s2">"=&gt;1, "</span>language<span class="s2">"=&gt;"</span>PHP<span class="s2">", "</span>has_issues<span class="s2">"=&gt;true, "</span>has_projects<span class="s2">"=&gt;true, "</span>has_downloads<span class="s2">"=&gt;true, "</span>has_wiki<span class="s2">"=&gt;true, "</span>has_pages<span class="s2">"=&gt;false, "</span>forks_count<span class="s2">"=&gt;2, "</span>mirror_url<span class="s2">"=&gt;nil, "</span>archived<span class="s2">"=&gt;false, "</span>disabled<span class="s2">"=&gt;false, "</span>open_issues_count<span class="s2">"=&gt;0, "</span>license<span class="s2">"=&gt;nil, "</span>topics<span class="s2">"=&gt;[], "</span>forks<span class="s2">"=&gt;2, "</span>open_issues<span class="s2">"=&gt;0, "</span>watchers<span class="s2">"=&gt;1, "</span>default_branch<span class="s2">"=&gt;"</span>master<span class="s2">"}{"</span><span class="nb">id</span><span class="s2">"=&gt;53199749, "</span>node_id<span class="s2">"=&gt;"</span><span class="nv">MDEwOlJlcG9zaXRvcnk1MzE5OTc0OQ</span><span class="o">==</span><span class="s2">", "</span>name<span class="s2">"=&gt;"</span>php-learn<span class="s2">", "</span>full_name<span class="s2">"=&gt;"</span>echo-music/php-learn<span class="s2">", "</span>private<span class="s2">"=&gt;false, "</span>owner<span class="s2">"=&gt;{"</span>login<span class="s2">"=&gt;"</span>echo-music<span class="s2">", "</span><span class="nb">id</span><span class="s2">"=&gt;5945928, "</span>node_id<span class="s2">"=&gt;"</span><span class="nv">MDQ6VXNlcjU5NDU5Mjg</span><span class="o">=</span><span class="s2">", "</span>avatar_url<span class="s2">"=&gt;"</span>https://avatars.githubusercontent.com/u/5945928?v<span class="o">=</span>4<span class="s2">", "</span>gravatar_id<span class="s2">"=&gt;"", "</span>url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music<span class="s2">", "</span>html_url<span class="s2">"=&gt;"</span>https://github.com/echo-music<span class="s2">", "</span>followers_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/followers<span class="s2">", "</span>following_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/following<span class="o">{</span>/other_user<span class="o">}</span><span class="s2">", "</span>gists_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/gists<span class="o">{</span>/gist_id<span class="o">}</span><span class="s2">", "</span>starred_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/starred<span class="o">{</span>/owner<span class="o">}{</span>/repo<span class="o">}</span><span class="s2">", "</span>subscriptions_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/subscriptions<span class="s2">", "</span>organizations_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/orgs<span class="s2">", "</span>repos_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/repos<span class="s2">", "</span>events_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/events<span class="o">{</span>/privacy<span class="o">}</span><span class="s2">", "</span>received_events_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/received_events<span class="s2">", "</span><span class="nb">type</span><span class="s2">"=&gt;"</span>User<span class="s2">", "</span>site_admin<span class="s2">"=&gt;false}, "</span>html_url<span class="s2">"=&gt;"</span>https://github.com/echo-music/php-learn<span class="s2">", "</span>description<span class="s2">"=&gt;nil, "</span>fork<span class="s2">"=&gt;false, "</span>url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn<span class="s2">", "</span>forks_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/forks<span class="s2">", "</span>keys_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/keys<span class="o">{</span>/key_id<span class="o">}</span><span class="s2">", "</span>collaborators_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/collaborators<span class="o">{</span>/collaborator<span class="o">}</span><span class="s2">", "</span>teams_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/teams<span class="s2">", "</span>hooks_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/hooks<span class="s2">", "</span>issue_events_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/issues/events<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>events_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/events<span class="s2">", "</span>assignees_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/assignees<span class="o">{</span>/user<span class="o">}</span><span class="s2">", "</span>branches_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/branches<span class="o">{</span>/branch<span class="o">}</span><span class="s2">", "</span>tags_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/tags<span class="s2">", "</span>blobs_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/git/blobs<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>git_tags_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/git/tags<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>git_refs_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/git/refs<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>trees_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/git/trees<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>statuses_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/statuses/<span class="o">{</span>sha<span class="o">}</span><span class="s2">", "</span>languages_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/languages<span class="s2">", "</span>stargazers_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/stargazers<span class="s2">", "</span>contributors_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/contributors<span class="s2">", "</span>subscribers_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/subscribers<span class="s2">", "</span>subscription_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/subscription<span class="s2">", "</span>commits_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/commits<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>git_commits_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/git/commits<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>comments_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/comments<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>issue_comment_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/issues/comments<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>contents_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/contents/<span class="o">{</span>+path<span class="o">}</span><span class="s2">", "</span>compare_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/compare/<span class="o">{</span>base<span class="o">}</span>...<span class="o">{</span><span class="nb">head</span><span class="o">}</span><span class="s2">", "</span>merges_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/merges<span class="s2">", "</span>archive_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/<span class="o">{</span>archive_format<span class="o">}{</span>/ref<span class="o">}</span><span class="s2">", "</span>downloads_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/downloads<span class="s2">", "</span>issues_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/issues<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>pulls_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/pulls<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>milestones_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/milestones<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>notifications_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/notifications<span class="o">{</span>?since,all,participating<span class="o">}</span><span class="s2">", "</span>labels_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/labels<span class="o">{</span>/name<span class="o">}</span><span class="s2">", "</span>releases_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/releases<span class="o">{</span>/id<span class="o">}</span><span class="s2">", "</span>deployments_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-learn/deployments<span class="s2">", "</span>created_at<span class="s2">"=&gt;2016-03-05 12:12:26 UTC, "</span>updated_at<span class="s2">"=&gt;2021-07-17 10:31:22 UTC, "</span>pushed_at<span class="s2">"=&gt;2019-07-13 08:36:39 UTC, "</span>git_url<span class="s2">"=&gt;"</span>git://github.com/echo-music/php-learn.git<span class="s2">", "</span>ssh_url<span class="s2">"=&gt;"</span>git@github.com:echo-music/php-learn.git<span class="s2">", "</span>clone_url<span class="s2">"=&gt;"</span>https://github.com/echo-music/php-learn.git<span class="s2">", "</span>svn_url<span class="s2">"=&gt;"</span>https://github.com/echo-music/php-learn<span class="s2">", "</span>homepage<span class="s2">"=&gt;nil, "</span>size<span class="s2">"=&gt;56509, "</span>stargazers_count<span class="s2">"=&gt;0, "</span>watchers_count<span class="s2">"=&gt;0, "</span>language<span class="s2">"=&gt;"</span>PHP<span class="s2">", "</span>has_issues<span class="s2">"=&gt;true, "</span>has_projects<span class="s2">"=&gt;true, "</span>has_downloads<span class="s2">"=&gt;true, "</span>has_wiki<span class="s2">"=&gt;true, "</span>has_pages<span class="s2">"=&gt;false, "</span>forks_count<span class="s2">"=&gt;0, "</span>mirror_url<span class="s2">"=&gt;nil, "</span>archived<span class="s2">"=&gt;false, "</span>disabled<span class="s2">"=&gt;false, "</span>open_issues_count<span class="s2">"=&gt;1, "</span>license<span class="s2">"=&gt;nil, "</span>topics<span class="s2">"=&gt;[], "</span>forks<span class="s2">"=&gt;0, "</span>open_issues<span class="s2">"=&gt;1, "</span>watchers<span class="s2">"=&gt;0, "</span>default_branch<span class="s2">"=&gt;"</span>master<span class="s2">"}{"</span><span class="nb">id</span><span class="s2">"=&gt;86651270, "</span>node_id<span class="s2">"=&gt;"</span><span class="nv">MDEwOlJlcG9zaXRvcnk4NjY1MTI3MA</span><span class="o">==</span><span class="s2">", "</span>name<span class="s2">"=&gt;"</span>php-curl<span class="s2">", "</span>full_name<span class="s2">"=&gt;"</span>echo-music/php-curl<span class="s2">", "</span>private<span class="s2">"=&gt;false, "</span>owner<span class="s2">"=&gt;{"</span>login<span class="s2">"=&gt;"</span>echo-music<span class="s2">", "</span><span class="nb">id</span><span class="s2">"=&gt;5945928, "</span>node_id<span class="s2">"=&gt;"</span><span class="nv">MDQ6VXNlcjU5NDU5Mjg</span><span class="o">=</span><span class="s2">", "</span>avatar_url<span class="s2">"=&gt;"</span>https://avatars.githubusercontent.com/u/5945928?v<span class="o">=</span>4<span class="s2">", "</span>gravatar_id<span class="s2">"=&gt;"", "</span>url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music<span class="s2">", "</span>html_url<span class="s2">"=&gt;"</span>https://github.com/echo-music<span class="s2">", "</span>followers_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/followers<span class="s2">", "</span>following_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/following<span class="o">{</span>/other_user<span class="o">}</span><span class="s2">", "</span>gists_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/gists<span class="o">{</span>/gist_id<span class="o">}</span><span class="s2">", "</span>starred_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/starred<span class="o">{</span>/owner<span class="o">}{</span>/repo<span class="o">}</span><span class="s2">", "</span>subscriptions_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/subscriptions<span class="s2">", "</span>organizations_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/orgs<span class="s2">", "</span>repos_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/repos<span class="s2">", "</span>events_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/events<span class="o">{</span>/privacy<span class="o">}</span><span class="s2">", "</span>received_events_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/received_events<span class="s2">", "</span><span class="nb">type</span><span class="s2">"=&gt;"</span>User<span class="s2">", "</span>site_admin<span class="s2">"=&gt;false}, "</span>html_url<span class="s2">"=&gt;"</span>https://github.com/echo-music/php-curl<span class="s2">", "</span>description<span class="s2">"=&gt;"</span>Custom PHP curl library <span class="k">for </span>the Laravel 5 framework - developed by Ixudra<span class="s2">", "</span>fork<span class="s2">"=&gt;true, "</span>url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl<span class="s2">", "</span>forks_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/forks<span class="s2">", "</span>keys_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/keys<span class="o">{</span>/key_id<span class="o">}</span><span class="s2">", "</span>collaborators_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/collaborators<span class="o">{</span>/collaborator<span class="o">}</span><span class="s2">", "</span>teams_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/teams<span class="s2">", "</span>hooks_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/hooks<span class="s2">", "</span>issue_events_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/issues/events<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>events_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/events<span class="s2">", "</span>assignees_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/assignees<span class="o">{</span>/user<span class="o">}</span><span class="s2">", "</span>branches_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/branches<span class="o">{</span>/branch<span class="o">}</span><span class="s2">", "</span>tags_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/tags<span class="s2">", "</span>blobs_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/git/blobs<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>git_tags_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/git/tags<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>git_refs_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/git/refs<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>trees_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/git/trees<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>statuses_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/statuses/<span class="o">{</span>sha<span class="o">}</span><span class="s2">", "</span>languages_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/languages<span class="s2">", "</span>stargazers_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/stargazers<span class="s2">", "</span>contributors_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/contributors<span class="s2">", "</span>subscribers_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/subscribers<span class="s2">", "</span>subscription_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/subscription<span class="s2">", "</span>commits_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/commits<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>git_commits_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/git/commits<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>comments_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/comments<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>issue_comment_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/issues/comments<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>contents_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/contents/<span class="o">{</span>+path<span class="o">}</span><span class="s2">", "</span>compare_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/compare/<span class="o">{</span>base<span class="o">}</span>...<span class="o">{</span><span class="nb">head</span><span class="o">}</span><span class="s2">", "</span>merges_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/merges<span class="s2">", "</span>archive_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/<span class="o">{</span>archive_format<span class="o">}{</span>/ref<span class="o">}</span><span class="s2">", "</span>downloads_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/downloads<span class="s2">", "</span>issues_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/issues<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>pulls_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/pulls<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>milestones_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/milestones<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>notifications_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/notifications<span class="o">{</span>?since,all,participating<span class="o">}</span><span class="s2">", "</span>labels_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/labels<span class="o">{</span>/name<span class="o">}</span><span class="s2">", "</span>releases_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/releases<span class="o">{</span>/id<span class="o">}</span><span class="s2">", "</span>deployments_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/php-curl/deployments<span class="s2">", "</span>created_at<span class="s2">"=&gt;2017-03-30 02:44:08 UTC, "</span>updated_at<span class="s2">"=&gt;2017-08-04 09:15:43 UTC, "</span>pushed_at<span class="s2">"=&gt;2017-03-29 08:24:25 UTC, "</span>git_url<span class="s2">"=&gt;"</span>git://github.com/echo-music/php-curl.git<span class="s2">", "</span>ssh_url<span class="s2">"=&gt;"</span>git@github.com:echo-music/php-curl.git<span class="s2">", "</span>clone_url<span class="s2">"=&gt;"</span>https://github.com/echo-music/php-curl.git<span class="s2">", "</span>svn_url<span class="s2">"=&gt;"</span>https://github.com/echo-music/php-curl<span class="s2">", "</span>homepage<span class="s2">"=&gt;"", "</span>size<span class="s2">"=&gt;62, "</span>stargazers_count<span class="s2">"=&gt;0, "</span>watchers_count<span class="s2">"=&gt;0, "</span>language<span class="s2">"=&gt;"</span>PHP<span class="s2">", "</span>has_issues<span class="s2">"=&gt;false, "</span>has_projects<span class="s2">"=&gt;true, "</span>has_downloads<span class="s2">"=&gt;true, "</span>has_wiki<span class="s2">"=&gt;true, "</span>has_pages<span class="s2">"=&gt;false, "</span>forks_count<span class="s2">"=&gt;0, "</span>mirror_url<span class="s2">"=&gt;nil, "</span>archived<span class="s2">"=&gt;false, "</span>disabled<span class="s2">"=&gt;false, "</span>open_issues_count<span class="s2">"=&gt;0, "</span>license<span class="s2">"=&gt;{"</span>key<span class="s2">"=&gt;"</span>mit<span class="s2">", "</span>name<span class="s2">"=&gt;"</span>MIT License<span class="s2">", "</span>spdx_id<span class="s2">"=&gt;"</span>MIT<span class="s2">", "</span>url<span class="s2">"=&gt;"</span>https://api.github.com/licenses/mit<span class="s2">", "</span>node_id<span class="s2">"=&gt;"</span>MDc6TGljZW5zZTEz<span class="s2">"}, "</span>topics<span class="s2">"=&gt;[], "</span>forks<span class="s2">"=&gt;0, "</span>open_issues<span class="s2">"=&gt;0, "</span>watchers<span class="s2">"=&gt;0, "</span>default_branch<span class="s2">"=&gt;"</span>master<span class="s2">"}{"</span><span class="nb">id</span><span class="s2">"=&gt;88700920, "</span>node_id<span class="s2">"=&gt;"</span><span class="nv">MDEwOlJlcG9zaXRvcnk4ODcwMDkyMA</span><span class="o">==</span><span class="s2">", "</span>name<span class="s2">"=&gt;"</span>img-viewer<span class="s2">", "</span>full_name<span class="s2">"=&gt;"</span>echo-music/img-viewer<span class="s2">", "</span>private<span class="s2">"=&gt;false, "</span>owner<span class="s2">"=&gt;{"</span>login<span class="s2">"=&gt;"</span>echo-music<span class="s2">", "</span><span class="nb">id</span><span class="s2">"=&gt;5945928, "</span>node_id<span class="s2">"=&gt;"</span><span class="nv">MDQ6VXNlcjU5NDU5Mjg</span><span class="o">=</span><span class="s2">", "</span>avatar_url<span class="s2">"=&gt;"</span>https://avatars.githubusercontent.com/u/5945928?v<span class="o">=</span>4<span class="s2">", "</span>gravatar_id<span class="s2">"=&gt;"", "</span>url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music<span class="s2">", "</span>html_url<span class="s2">"=&gt;"</span>https://github.com/echo-music<span class="s2">", "</span>followers_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/followers<span class="s2">", "</span>following_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/following<span class="o">{</span>/other_user<span class="o">}</span><span class="s2">", "</span>gists_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/gists<span class="o">{</span>/gist_id<span class="o">}</span><span class="s2">", "</span>starred_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/starred<span class="o">{</span>/owner<span class="o">}{</span>/repo<span class="o">}</span><span class="s2">", "</span>subscriptions_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/subscriptions<span class="s2">", "</span>organizations_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/orgs<span class="s2">", "</span>repos_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/repos<span class="s2">", "</span>events_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/events<span class="o">{</span>/privacy<span class="o">}</span><span class="s2">", "</span>received_events_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/received_events<span class="s2">", "</span><span class="nb">type</span><span class="s2">"=&gt;"</span>User<span class="s2">", "</span>site_admin<span class="s2">"=&gt;false}, "</span>html_url<span class="s2">"=&gt;"</span>https://github.com/echo-music/img-viewer<span class="s2">", "</span>description<span class="s2">"=&gt;"</span>A simple jQuery image viewing plugin.<span class="s2">", "</span>fork<span class="s2">"=&gt;true, "</span>url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer<span class="s2">", "</span>forks_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/forks<span class="s2">", "</span>keys_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/keys<span class="o">{</span>/key_id<span class="o">}</span><span class="s2">", "</span>collaborators_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/collaborators<span class="o">{</span>/collaborator<span class="o">}</span><span class="s2">", "</span>teams_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/teams<span class="s2">", "</span>hooks_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/hooks<span class="s2">", "</span>issue_events_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/issues/events<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>events_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/events<span class="s2">", "</span>assignees_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/assignees<span class="o">{</span>/user<span class="o">}</span><span class="s2">", "</span>branches_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/branches<span class="o">{</span>/branch<span class="o">}</span><span class="s2">", "</span>tags_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/tags<span class="s2">", "</span>blobs_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/git/blobs<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>git_tags_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/git/tags<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>git_refs_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/git/refs<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>trees_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/git/trees<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>statuses_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/statuses/<span class="o">{</span>sha<span class="o">}</span><span class="s2">", "</span>languages_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/languages<span class="s2">", "</span>stargazers_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/stargazers<span class="s2">", "</span>contributors_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/contributors<span class="s2">", "</span>subscribers_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/subscribers<span class="s2">", "</span>subscription_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/subscription<span class="s2">", "</span>commits_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/commits<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>git_commits_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/git/commits<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>comments_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/comments<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>issue_comment_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/issues/comments<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>contents_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/contents/<span class="o">{</span>+path<span class="o">}</span><span class="s2">", "</span>compare_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/compare/<span class="o">{</span>base<span class="o">}</span>...<span class="o">{</span><span class="nb">head</span><span class="o">}</span><span class="s2">", "</span>merges_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/merges<span class="s2">", "</span>archive_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/<span class="o">{</span>archive_format<span class="o">}{</span>/ref<span class="o">}</span><span class="s2">", "</span>downloads_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/downloads<span class="s2">", "</span>issues_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/issues<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>pulls_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/pulls<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>milestones_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/milestones<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>notifications_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/notifications<span class="o">{</span>?since,all,participating<span class="o">}</span><span class="s2">", "</span>labels_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/labels<span class="o">{</span>/name<span class="o">}</span><span class="s2">", "</span>releases_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/releases<span class="o">{</span>/id<span class="o">}</span><span class="s2">", "</span>deployments_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/img-viewer/deployments<span class="s2">", "</span>created_at<span class="s2">"=&gt;2017-04-19 04:31:46 UTC, "</span>updated_at<span class="s2">"=&gt;2017-08-07 02:23:59 UTC, "</span>pushed_at<span class="s2">"=&gt;2017-01-23 14:33:34 UTC, "</span>git_url<span class="s2">"=&gt;"</span>git://github.com/echo-music/img-viewer.git<span class="s2">", "</span>ssh_url<span class="s2">"=&gt;"</span>git@github.com:echo-music/img-viewer.git<span class="s2">", "</span>clone_url<span class="s2">"=&gt;"</span>https://github.com/echo-music/img-viewer.git<span class="s2">", "</span>svn_url<span class="s2">"=&gt;"</span>https://github.com/echo-music/img-viewer<span class="s2">", "</span>homepage<span class="s2">"=&gt;"</span>https://fengyuanchen.github.io/viewer<span class="s2">", "</span>size<span class="s2">"=&gt;10302, "</span>stargazers_count<span class="s2">"=&gt;0, "</span>watchers_count<span class="s2">"=&gt;0, "</span>language<span class="s2">"=&gt;"</span>JavaScript<span class="s2">", "</span>has_issues<span class="s2">"=&gt;false, "</span>has_projects<span class="s2">"=&gt;true, "</span>has_downloads<span class="s2">"=&gt;true, "</span>has_wiki<span class="s2">"=&gt;true, "</span>has_pages<span class="s2">"=&gt;true, "</span>forks_count<span class="s2">"=&gt;0, "</span>mirror_url<span class="s2">"=&gt;nil, "</span>archived<span class="s2">"=&gt;false, "</span>disabled<span class="s2">"=&gt;false, "</span>open_issues_count<span class="s2">"=&gt;0, "</span>license<span class="s2">"=&gt;{"</span>key<span class="s2">"=&gt;"</span>mit<span class="s2">", "</span>name<span class="s2">"=&gt;"</span>MIT License<span class="s2">", "</span>spdx_id<span class="s2">"=&gt;"</span>MIT<span class="s2">", "</span>url<span class="s2">"=&gt;"</span>https://api.github.com/licenses/mit<span class="s2">", "</span>node_id<span class="s2">"=&gt;"</span>MDc6TGljZW5zZTEz<span class="s2">"}, "</span>topics<span class="s2">"=&gt;[], "</span>forks<span class="s2">"=&gt;0, "</span>open_issues<span class="s2">"=&gt;0, "</span>watchers<span class="s2">"=&gt;0, "</span>default_branch<span class="s2">"=&gt;"</span>master<span class="s2">"}{"</span><span class="nb">id</span><span class="s2">"=&gt;382749609, "</span>node_id<span class="s2">"=&gt;"</span><span class="nv">MDEwOlJlcG9zaXRvcnkzODI3NDk2MDk</span><span class="o">=</span><span class="s2">", "</span>name<span class="s2">"=&gt;"</span>go-learn<span class="s2">", "</span>full_name<span class="s2">"=&gt;"</span>echo-music/go-learn<span class="s2">", "</span>private<span class="s2">"=&gt;false, "</span>owner<span class="s2">"=&gt;{"</span>login<span class="s2">"=&gt;"</span>echo-music<span class="s2">", "</span><span class="nb">id</span><span class="s2">"=&gt;5945928, "</span>node_id<span class="s2">"=&gt;"</span><span class="nv">MDQ6VXNlcjU5NDU5Mjg</span><span class="o">=</span><span class="s2">", "</span>avatar_url<span class="s2">"=&gt;"</span>https://avatars.githubusercontent.com/u/5945928?v<span class="o">=</span>4<span class="s2">", "</span>gravatar_id<span class="s2">"=&gt;"", "</span>url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music<span class="s2">", "</span>html_url<span class="s2">"=&gt;"</span>https://github.com/echo-music<span class="s2">", "</span>followers_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/followers<span class="s2">", "</span>following_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/following<span class="o">{</span>/other_user<span class="o">}</span><span class="s2">", "</span>gists_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/gists<span class="o">{</span>/gist_id<span class="o">}</span><span class="s2">", "</span>starred_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/starred<span class="o">{</span>/owner<span class="o">}{</span>/repo<span class="o">}</span><span class="s2">", "</span>subscriptions_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/subscriptions<span class="s2">", "</span>organizations_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/orgs<span class="s2">", "</span>repos_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/repos<span class="s2">", "</span>events_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/events<span class="o">{</span>/privacy<span class="o">}</span><span class="s2">", "</span>received_events_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/received_events<span class="s2">", "</span><span class="nb">type</span><span class="s2">"=&gt;"</span>User<span class="s2">", "</span>site_admin<span class="s2">"=&gt;false}, "</span>html_url<span class="s2">"=&gt;"</span>https://github.com/echo-music/go-learn<span class="s2">", "</span>description<span class="s2">"=&gt;nil, "</span>fork<span class="s2">"=&gt;false, "</span>url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn<span class="s2">", "</span>forks_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/forks<span class="s2">", "</span>keys_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/keys<span class="o">{</span>/key_id<span class="o">}</span><span class="s2">", "</span>collaborators_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/collaborators<span class="o">{</span>/collaborator<span class="o">}</span><span class="s2">", "</span>teams_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/teams<span class="s2">", "</span>hooks_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/hooks<span class="s2">", "</span>issue_events_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/issues/events<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>events_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/events<span class="s2">", "</span>assignees_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/assignees<span class="o">{</span>/user<span class="o">}</span><span class="s2">", "</span>branches_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/branches<span class="o">{</span>/branch<span class="o">}</span><span class="s2">", "</span>tags_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/tags<span class="s2">", "</span>blobs_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/git/blobs<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>git_tags_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/git/tags<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>git_refs_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/git/refs<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>trees_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/git/trees<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>statuses_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/statuses/<span class="o">{</span>sha<span class="o">}</span><span class="s2">", "</span>languages_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/languages<span class="s2">", "</span>stargazers_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/stargazers<span class="s2">", "</span>contributors_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/contributors<span class="s2">", "</span>subscribers_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/subscribers<span class="s2">", "</span>subscription_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/subscription<span class="s2">", "</span>commits_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/commits<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>git_commits_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/git/commits<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>comments_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/comments<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>issue_comment_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/issues/comments<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>contents_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/contents/<span class="o">{</span>+path<span class="o">}</span><span class="s2">", "</span>compare_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/compare/<span class="o">{</span>base<span class="o">}</span>...<span class="o">{</span><span class="nb">head</span><span class="o">}</span><span class="s2">", "</span>merges_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/merges<span class="s2">", "</span>archive_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/<span class="o">{</span>archive_format<span class="o">}{</span>/ref<span class="o">}</span><span class="s2">", "</span>downloads_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/downloads<span class="s2">", "</span>issues_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/issues<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>pulls_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/pulls<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>milestones_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/milestones<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>notifications_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/notifications<span class="o">{</span>?since,all,participating<span class="o">}</span><span class="s2">", "</span>labels_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/labels<span class="o">{</span>/name<span class="o">}</span><span class="s2">", "</span>releases_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/releases<span class="o">{</span>/id<span class="o">}</span><span class="s2">", "</span>deployments_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-learn/deployments<span class="s2">", "</span>created_at<span class="s2">"=&gt;2021-07-04 02:56:56 UTC, "</span>updated_at<span class="s2">"=&gt;2021-07-18 04:33:47 UTC, "</span>pushed_at<span class="s2">"=&gt;2021-07-18 04:33:45 UTC, "</span>git_url<span class="s2">"=&gt;"</span>git://github.com/echo-music/go-learn.git<span class="s2">", "</span>ssh_url<span class="s2">"=&gt;"</span>git@github.com:echo-music/go-learn.git<span class="s2">", "</span>clone_url<span class="s2">"=&gt;"</span>https://github.com/echo-music/go-learn.git<span class="s2">", "</span>svn_url<span class="s2">"=&gt;"</span>https://github.com/echo-music/go-learn<span class="s2">", "</span>homepage<span class="s2">"=&gt;nil, "</span>size<span class="s2">"=&gt;68, "</span>stargazers_count<span class="s2">"=&gt;0, "</span>watchers_count<span class="s2">"=&gt;0, "</span>language<span class="s2">"=&gt;"</span>Go<span class="s2">", "</span>has_issues<span class="s2">"=&gt;true, "</span>has_projects<span class="s2">"=&gt;true, "</span>has_downloads<span class="s2">"=&gt;true, "</span>has_wiki<span class="s2">"=&gt;true, "</span>has_pages<span class="s2">"=&gt;false, "</span>forks_count<span class="s2">"=&gt;0, "</span>mirror_url<span class="s2">"=&gt;nil, "</span>archived<span class="s2">"=&gt;false, "</span>disabled<span class="s2">"=&gt;false, "</span>open_issues_count<span class="s2">"=&gt;0, "</span>license<span class="s2">"=&gt;nil, "</span>topics<span class="s2">"=&gt;[], "</span>forks<span class="s2">"=&gt;0, "</span>open_issues<span class="s2">"=&gt;0, "</span>watchers<span class="s2">"=&gt;0, "</span>default_branch<span class="s2">"=&gt;"</span>master<span class="s2">"}{"</span><span class="nb">id</span><span class="s2">"=&gt;387091069, "</span>node_id<span class="s2">"=&gt;"</span><span class="nv">MDEwOlJlcG9zaXRvcnkzODcwOTEwNjk</span><span class="o">=</span><span class="s2">", "</span>name<span class="s2">"=&gt;"</span>go-crontab<span class="s2">", "</span>full_name<span class="s2">"=&gt;"</span>echo-music/go-crontab<span class="s2">", "</span>private<span class="s2">"=&gt;false, "</span>owner<span class="s2">"=&gt;{"</span>login<span class="s2">"=&gt;"</span>echo-music<span class="s2">", "</span><span class="nb">id</span><span class="s2">"=&gt;5945928, "</span>node_id<span class="s2">"=&gt;"</span><span class="nv">MDQ6VXNlcjU5NDU5Mjg</span><span class="o">=</span><span class="s2">", "</span>avatar_url<span class="s2">"=&gt;"</span>https://avatars.githubusercontent.com/u/5945928?v<span class="o">=</span>4<span class="s2">", "</span>gravatar_id<span class="s2">"=&gt;"", "</span>url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music<span class="s2">", "</span>html_url<span class="s2">"=&gt;"</span>https://github.com/echo-music<span class="s2">", "</span>followers_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/followers<span class="s2">", "</span>following_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/following<span class="o">{</span>/other_user<span class="o">}</span><span class="s2">", "</span>gists_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/gists<span class="o">{</span>/gist_id<span class="o">}</span><span class="s2">", "</span>starred_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/starred<span class="o">{</span>/owner<span class="o">}{</span>/repo<span class="o">}</span><span class="s2">", "</span>subscriptions_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/subscriptions<span class="s2">", "</span>organizations_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/orgs<span class="s2">", "</span>repos_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/repos<span class="s2">", "</span>events_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/events<span class="o">{</span>/privacy<span class="o">}</span><span class="s2">", "</span>received_events_url<span class="s2">"=&gt;"</span>https://api.github.com/users/echo-music/received_events<span class="s2">", "</span><span class="nb">type</span><span class="s2">"=&gt;"</span>User<span class="s2">", "</span>site_admin<span class="s2">"=&gt;false}, "</span>html_url<span class="s2">"=&gt;"</span>https://github.com/echo-music/go-crontab<span class="s2">", "</span>description<span class="s2">"=&gt;"</span>go 分布式定时任务管理系统<span class="s2">", "</span>fork<span class="s2">"=&gt;false, "</span>url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab<span class="s2">", "</span>forks_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/forks<span class="s2">", "</span>keys_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/keys<span class="o">{</span>/key_id<span class="o">}</span><span class="s2">", "</span>collaborators_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/collaborators<span class="o">{</span>/collaborator<span class="o">}</span><span class="s2">", "</span>teams_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/teams<span class="s2">", "</span>hooks_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/hooks<span class="s2">", "</span>issue_events_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/issues/events<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>events_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/events<span class="s2">", "</span>assignees_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/assignees<span class="o">{</span>/user<span class="o">}</span><span class="s2">", "</span>branches_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/branches<span class="o">{</span>/branch<span class="o">}</span><span class="s2">", "</span>tags_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/tags<span class="s2">", "</span>blobs_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/git/blobs<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>git_tags_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/git/tags<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>git_refs_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/git/refs<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>trees_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/git/trees<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>statuses_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/statuses/<span class="o">{</span>sha<span class="o">}</span><span class="s2">", "</span>languages_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/languages<span class="s2">", "</span>stargazers_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/stargazers<span class="s2">", "</span>contributors_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/contributors<span class="s2">", "</span>subscribers_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/subscribers<span class="s2">", "</span>subscription_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/subscription<span class="s2">", "</span>commits_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/commits<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>git_commits_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/git/commits<span class="o">{</span>/sha<span class="o">}</span><span class="s2">", "</span>comments_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/comments<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>issue_comment_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/issues/comments<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>contents_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/contents/<span class="o">{</span>+path<span class="o">}</span><span class="s2">", "</span>compare_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/compare/<span class="o">{</span>base<span class="o">}</span>...<span class="o">{</span><span class="nb">head</span><span class="o">}</span><span class="s2">", "</span>merges_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/merges<span class="s2">", "</span>archive_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/<span class="o">{</span>archive_format<span class="o">}{</span>/ref<span class="o">}</span><span class="s2">", "</span>downloads_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/downloads<span class="s2">", "</span>issues_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/issues<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>pulls_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/pulls<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>milestones_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/milestones<span class="o">{</span>/number<span class="o">}</span><span class="s2">", "</span>notifications_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/notifications<span class="o">{</span>?since,all,participating<span class="o">}</span><span class="s2">", "</span>labels_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/labels<span class="o">{</span>/name<span class="o">}</span><span class="s2">", "</span>releases_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/releases<span class="o">{</span>/id<span class="o">}</span><span class="s2">", "</span>deployments_url<span class="s2">"=&gt;"</span>https://api.github.com/repos/echo-music/go-crontab/deployments<span class="s2">", "</span>created_at<span class="s2">"=&gt;2021-07-18 04:39:54 UTC, "</span>updated_at<span class="s2">"=&gt;2021-07-21 14:09:14 UTC, "</span>pushed_at<span class="s2">"=&gt;2021-07-21 14:09:11 UTC, "</span>git_url<span class="s2">"=&gt;"</span>git://github.com/echo-music/go-crontab.git<span class="s2">", "</span>ssh_url<span class="s2">"=&gt;"</span>git@github.com:echo-music/go-crontab.git<span class="s2">", "</span>clone_url<span class="s2">"=&gt;"</span>https://github.com/echo-music/go-crontab.git<span class="s2">", "</span>svn_url<span class="s2">"=&gt;"</span>https://github.com/echo-music/go-crontab<span class="s2">", "</span>homepage<span class="s2">"=&gt;nil, "</span>size<span class="s2">"=&gt;48, "</span>stargazers_count<span class="s2">"=&gt;0, "</span>watchers_count<span class="s2">"=&gt;0, "</span>language<span class="s2">"=&gt;"</span>Go<span class="s2">", "</span>has_issues<span class="s2">"=&gt;true, "</span>has_projects<span class="s2">"=&gt;true, "</span>has_downloads<span class="s2">"=&gt;true, "</span>has_wiki<span class="s2">"=&gt;true, "</span>has_pages<span class="s2">"=&gt;false, "</span>forks_count<span class="s2">"=&gt;0, "</span>mirror_url<span class="s2">"=&gt;nil, "</span>archived<span class="s2">"=&gt;false, "</span>disabled<span class="s2">"=&gt;false, "</span>open_issues_count<span class="s2">"=&gt;0, "</span>license<span class="s2">"=&gt;nil, "</span>topics<span class="s2">"=&gt;[], "</span>forks<span class="s2">"=&gt;0, "</span>open_issues<span class="s2">"=&gt;0, "</span>watchers<span class="s2">"=&gt;0, "</span>default_branch<span class="s2">"=&gt;"</span>master<span class="s2">"}"</span> <span class="k">in </span>pages/open-source.md
+                    <span class="k">done in </span>3.437 seconds.
+ Auto-regeneration: enabled <span class="k">for</span> <span class="s1">'/Users/liufangting/my_git/echo-music.github.io'</span>
+    Server address: http://127.0.0.1:4000
+  Server running... press ctrl-c to stop.
+</code></pre></div></div>
+
+<p>用浏览器打开http://127.0.0.1:4000，就可以在本地访问博客，可以一边调整一边对照浏览，像极是一种调试模式。</p>
+
+<h2 id="9添加文章和格式博客写作">9、添加文章和格式（博客写作）</h2>
+<p>要发布的文章都放在_posts目录下面，按照格式”年-月-日-文章名.markdown”</p>
+
+<p>在_posts下建立文件或者拷贝过来</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2020-05-20-mac-jekyll-github-blog.md
+</code></pre></div></div>
+
+<p>文章的开头，需要参照默认模板template</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">---</span>
+<span class="n">layout</span><span class="p">:</span> <span class="n">post</span>
+<span class="n">title</span><span class="p">:</span> <span class="n">template</span> <span class="n">page</span>
+<span class="n">categories</span><span class="p">:</span> <span class="p">[</span><span class="n">cate1</span><span class="p">,</span> <span class="n">cate2</span><span class="p">]</span>
+<span class="n">description</span><span class="p">:</span> <span class="n">some</span> <span class="n">word</span> <span class="n">here</span>
+<span class="n">keywords</span><span class="p">:</span> <span class="n">keyword1</span><span class="p">,</span> <span class="n">keyword2</span>
+<span class="o">---</span>
+</code></pre></div></div>
+<ul>
+  <li>title: 文章标题</li>
+  <li>date:  显示日期</li>
+  <li>description: 描述</li>
+  <li>categories: 标签分类</li>
+</ul>
+
+<p>更多详细请查阅<a href="https://www.jekyll.com.cn/">jekyll官网文档</a>，文档相关漂亮的。</p>
+
+<p>文章最好按markdown标准语法来，养成良好的习惯，这样能提升写博客的效率。</p>
+
+<h2 id="10发布文章">10、发布文章</h2>
+<p>  使用 git commit 提交修改，然后用 git push 将修改推送到 github 服务器（服务器会自动编译），之后访问你的博客公网链接 https://username.github.io ，即可。</p>
+
+<h2 id="11绑定域名">11、绑定域名</h2>
+<p>在终端ping自己的域名</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ping echo-music.github.io
+</code></pre></div></div>
+<p>得到公网IP地址：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PING sni.github.map.fastly.net (151.101.229.147): 56 data bytes
+</code></pre></div></div>
+
+<p>在域名供应商的控制台，添加解析，两条 A 记录：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>记录类型    主机记录    解析线路(运营商)   记录值
+A           @           默认              151.101.229.147
+A           www         默认              151.101.229.147
+</code></pre></div></div>
+<p>记录值填写刚才获得的ip地址，在博客根目录添加CNAME文件,并将你的域名写入:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "www.echo-music.com" &gt; CNAME
+</code></pre></div></div>
+
+<p>将CNAME提交，待域名解析完成，就可以了（大概1分钟解析时间）。</p>
+
+<h2 id="参考资料">参考资料</h2>
+<p><a href="https://www.tuicool.com/articles/ruMVjyN">每个人都应该有一个Jekyll博客</a></p>
+
+<p><a href="http://www.zorin.xin/%E5%8D%9A%E5%AE%A2%E6%8A%80%E6%9C%AF/2017/02/20/%E4%BD%BF%E7%94%A8jekyll%E6%90%AD%E5%BB%BAblog.html">使用jekyll搭建blog</a></p>
+
+<p><a href="https://www.jekyll.com.cn/">Jekyll官网</a></p>
+
+<p><a href="https://github.com/mzlogin/mzlogin.github.io">主题来源于码志</a></p>
+
+<h2 id="后话">后话</h2>
+<p>借助开源项目Jekyll+免费的Github平台，就可以搭建属于自己的高颜值博客。</p>
+
+<p>无需数据库、评论功能，不需要不断的更新版本——只用关心你的博客内容，真是简单、省心、高效，非常Nice!</p>
+
+<p>一个好的博客，更多美好的开始。</p>
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2020/05/20/mac-jekyll-github-blog/',
+            clientID: 'f1b37e802c634863604a',
+            clientSecret: '3185e464e62d9eab0a432c06daebfa3a6af7e874',
+            repo: 'echomusic.github.io',
+            owner: 'echo-music',
+            admin: ['echo-music'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2020
+                    <span title="Fangting Liu">Fangting Liu</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="https://github.com/echo-music/echomusic.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="首页" target="">首页</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="分类" target="">分类</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="维基" target="">维基</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="链接" target="">链接</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="关于" target="">关于</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>
