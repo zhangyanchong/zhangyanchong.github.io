@@ -77,7 +77,7 @@ collections:
         output: true
         permalink: /wiki/:path/
 
-repository: echo-music/echo-music.github.io
+repository: zhangyanchong/zhangyanchong.github.io
 
 # ---------------- #
 #      Comments    #
