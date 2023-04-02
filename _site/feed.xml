@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-04-02T09:08:49+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">张三的技术.博客</title><subtitle>张三的个人博客</subtitle><author><name>张艳冲</name></author><entry><title type="html">holmes服务性能指标监控，让bug无处遁行！</title><link href="http://localhost:4000/2023/03/23/holmes%E6%9C%8D%E5%8A%A1%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E7%9B%91%E6%8E%A7/" rel="alternate" type="text/html" title="holmes服务性能指标监控，让bug无处遁行！" /><published>2023-03-23T00:00:00+08:00</published><updated>2023-03-23T00:00:00+08:00</updated><id>http://localhost:4000/2023/03/23/%20holmes%E6%9C%8D%E5%8A%A1%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E7%9B%91%E6%8E%A7</id><content type="html" xml:base="http://localhost:4000/2023/03/23/holmes%E6%9C%8D%E5%8A%A1%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E7%9B%91%E6%8E%A7/">&lt;p&gt;作为一名”懒惰”的程序员，如何避免在线上Golang系统半夜宕机 （一般是OOM导致的）时起床保存现场呢？又或者如何dump压测时性能尖刺时刻的profile文件呢？
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-04-02T09:14:30+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">张三的技术.博客</title><subtitle>张三的个人博客</subtitle><author><name>张艳冲</name></author><entry><title type="html">holmes服务性能指标监控，让bug无处遁行！</title><link href="http://localhost:4000/2023/03/23/holmes%E6%9C%8D%E5%8A%A1%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E7%9B%91%E6%8E%A7/" rel="alternate" type="text/html" title="holmes服务性能指标监控，让bug无处遁行！" /><published>2023-03-23T00:00:00+08:00</published><updated>2023-03-23T00:00:00+08:00</updated><id>http://localhost:4000/2023/03/23/%20holmes%E6%9C%8D%E5%8A%A1%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E7%9B%91%E6%8E%A7</id><content type="html" xml:base="http://localhost:4000/2023/03/23/holmes%E6%9C%8D%E5%8A%A1%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E7%9B%91%E6%8E%A7/">&lt;p&gt;作为一名”懒惰”的程序员，如何避免在线上Golang系统半夜宕机 （一般是OOM导致的）时起床保存现场呢？又或者如何dump压测时性能尖刺时刻的profile文件呢？
 holmes 或许能帮助您解决以上问题。&lt;/p&gt;
 
 &lt;h1 id=&quot;holmes性能指标监控&quot;&gt;holmes性能指标监控&lt;/h1&gt;
@@ -1390,7 +1390,262 @@ bucket数组中。
 6) 如果没有找到，就继续从溢出的bucket中查找
 7）如果当前map处于搬迁的过程，那么优先从oldbuckets 数组中查找，不再从新的buckets数组中查找
 8) 如果查询不到，那么也不会返回nil,而是会返回相应类型的零值。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="go" /><summary type="html">偷偷的告诉你go语言map的底层实现是这样的</summary></entry><entry><title type="html">你说你搞懂了defer？我不信！</title><link href="http://localhost:4000/2020/12/20/%E4%BD%A0%E8%AF%B4%E4%BD%A0%E6%90%9E%E6%87%82%E4%BA%86defer/" rel="alternate" type="text/html" title="你说你搞懂了defer？我不信！" /><published>2020-12-20T00:00:00+08:00</published><updated>2020-12-20T00:00:00+08:00</updated><id>http://localhost:4000/2020/12/20/%20%E4%BD%A0%E8%AF%B4%E4%BD%A0%E6%90%9E%E6%87%82%E4%BA%86defer</id><content type="html" xml:base="http://localhost:4000/2020/12/20/%E4%BD%A0%E8%AF%B4%E4%BD%A0%E6%90%9E%E6%87%82%E4%BA%86defer/">&lt;p&gt;defer不仅可以用于资源释放，也可以用于流程控制和异常处理，但defer关键字只能用于函数或函数调用。&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="go" /><summary type="html">偷偷的告诉你go语言map的底层实现是这样的</summary></entry><entry><title type="html">mongo分片</title><link href="http://localhost:4000/2021/04/28/mongo%E7%9A%84%E5%88%86%E7%89%87/" rel="alternate" type="text/html" title="mongo分片" /><published>2021-04-28T00:00:00+08:00</published><updated>2021-04-28T00:00:00+08:00</updated><id>http://localhost:4000/2021/04/28/mongo%E7%9A%84%E5%88%86%E7%89%87</id><content type="html" xml:base="http://localhost:4000/2021/04/28/mongo%E7%9A%84%E5%88%86%E7%89%87/">&lt;p&gt;1.mongdb 版本  –4.2 版本    （bind_ip 只能绑定一个ip 我草 无情）&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;分片服务 （副本集）  mongo3.4 以后必须的  &lt;br /&gt;
+配置服务器（副本集） mongo 3.4 以后必须的&lt;br /&gt;
+routes 路由 mongos   （可以一台）    &lt;br /&gt;
+什么是副本集，自己百度一下  （就是有mongo主服务器，多个从服务器 当某个从服务器挂了 主服务器会从服务器找个运行正常的使用，如果主服务器挂了 就从从服务器找个作为主服务器） 一般为3个一个副本集 &lt;br /&gt;
+每个副本集请至少保证剩余2台机器，否则不能用，如果多台机器挂掉后剩余2台后，不能再挂掉，否则不能使用 （&amp;lt;2 台 副本集就不能用了 ）   （自己测试）&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;3.安装  暂时没有使用默认端口 （只在一台做实验）&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  routes         
+    127.0.0.1     27000  
+  配置服务器 （一个副本集）   config_set  
+    127.0.0.1     27001  
+    127.0.0.1     27002  
+    127.0.0.1     27003   
+  分片节点    （2个副本集） share1  
+    127.0.0.1     27004  
+    127.0.0.1     27005   
+    127.0.0.1     27006  
+
+    127.0.0.1     27007   share2  
+    127.0.0.1     27008  
+    127.0.0.1     27009     4.创建文件夹     data  数据文件下目录    
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+  		config1 config2 config3 mongos  share1_1 share1_2 share1_3  share2_1   share2_2  share2_3 
+&lt;p&gt;log  日志&lt;br /&gt;
+  config 配置文件&lt;br /&gt;
+  pid  文件夹&lt;br /&gt;
+ 5.先启动配置服务器  副本集&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;	config1.conf
+	logpath=/zyc/mongo_share/log/config1.log
+	pidfilepath=/zyc/mongo_share/pid/config1.pid
+	logappend=true
+	port=27001  
+	fork=true
+	dbpath=/zyc/mongo_share/data/config1/
+	configsvr=true   # 在配置文件添加此项就行
+	oplogSize=512
+	replSet=config_set
+	
+	
+	config2.conf
+	logpath=/zyc/mongo_share/log/config2.log
+	pidfilepath=/zyc/mongo_share/pid/config2.pid
+	logappend=true
+	port=27002  
+	fork=true
+	dbpath=/zyc/mongo_share/data/config2/
+	configsvr=true   # 在配置文件添加此项就行
+	oplogSize=512
+	replSet=config_set
+	
+	config3.conf
+	logpath=/zyc/mongo_share/log/config3.log
+	pidfilepath=/zyc/mongo_share/pid/config3.pid
+	logappend=true
+	port=27003  
+	fork=true
+	dbpath=/zyc/mongo_share/data/config3/
+	configsvr=true   # 在配置文件添加此项就行
+	oplogSize=512
+	replSet=config_set
+	
+	
+	
+	 ./mongod  -f   /zyc/mongo_share/config/config1.conf
+	 ./mongod  -f   /zyc/mongo_share/config/config2.conf
+	  ./mongod -f   /zyc/mongo_share/config/config3.conf
+	
+	
+	
+	mongo 操作
+	./mongo --port 27001
+	use admin
+	
+	config = { _id:&quot;config_set&quot;,members:[ {_id:0,host:&quot;127.0.0.1:27001&quot;}, {_id:1,host:&quot;127.0.0.1:27002&quot;}, {_id:2,host:&quot;127.0.0.1:27003&quot;}] }        #定义副本集
+	
+	rs.initiate(config) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;6  启动mongos 路由服务器&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    ./mongos  -f /zyc/mongo_share/config/mongos.conf
+
+	mongos.conf  其中的config_set 跟上面的匹配
+	logpath=/zyc/mongo_share/log/mongos.log
+	pidfilepath=/zyc/mongo_share/pid/mongos.pid
+	logappend=true
+	port=27000
+	fork=true
+	configdb=config_set/127.0.0.1:27001,127.0.0.1:27002,127.0.0.1:27003
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;7.分片副本集配置   2个副本集&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  第一组分片
+   share1_1.conf
+logpath=/zyc/mongo_share/log/share1_1.log
+pidfilepath=/zyc/mongo_share/pid/share1.pid
+directoryperdb=true
+logappend=true
+port=27004
+fork=true
+dbpath=/zyc/mongo_share/data/share1_1/
+oplogSize=512
+replSet=share1
+shardsvr=true
+   
+   
+  share1_2.conf
+logpath=/zyc/mongo_share/log/share1_2.log
+pidfilepath=/zyc/mongo_share/pid/share2.pid
+directoryperdb=true
+logappend=true
+port=27005
+fork=true
+dbpath=/zyc/mongo_share/data/share1_2/
+oplogSize=512
+replSet=share1
+shardsvr=true
+
+
+  share1_3.conf
+logpath=/zyc/mongo_share/log/share1_3.log
+pidfilepath=/zyc/mongo_share/pid/share1_3.pid
+directoryperdb=true
+logappend=true
+port=27006
+fork=true
+dbpath=/zyc/mongo_share/data/share1_3/
+oplogSize=512
+replSet=share1
+shardsvr=true
+
+
+
+
+ ./mongod  -f   /zyc/mongo_share/config/share1_1.conf
+ ./mongod  -f   /zyc/mongo_share/config/share1_2.conf
+ ./mongod -f   /zyc/mongo_share/config/share1_3.conf   
+
+
+ ./mongo --port 27004
+ 
+ use admin
+
+ shard = {_id:&quot;share1&quot;,members:[{_id:0,host:&quot;127.0.0.1:27004&quot;},{_id:1,host:&quot;127.0.0.1:27005&quot;}, {_id:2,host:&quot;127.0.0.1:27006&quot;}]}
+
+ rs.initiate(shard)
+
+
+
+ 第二组分片
+
+   share2_1.conf
+logpath=/zyc/mongo_share/log/share2_1.log
+pidfilepath=/zyc/mongo_share/pid/share2_1.pid
+directoryperdb=true
+logappend=true
+port=27007
+fork=true
+dbpath=/zyc/mongo_share/data/share2_1/
+oplogSize=512
+replSet=share2
+shardsvr=true
+   
+   
+  share2.conf
+logpath=/zyc/mongo_share/log/share2_2.log
+pidfilepath=/zyc/mongo_share/pid/share2_2.pid
+directoryperdb=true
+logappend=true
+port=27008
+fork=true
+dbpath=/zyc/mongo_share/data/share2_2/
+oplogSize=512
+replSet=share2
+shardsvr=true
+
+
+  share3.conf
+logpath=/zyc/mongo_share/log/share2_3.log
+pidfilepath=/zyc/mongo_share/pid/share2_3.pid
+directoryperdb=true
+logappend=true
+port=27009
+fork=true
+dbpath=/zyc/mongo_share/data/share2_3/
+oplogSize=512
+replSet=share2
+shardsvr=true
+
+
+
+
+ ./mongod  -f   /zyc/mongo_share/config/share2_1.conf
+ ./mongod  -f   /zyc/mongo_share/config/share2_2.conf
+ ./mongod -f   /zyc/mongo_share/config/share2_3.conf   
+
+
+ ./mongo --port 27007
+ 
+ use admin
+
+ shard = {_id:&quot;share2&quot;,members:[{_id:0,host:&quot;127.0.0.1:27007&quot;},{_id:1,host:&quot;127.0.0.1:27008&quot;}, {_id:2,host:&quot;127.0.0.1:27009&quot;}]}
+
+ rs.initiate(shard)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;8.启动mongos 路由数据库 添加分片集
+	 ./mongo –port 27000&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; sh.addShard(&quot;share1/127.0.0.1:27004,127.0.0.1:27005,127.0.0.1:27006&quot;);
+ sh.addShard(&quot;share2/127.0.0.1:27007,127.0.0.1:27008,127.0.0.1:27009&quot;);
+
+
+ sh.status()  
+   查看shards  判断是否成功
+
+
+
+-个集合只有且只能有一个分片键，一旦分片键确定好之后就不能更改  （重要呀）
+  8.1 hash分片 指定zyc数据库开始分片  
+   sh.enableSharding(&quot;zyc&quot;)  需要分片的数据库       
+   sh.shardCollection(&quot;zyc.nihao&quot;,{&quot;id&quot;:&quot;hashed&quot;})     //已hash的方式分片  最主要的用这个 
+
+	for(let i=10000;i&amp;lt;90000;i++){
+	    db.nihao.insert({&quot;name&quot;:&apos;name&apos;+i,&quot;id&quot;:i});
+	}
+
+	//查看分片的情况
+	db.nihao.getShardDistribution()
+
+
+ 8.2 range 分片  有个默认块 一般大于64M 才会均衡数据
+
+ 测试  改变一下块大小否则数据太小无法看出来
+  use config
+  db.settings.save({_id: &quot;chunksize&quot;, value: 2})
+  db.settings.find({_id: &quot;chunksize&quot;})
+
+
+  sh.enableSharding(&quot;zyc&quot;)  需要分片的数据库  
+  sh.shardCollection(&quot;zyc.shenghuo&quot;,{&quot;userid&quot;:1})     
+
+  for (i= 10000; i &amp;lt;=200000; i++){
+   db.shenghuo.insert({age:(i%100), name:&quot;user&quot;+i,userid:i})
+  } 
+
+  //查看分片的情况
+	db.nihao.getShardDistribution()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="mongo" /><summary type="html">1.mongdb 版本 –4.2 版本 （bind_ip 只能绑定一个ip 我草 无情） 分片服务 （副本集） mongo3.4 以后必须的 配置服务器（副本集） mongo 3.4 以后必须的 routes 路由 mongos （可以一台） 什么是副本集，自己百度一下 （就是有mongo主服务器，多个从服务器 当某个从服务器挂了 主服务器会从服务器找个运行正常的使用，如果主服务器挂了 就从从服务器找个作为主服务器） 一般为3个一个副本集 每个副本集请至少保证剩余2台机器，否则不能用，如果多台机器挂掉后剩余2台后，不能再挂掉，否则不能使用 （&amp;lt;2 台 副本集就不能用了 ） （自己测试） 3.安装 暂时没有使用默认端口 （只在一台做实验） routes 127.0.0.1 27000 配置服务器 （一个副本集） config_set 127.0.0.1 27001 127.0.0.1 27002 127.0.0.1 27003 分片节点 （2个副本集） share1 127.0.0.1 27004 127.0.0.1 27005 127.0.0.1 27006</summary></entry><entry><title type="html">你说你搞懂了defer？我不信！</title><link href="http://localhost:4000/2020/12/20/%E4%BD%A0%E8%AF%B4%E4%BD%A0%E6%90%9E%E6%87%82%E4%BA%86defer/" rel="alternate" type="text/html" title="你说你搞懂了defer？我不信！" /><published>2020-12-20T00:00:00+08:00</published><updated>2020-12-20T00:00:00+08:00</updated><id>http://localhost:4000/2020/12/20/%20%E4%BD%A0%E8%AF%B4%E4%BD%A0%E6%90%9E%E6%87%82%E4%BA%86defer</id><content type="html" xml:base="http://localhost:4000/2020/12/20/%E4%BD%A0%E8%AF%B4%E4%BD%A0%E6%90%9E%E6%87%82%E4%BA%86defer/">&lt;p&gt;defer不仅可以用于资源释放，也可以用于流程控制和异常处理，但defer关键字只能用于函数或函数调用。&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;defer关键字后接一个匿名函数
 defer func(){
@@ -1501,14 +1756,4 @@ defer语句中的fmt.Println()参数i值在defer出现时就已经确定了，�
     
     由于i是整数，会将值复制给anony,所以defer语句中的修改不会函数返回值造成影响
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="go" /><summary type="html">defer不仅可以用于资源释放，也可以用于流程控制和异常处理，但defer关键字只能用于函数或函数调用。</summary></entry><entry><title type="html">Vue 如何设置tab标识符为空格</title><link href="http://localhost:4000/2020/12/12/Vue-codemirror-%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AEtab%E6%A0%87%E8%AF%86%E7%AC%A6%E4%B8%BA%E7%A9%BA%E6%A0%BC/" rel="alternate" type="text/html" title="Vue 如何设置tab标识符为空格" /><published>2020-12-12T00:00:00+08:00</published><updated>2020-12-12T00:00:00+08:00</updated><id>http://localhost:4000/2020/12/12/%20Vue%20codemirror%20%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AEtab%E6%A0%87%E8%AF%86%E7%AC%A6%E4%B8%BA%E7%A9%BA%E6%A0%BC</id><content type="html" xml:base="http://localhost:4000/2020/12/12/Vue-codemirror-%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AEtab%E6%A0%87%E8%AF%86%E7%AC%A6%E4%B8%BA%E7%A9%BA%E6%A0%BC/">&lt;h3 id=&quot;1在使用codemirror-过程中编辑代码时候发现按tab-键出现标识符-可以使用标识符替换成空字符&quot;&gt;1、在使用codemirror 过程中，编辑代码时候发现按tab 键出现标识符—&amp;gt; 可以使用标识符替换成空字符&lt;/h3&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nx&quot;&gt;mounted&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// fix tab&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;codemirror&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;extraKeys&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;na&quot;&gt;Tab&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;cm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;spaces&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;cm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getOption&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;indentUnit&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;cm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;replaceSelection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;spaces&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="js" /><summary type="html">1、在使用codemirror 过程中，编辑代码时候发现按tab 键出现标识符—&amp;gt; 可以使用标识符替换成空字符 mounted() { // fix tab this.codemirror.options.extraKeys = { Tab: function(cm) { var spaces = Array(cm.getOption(&apos;indentUnit&apos;) + 1).join(&apos; &apos;); cm.replaceSelection(spaces); } }; },</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="go" /><summary type="html">defer不仅可以用于资源释放，也可以用于流程控制和异常处理，但defer关键字只能用于函数或函数调用。</summary></entry></feed>

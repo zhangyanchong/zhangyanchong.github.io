@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>mongo分片 &mdash; 张三的技术.博客</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2021/04/28/mongo%E7%9A%84%E5%88%86%E7%89%87/">
+    <link rel="alternate" type="application/atom+xml" title="张三的技术.博客" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="mongo分片">
+      
+    <meta name="keywords" content="mongo">
+    <meta name="og:keywords" content="mongo">
+      
+    <meta name="description" content="1.mongdb 版本  –4.2 版本    （bind_ip 只能绑定一个ip 我草 无情）  分片服务 （副本集）  mongo3.4 以后必须的  配置服务器（副本集） mongo 3.4 以后必须的routes 路由 mongos   （可以一台）    什么是副本集，自己百度一下  （就是有mongo主服务器，多个从服务器 当某个从服务器挂了 主服务器会从服务器找个运行正常的使用，如果主服务器挂了 就从从服务器找个作为主服务器） 一般为3个一个副本集 每个副本集请至少保证剩余2台机器，否则不能用，如果多台机器挂掉后剩余2台后，不能再挂掉，否则不能使用 （&lt;2 台 副本集就不能用了 ）   （自己测试）3.安装  暂时没有使用默认端口 （只在一台做实验）  routes             127.0.0.1     27000    配置服务器 （一个副本集）   config_set      127.0.0.1     27001      127.0.0.1     27002      127.0.0.1     27003     分片节点    （2个副本集） share1      127.0.0.1     27004      127.0.0.1     27005       127.0.0.1     27006  ">
+    <meta name="og:description" content="1.mongdb 版本  –4.2 版本    （bind_ip 只能绑定一个ip 我草 无情）  分片服务 （副本集）  mongo3.4 以后必须的  配置服务器（副本集） mongo 3.4 以后必须的routes 路由 mongos   （可以一台）    什么是副本集，自己百度一下  （就是有mongo主服务器，多个从服务器 当某个从服务器挂了 主服务器会从服务器找个运行正常的使用，如果主服务器挂了 就从从服务器找个作为主服务器） 一般为3个一个副本集 每个副本集请至少保证剩余2台机器，否则不能用，如果多台机器挂掉后剩余2台后，不能再挂掉，否则不能使用 （&lt;2 台 副本集就不能用了 ）   （自己测试）3.安装  暂时没有使用默认端口 （只在一台做实验）  routes             127.0.0.1     27000    配置服务器 （一个副本集）   config_set      127.0.0.1     27001      127.0.0.1     27002      127.0.0.1     27003     分片节点    （2个副本集） share1      127.0.0.1     27004      127.0.0.1     27005       127.0.0.1     27006  ">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2021/04/28/mongo%E7%9A%84%E5%88%86%E7%89%87/">
+    <meta property="og:site_name" content="张三的技术.博客">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2021-04-28">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="张三的技术.博客"><span class="octicon octicon-mark-github"></span> 张三的技术.博客</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="首页">首页</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="分类">分类</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="维基">维基</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="链接">链接</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="关于作者">关于作者</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+    <section class="collection-head small geopattern" data-pattern-id="mongo分片">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">mongo分片</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2021/04/28
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#mongo" title="mongo">mongo</a>
+          </span>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <p>1.mongdb 版本  –4.2 版本    （bind_ip 只能绑定一个ip 我草 无情）</p>
+<ol>
+  <li>分片服务 （副本集）  mongo3.4 以后必须的  <br />
+配置服务器（副本集） mongo 3.4 以后必须的<br />
+routes 路由 mongos   （可以一台）    <br />
+什么是副本集，自己百度一下  （就是有mongo主服务器，多个从服务器 当某个从服务器挂了 主服务器会从服务器找个运行正常的使用，如果主服务器挂了 就从从服务器找个作为主服务器） 一般为3个一个副本集 <br />
+每个副本集请至少保证剩余2台机器，否则不能用，如果多台机器挂掉后剩余2台后，不能再挂掉，否则不能使用 （&lt;2 台 副本集就不能用了 ）   （自己测试）</li>
+</ol>
+
+<p>3.安装  暂时没有使用默认端口 （只在一台做实验）</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  routes         
+    127.0.0.1     27000  
+  配置服务器 （一个副本集）   config_set  
+    127.0.0.1     27001  
+    127.0.0.1     27002  
+    127.0.0.1     27003   
+  分片节点    （2个副本集） share1  
+    127.0.0.1     27004  
+    127.0.0.1     27005   
+    127.0.0.1     27006  
+
+    127.0.0.1     27007   share2  
+    127.0.0.1     27008  
+    127.0.0.1     27009     4.创建文件夹     data  数据文件下目录    
+</code></pre></div></div>
+
+  		config1 config2 config3 mongos  share1_1 share1_2 share1_3  share2_1   share2_2  share2_3 
+<p>log  日志<br />
+  config 配置文件<br />
+  pid  文件夹<br />
+ 5.先启动配置服务器  副本集</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	config1.conf
+	logpath=/zyc/mongo_share/log/config1.log
+	pidfilepath=/zyc/mongo_share/pid/config1.pid
+	logappend=true
+	port=27001  
+	fork=true
+	dbpath=/zyc/mongo_share/data/config1/
+	configsvr=true   # 在配置文件添加此项就行
+	oplogSize=512
+	replSet=config_set
+	
+	
+	config2.conf
+	logpath=/zyc/mongo_share/log/config2.log
+	pidfilepath=/zyc/mongo_share/pid/config2.pid
+	logappend=true
+	port=27002  
+	fork=true
+	dbpath=/zyc/mongo_share/data/config2/
+	configsvr=true   # 在配置文件添加此项就行
+	oplogSize=512
+	replSet=config_set
+	
+	config3.conf
+	logpath=/zyc/mongo_share/log/config3.log
+	pidfilepath=/zyc/mongo_share/pid/config3.pid
+	logappend=true
+	port=27003  
+	fork=true
+	dbpath=/zyc/mongo_share/data/config3/
+	configsvr=true   # 在配置文件添加此项就行
+	oplogSize=512
+	replSet=config_set
+	
+	
+	
+	 ./mongod  -f   /zyc/mongo_share/config/config1.conf
+	 ./mongod  -f   /zyc/mongo_share/config/config2.conf
+	  ./mongod -f   /zyc/mongo_share/config/config3.conf
+	
+	
+	
+	mongo 操作
+	./mongo --port 27001
+	use admin
+	
+	config = { _id:"config_set",members:[ {_id:0,host:"127.0.0.1:27001"}, {_id:1,host:"127.0.0.1:27002"}, {_id:2,host:"127.0.0.1:27003"}] }        #定义副本集
+	
+	rs.initiate(config) 
+</code></pre></div></div>
+
+<p>6  启动mongos 路由服务器</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    ./mongos  -f /zyc/mongo_share/config/mongos.conf
+
+	mongos.conf  其中的config_set 跟上面的匹配
+	logpath=/zyc/mongo_share/log/mongos.log
+	pidfilepath=/zyc/mongo_share/pid/mongos.pid
+	logappend=true
+	port=27000
+	fork=true
+	configdb=config_set/127.0.0.1:27001,127.0.0.1:27002,127.0.0.1:27003
+</code></pre></div></div>
+
+<p>7.分片副本集配置   2个副本集</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  第一组分片
+   share1_1.conf
+logpath=/zyc/mongo_share/log/share1_1.log
+pidfilepath=/zyc/mongo_share/pid/share1.pid
+directoryperdb=true
+logappend=true
+port=27004
+fork=true
+dbpath=/zyc/mongo_share/data/share1_1/
+oplogSize=512
+replSet=share1
+shardsvr=true
+   
+   
+  share1_2.conf
+logpath=/zyc/mongo_share/log/share1_2.log
+pidfilepath=/zyc/mongo_share/pid/share2.pid
+directoryperdb=true
+logappend=true
+port=27005
+fork=true
+dbpath=/zyc/mongo_share/data/share1_2/
+oplogSize=512
+replSet=share1
+shardsvr=true
+
+
+  share1_3.conf
+logpath=/zyc/mongo_share/log/share1_3.log
+pidfilepath=/zyc/mongo_share/pid/share1_3.pid
+directoryperdb=true
+logappend=true
+port=27006
+fork=true
+dbpath=/zyc/mongo_share/data/share1_3/
+oplogSize=512
+replSet=share1
+shardsvr=true
+
+
+
+
+ ./mongod  -f   /zyc/mongo_share/config/share1_1.conf
+ ./mongod  -f   /zyc/mongo_share/config/share1_2.conf
+ ./mongod -f   /zyc/mongo_share/config/share1_3.conf   
+
+
+ ./mongo --port 27004
+ 
+ use admin
+
+ shard = {_id:"share1",members:[{_id:0,host:"127.0.0.1:27004"},{_id:1,host:"127.0.0.1:27005"}, {_id:2,host:"127.0.0.1:27006"}]}
+
+ rs.initiate(shard)
+
+
+
+ 第二组分片
+
+   share2_1.conf
+logpath=/zyc/mongo_share/log/share2_1.log
+pidfilepath=/zyc/mongo_share/pid/share2_1.pid
+directoryperdb=true
+logappend=true
+port=27007
+fork=true
+dbpath=/zyc/mongo_share/data/share2_1/
+oplogSize=512
+replSet=share2
+shardsvr=true
+   
+   
+  share2.conf
+logpath=/zyc/mongo_share/log/share2_2.log
+pidfilepath=/zyc/mongo_share/pid/share2_2.pid
+directoryperdb=true
+logappend=true
+port=27008
+fork=true
+dbpath=/zyc/mongo_share/data/share2_2/
+oplogSize=512
+replSet=share2
+shardsvr=true
+
+
+  share3.conf
+logpath=/zyc/mongo_share/log/share2_3.log
+pidfilepath=/zyc/mongo_share/pid/share2_3.pid
+directoryperdb=true
+logappend=true
+port=27009
+fork=true
+dbpath=/zyc/mongo_share/data/share2_3/
+oplogSize=512
+replSet=share2
+shardsvr=true
+
+
+
+
+ ./mongod  -f   /zyc/mongo_share/config/share2_1.conf
+ ./mongod  -f   /zyc/mongo_share/config/share2_2.conf
+ ./mongod -f   /zyc/mongo_share/config/share2_3.conf   
+
+
+ ./mongo --port 27007
+ 
+ use admin
+
+ shard = {_id:"share2",members:[{_id:0,host:"127.0.0.1:27007"},{_id:1,host:"127.0.0.1:27008"}, {_id:2,host:"127.0.0.1:27009"}]}
+
+ rs.initiate(shard)
+</code></pre></div></div>
+
+<p>8.启动mongos 路由数据库 添加分片集
+	 ./mongo –port 27000</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> sh.addShard("share1/127.0.0.1:27004,127.0.0.1:27005,127.0.0.1:27006");
+ sh.addShard("share2/127.0.0.1:27007,127.0.0.1:27008,127.0.0.1:27009");
+
+
+ sh.status()  
+   查看shards  判断是否成功
+
+
+
+-个集合只有且只能有一个分片键，一旦分片键确定好之后就不能更改  （重要呀）
+  8.1 hash分片 指定zyc数据库开始分片  
+   sh.enableSharding("zyc")  需要分片的数据库       
+   sh.shardCollection("zyc.nihao",{"id":"hashed"})     //已hash的方式分片  最主要的用这个 
+
+	for(let i=10000;i&lt;90000;i++){
+	    db.nihao.insert({"name":'name'+i,"id":i});
+	}
+
+	//查看分片的情况
+	db.nihao.getShardDistribution()
+
+
+ 8.2 range 分片  有个默认块 一般大于64M 才会均衡数据
+
+ 测试  改变一下块大小否则数据太小无法看出来
+  use config
+  db.settings.save({_id: "chunksize", value: 2})
+  db.settings.find({_id: "chunksize"})
+
+
+  sh.enableSharding("zyc")  需要分片的数据库  
+  sh.shardCollection("zyc.shenghuo",{"userid":1})     
+
+  for (i= 10000; i &lt;=200000; i++){
+   db.shenghuo.insert({age:(i%100), name:"user"+i,userid:i})
+  } 
+
+  //查看分片的情况
+	db.nihao.getShardDistribution()
+</code></pre></div></div>
+
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: decodeURI('/2021/04/28/mongo%E7%9A%84%E5%88%86%E7%89%87/'),
+            clientID: '8b219ee2ae6e026b9aef',
+            clientSecret: 'bf75351baf3c53614a859649a96c98d18b713391',
+            repo: 'zhangyanchong.github.io',
+            owner: 'zhangyanchong',
+            admin: ['zhangyanchong'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2020
+                    <span title="张艳冲">张艳冲</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="https://github.com/zhangyanchong/zhangyanchong.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="首页" target="">首页</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="分类" target="">分类</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="维基" target="">维基</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="链接" target="">链接</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="关于作者" target="">关于作者</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>

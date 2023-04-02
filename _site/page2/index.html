@@ -108,6 +108,46 @@
                 
                 <li class="repo-list-item">
                     <h3 class="repo-list-name">
+                      <a href="http://localhost:4000/2021/04/28/mongo%E7%9A%84%E5%88%86%E7%89%87/">mongo分片</a>
+                    </h3>
+                    <p class="repo-list-description">
+                        1.mongdb 版本  –4.2 版本    （bind_ip 只能绑定一个ip 我草 无情）
+
+  分片服务 （副本集）  mongo3.4 以后必须的  
+配置服务器（副本集） mongo 3.4 以后必须的
+routes 路由 mongos   （可以一台）    
+什么是副本集，自己百度一下  （就是有mongo主服务器，多个从服务器 当某个从服务器挂了 主服务器会从服务器找个运行正常的使用，如果主服务器挂了 就从从服务器找个作为主服务器） 一般为3个一个副本集 
+每个副本集请至少保证剩余2台机器，否则不能用，如果多台机器挂掉后剩余2台后，不能再挂掉，否则不能使用 （&lt;2 台 副本集就不能用了 ）   （自己测试）
+
+
+3.安装  暂时没有使用默认端口 （只在一台做实验）
+
+  routes         
+    127.0.0.1     27000  
+  配置服务器 （一个副本集）   config_set  
+    127.0.0.1     27001  
+    127.0.0.1     27002  
+    127.0.0.1     27003   
+  分片节点    （2个副本集） share1  
+    127.0.0.1     27004  
+    127.0.0.1     27005   
+    127.0.0.1     27006
+                    </p>
+                    <p class="repo-list-meta">
+                        <span class="meta-info">
+                          <span class="octicon octicon-calendar"></span> 2021/04/28
+                        </span>
+                        
+                        <span class="meta-info">
+                          <span class="octicon octicon-file-directory"></span>
+                          <a href="http://localhost:4000/categories/#mongo" title="mongo">mongo</a>
+                        </span>
+                        
+                    </p>
+                </li>
+                
+                <li class="repo-list-item">
+                    <h3 class="repo-list-name">
                       <a href="http://localhost:4000/2020/12/20/%E4%BD%A0%E8%AF%B4%E4%BD%A0%E6%90%9E%E6%87%82%E4%BA%86defer/">你说你搞懂了defer？我不信！</a>
                     </h3>
                     <p class="repo-list-description">
@@ -249,27 +289,6 @@ brew search nginx  // 查询要安装的软件是否存在
                     <p class="repo-list-meta">
                         <span class="meta-info">
                           <span class="octicon octicon-calendar"></span> 2020/07/03
-                        </span>
-                        
-                        <span class="meta-info">
-                          <span class="octicon octicon-file-directory"></span>
-                          <a href="http://localhost:4000/categories/#js" title="js">js</a>
-                        </span>
-                        
-                    </p>
-                </li>
-                
-                <li class="repo-list-item">
-                    <h3 class="repo-list-name">
-                      <a href="http://localhost:4000/2020/06/24/CommonJS.-%E5%92%8CES6-Module-%E7%9A%84%E5%8C%BA%E5%88%AB/">Common JS 和 ES6 Module 区别</a>
-                    </h3>
-                    <p class="repo-list-description">
-                        CommonJS 规范
-在 ES6 之前，ECMAScript 并没有提供代码组织的方式，那时候通常是基于 IIFE 来实现“模块化”，随着 JavaScript 在前端大规模的应用，以及服务端 Javascript 的推动，原先浏览器端的模块规范不利于大规模应用。于是早期便有了 CommonJS 规范，其目标是为了定义模块，提供通用的模块组织方式。
-                    </p>
-                    <p class="repo-list-meta">
-                        <span class="meta-info">
-                          <span class="octicon octicon-calendar"></span> 2020/06/24
                         </span>
                         
                         <span class="meta-info">
