@@ -94,14 +94,14 @@ gitment:
     owner: zhangyanchong
     repo: zhangyanchong.github.io
     oauth:
-        client_id: 8b219ee2ae6e026b9aef
-        client_secret: bf75351baf3c53614a859649a96c98d18b713391
+        client_id: 
+        client_secret: 
 # https://github.com/gitalk/gitalk#install
 gitalk:
     owner: zhangyanchong
     repo: zhangyanchong.github.io
-    clientID: 8b219ee2ae6e026b9aef
-    clientSecret: bf75351baf3c53614a859649a96c98d18b713391
+    clientID: 
+    clientSecret: 
 
 # 在使用其它评论组件时可点击显示 Disqus
 lazy_load_disqus : false

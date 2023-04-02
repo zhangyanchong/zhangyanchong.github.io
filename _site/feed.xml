@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-04-02T18:04:51+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">张三的技术.博客</title><subtitle>张三的个人博客</subtitle><author><name>张艳冲</name></author><entry><title type="html">php 加密解密</title><link href="http://localhost:4000/2023/04/01/php%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/" rel="alternate" type="text/html" title="php 加密解密" /><published>2023-04-01T00:00:00+08:00</published><updated>2023-04-01T00:00:00+08:00</updated><id>http://localhost:4000/2023/04/01/php%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86</id><content type="html" xml:base="http://localhost:4000/2023/04/01/php%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/">&lt;h3 id=&quot;1php加密解密使用&quot;&gt;1、php加密解密使用&lt;/h3&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-04-02T18:11:45+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">张三的技术.博客</title><subtitle>张三的个人博客</subtitle><author><name>张艳冲</name></author><entry><title type="html">php 加密解密</title><link href="http://localhost:4000/2023/04/01/php%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/" rel="alternate" type="text/html" title="php 加密解密" /><published>2023-04-01T00:00:00+08:00</published><updated>2023-04-01T00:00:00+08:00</updated><id>http://localhost:4000/2023/04/01/php%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86</id><content type="html" xml:base="http://localhost:4000/2023/04/01/php%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/">&lt;h3 id=&quot;1php加密解密使用&quot;&gt;1、php加密解密使用&lt;/h3&gt;
 
 &lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$str&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;123123&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
@@ -745,7 +745,21 @@ fmt.Println(s)
 逃逸分析的目的是决定分配地址是栈还是堆；
 逃逸分析在编译阶段完成；
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="go" /><summary type="html">内存逃逸是由编译器来决定内存分配的位置（是在栈上还是在堆上分配内存），而不是由程序员来决定的！ 在函数中申请一个新的对象： 1、如果分配在栈中，则函数执行结束后可自行将内存回收 2、如果分配在堆中，则函数执行结束后可交给GC(垃圾回收)处理。</summary></entry><entry><title type="html">你说你会用反射，我觉得你在吹牛逼</title><link href="http://localhost:4000/2022/01/20/%E4%BD%A0%E7%9A%84%E9%A1%B9%E7%9B%AE%E6%98%AF%E5%90%A6%E7%94%A8%E5%88%B0%E4%BA%86%E5%8F%8D%E5%B0%84/" rel="alternate" type="text/html" title="你说你会用反射，我觉得你在吹牛逼" /><published>2022-01-20T00:00:00+08:00</published><updated>2022-01-20T00:00:00+08:00</updated><id>http://localhost:4000/2022/01/20/%20%E4%BD%A0%E7%9A%84%E9%A1%B9%E7%9B%AE%E6%98%AF%E5%90%A6%E7%94%A8%E5%88%B0%E4%BA%86%E5%8F%8D%E5%B0%84</id><content type="html" xml:base="http://localhost:4000/2022/01/20/%E4%BD%A0%E7%9A%84%E9%A1%B9%E7%9B%AE%E6%98%AF%E5%90%A6%E7%94%A8%E5%88%B0%E4%BA%86%E5%8F%8D%E5%B0%84/">&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;我想让你知道：
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="go" /><summary type="html">内存逃逸是由编译器来决定内存分配的位置（是在栈上还是在堆上分配内存），而不是由程序员来决定的！ 在函数中申请一个新的对象： 1、如果分配在栈中，则函数执行结束后可自行将内存回收 2、如果分配在堆中，则函数执行结束后可交给GC(垃圾回收)处理。</summary></entry><entry><title type="html">php 一行一行输出</title><link href="http://localhost:4000/2022/03/08/php%E4%B8%80%E8%A1%8C%E4%B8%80%E8%A1%8C%E8%BE%93%E5%87%BA/" rel="alternate" type="text/html" title="php 一行一行输出" /><published>2022-03-08T00:00:00+08:00</published><updated>2022-03-08T00:00:00+08:00</updated><id>http://localhost:4000/2022/03/08/php%E4%B8%80%E8%A1%8C%E4%B8%80%E8%A1%8C%E8%BE%93%E5%87%BA</id><content type="html" xml:base="http://localhost:4000/2022/03/08/php%E4%B8%80%E8%A1%8C%E4%B8%80%E8%A1%8C%E8%BE%93%E5%87%BA/">&lt;h3 id=&quot;php-一行一行输出&quot;&gt;php 一行一行输出&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;?php
+header(&quot;X-Accel-Buffering: no&quot;);
+for ($i=0; $i&amp;lt;4; $i++)
+{
+echo $i.&apos;&amp;lt;br /&amp;gt;&apos;;
+ob_flush(); //推出用户缓存
+flush(); //推出系统缓存
+sleep(1);
+}
+echo &quot;daa&quot;;
+
+exit;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="php" /><summary type="html">php 一行一行输出</summary></entry><entry><title type="html">你说你会用反射，我觉得你在吹牛逼</title><link href="http://localhost:4000/2022/01/20/%E4%BD%A0%E7%9A%84%E9%A1%B9%E7%9B%AE%E6%98%AF%E5%90%A6%E7%94%A8%E5%88%B0%E4%BA%86%E5%8F%8D%E5%B0%84/" rel="alternate" type="text/html" title="你说你会用反射，我觉得你在吹牛逼" /><published>2022-01-20T00:00:00+08:00</published><updated>2022-01-20T00:00:00+08:00</updated><id>http://localhost:4000/2022/01/20/%20%E4%BD%A0%E7%9A%84%E9%A1%B9%E7%9B%AE%E6%98%AF%E5%90%A6%E7%94%A8%E5%88%B0%E4%BA%86%E5%8F%8D%E5%B0%84</id><content type="html" xml:base="http://localhost:4000/2022/01/20/%E4%BD%A0%E7%9A%84%E9%A1%B9%E7%9B%AE%E6%98%AF%E5%90%A6%E7%94%A8%E5%88%B0%E4%BA%86%E5%8F%8D%E5%B0%84/">&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;我想让你知道：
 1、反射可以将interface类型变量转换称反射对象
 2、反射可以将反射对象还原成interface对象
 3、反射对象可以修改，value值必须是可设置的
@@ -1119,259 +1133,4 @@ bucket数组中。
 6) 如果没有找到，就继续从溢出的bucket中查找
 7）如果当前map处于搬迁的过程，那么优先从oldbuckets 数组中查找，不再从新的buckets数组中查找
 8) 如果查询不到，那么也不会返回nil,而是会返回相应类型的零值。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="go" /><summary type="html">偷偷的告诉你go语言map的底层实现是这样的</summary></entry><entry><title type="html">mongo分片</title><link href="http://localhost:4000/2021/04/28/mongo%E7%9A%84%E5%88%86%E7%89%87/" rel="alternate" type="text/html" title="mongo分片" /><published>2021-04-28T00:00:00+08:00</published><updated>2021-04-28T00:00:00+08:00</updated><id>http://localhost:4000/2021/04/28/mongo%E7%9A%84%E5%88%86%E7%89%87</id><content type="html" xml:base="http://localhost:4000/2021/04/28/mongo%E7%9A%84%E5%88%86%E7%89%87/">&lt;p&gt;1.mongdb 版本  –4.2 版本    （bind_ip 只能绑定一个ip 我草 无情）&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;分片服务 （副本集）  mongo3.4 以后必须的  &lt;br /&gt;
-配置服务器（副本集） mongo 3.4 以后必须的&lt;br /&gt;
-routes 路由 mongos   （可以一台）    &lt;br /&gt;
-什么是副本集，自己百度一下  （就是有mongo主服务器，多个从服务器 当某个从服务器挂了 主服务器会从服务器找个运行正常的使用，如果主服务器挂了 就从从服务器找个作为主服务器） 一般为3个一个副本集 &lt;br /&gt;
-每个副本集请至少保证剩余2台机器，否则不能用，如果多台机器挂掉后剩余2台后，不能再挂掉，否则不能使用 （&amp;lt;2 台 副本集就不能用了 ）   （自己测试）&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;3.安装  暂时没有使用默认端口 （只在一台做实验）&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  routes         
-    127.0.0.1     27000  
-  配置服务器 （一个副本集）   config_set  
-    127.0.0.1     27001  
-    127.0.0.1     27002  
-    127.0.0.1     27003   
-  分片节点    （2个副本集） share1  
-    127.0.0.1     27004  
-    127.0.0.1     27005   
-    127.0.0.1     27006  
-
-    127.0.0.1     27007   share2  
-    127.0.0.1     27008  
-    127.0.0.1     27009     4.创建文件夹     data  数据文件下目录    
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-  		config1 config2 config3 mongos  share1_1 share1_2 share1_3  share2_1   share2_2  share2_3 
-&lt;p&gt;log  日志&lt;br /&gt;
-  config 配置文件&lt;br /&gt;
-  pid  文件夹&lt;br /&gt;
- 5.先启动配置服务器  副本集&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;	config1.conf
-	logpath=/zyc/mongo_share/log/config1.log
-	pidfilepath=/zyc/mongo_share/pid/config1.pid
-	logappend=true
-	port=27001  
-	fork=true
-	dbpath=/zyc/mongo_share/data/config1/
-	configsvr=true   # 在配置文件添加此项就行
-	oplogSize=512
-	replSet=config_set
-	
-	
-	config2.conf
-	logpath=/zyc/mongo_share/log/config2.log
-	pidfilepath=/zyc/mongo_share/pid/config2.pid
-	logappend=true
-	port=27002  
-	fork=true
-	dbpath=/zyc/mongo_share/data/config2/
-	configsvr=true   # 在配置文件添加此项就行
-	oplogSize=512
-	replSet=config_set
-	
-	config3.conf
-	logpath=/zyc/mongo_share/log/config3.log
-	pidfilepath=/zyc/mongo_share/pid/config3.pid
-	logappend=true
-	port=27003  
-	fork=true
-	dbpath=/zyc/mongo_share/data/config3/
-	configsvr=true   # 在配置文件添加此项就行
-	oplogSize=512
-	replSet=config_set
-	
-	
-	
-	 ./mongod  -f   /zyc/mongo_share/config/config1.conf
-	 ./mongod  -f   /zyc/mongo_share/config/config2.conf
-	  ./mongod -f   /zyc/mongo_share/config/config3.conf
-	
-	
-	
-	mongo 操作
-	./mongo --port 27001
-	use admin
-	
-	config = { _id:&quot;config_set&quot;,members:[ {_id:0,host:&quot;127.0.0.1:27001&quot;}, {_id:1,host:&quot;127.0.0.1:27002&quot;}, {_id:2,host:&quot;127.0.0.1:27003&quot;}] }        #定义副本集
-	
-	rs.initiate(config) 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;6  启动mongos 路由服务器&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    ./mongos  -f /zyc/mongo_share/config/mongos.conf
-
-	mongos.conf  其中的config_set 跟上面的匹配
-	logpath=/zyc/mongo_share/log/mongos.log
-	pidfilepath=/zyc/mongo_share/pid/mongos.pid
-	logappend=true
-	port=27000
-	fork=true
-	configdb=config_set/127.0.0.1:27001,127.0.0.1:27002,127.0.0.1:27003
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;7.分片副本集配置   2个副本集&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  第一组分片
-   share1_1.conf
-logpath=/zyc/mongo_share/log/share1_1.log
-pidfilepath=/zyc/mongo_share/pid/share1.pid
-directoryperdb=true
-logappend=true
-port=27004
-fork=true
-dbpath=/zyc/mongo_share/data/share1_1/
-oplogSize=512
-replSet=share1
-shardsvr=true
-   
-   
-  share1_2.conf
-logpath=/zyc/mongo_share/log/share1_2.log
-pidfilepath=/zyc/mongo_share/pid/share2.pid
-directoryperdb=true
-logappend=true
-port=27005
-fork=true
-dbpath=/zyc/mongo_share/data/share1_2/
-oplogSize=512
-replSet=share1
-shardsvr=true
-
-
-  share1_3.conf
-logpath=/zyc/mongo_share/log/share1_3.log
-pidfilepath=/zyc/mongo_share/pid/share1_3.pid
-directoryperdb=true
-logappend=true
-port=27006
-fork=true
-dbpath=/zyc/mongo_share/data/share1_3/
-oplogSize=512
-replSet=share1
-shardsvr=true
-
-
-
-
- ./mongod  -f   /zyc/mongo_share/config/share1_1.conf
- ./mongod  -f   /zyc/mongo_share/config/share1_2.conf
- ./mongod -f   /zyc/mongo_share/config/share1_3.conf   
-
-
- ./mongo --port 27004
- 
- use admin
-
- shard = {_id:&quot;share1&quot;,members:[{_id:0,host:&quot;127.0.0.1:27004&quot;},{_id:1,host:&quot;127.0.0.1:27005&quot;}, {_id:2,host:&quot;127.0.0.1:27006&quot;}]}
-
- rs.initiate(shard)
-
-
-
- 第二组分片
-
-   share2_1.conf
-logpath=/zyc/mongo_share/log/share2_1.log
-pidfilepath=/zyc/mongo_share/pid/share2_1.pid
-directoryperdb=true
-logappend=true
-port=27007
-fork=true
-dbpath=/zyc/mongo_share/data/share2_1/
-oplogSize=512
-replSet=share2
-shardsvr=true
-   
-   
-  share2.conf
-logpath=/zyc/mongo_share/log/share2_2.log
-pidfilepath=/zyc/mongo_share/pid/share2_2.pid
-directoryperdb=true
-logappend=true
-port=27008
-fork=true
-dbpath=/zyc/mongo_share/data/share2_2/
-oplogSize=512
-replSet=share2
-shardsvr=true
-
-
-  share3.conf
-logpath=/zyc/mongo_share/log/share2_3.log
-pidfilepath=/zyc/mongo_share/pid/share2_3.pid
-directoryperdb=true
-logappend=true
-port=27009
-fork=true
-dbpath=/zyc/mongo_share/data/share2_3/
-oplogSize=512
-replSet=share2
-shardsvr=true
-
-
-
-
- ./mongod  -f   /zyc/mongo_share/config/share2_1.conf
- ./mongod  -f   /zyc/mongo_share/config/share2_2.conf
- ./mongod -f   /zyc/mongo_share/config/share2_3.conf   
-
-
- ./mongo --port 27007
- 
- use admin
-
- shard = {_id:&quot;share2&quot;,members:[{_id:0,host:&quot;127.0.0.1:27007&quot;},{_id:1,host:&quot;127.0.0.1:27008&quot;}, {_id:2,host:&quot;127.0.0.1:27009&quot;}]}
-
- rs.initiate(shard)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;8.启动mongos 路由数据库 添加分片集
-	 ./mongo –port 27000&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; sh.addShard(&quot;share1/127.0.0.1:27004,127.0.0.1:27005,127.0.0.1:27006&quot;);
- sh.addShard(&quot;share2/127.0.0.1:27007,127.0.0.1:27008,127.0.0.1:27009&quot;);
-
-
- sh.status()  
-   查看shards  判断是否成功
-
-
-
--个集合只有且只能有一个分片键，一旦分片键确定好之后就不能更改  （重要呀）
-  8.1 hash分片 指定zyc数据库开始分片  
-   sh.enableSharding(&quot;zyc&quot;)  需要分片的数据库       
-   sh.shardCollection(&quot;zyc.nihao&quot;,{&quot;id&quot;:&quot;hashed&quot;})     //已hash的方式分片  最主要的用这个 
-
-	for(let i=10000;i&amp;lt;90000;i++){
-	    db.nihao.insert({&quot;name&quot;:&apos;name&apos;+i,&quot;id&quot;:i});
-	}
-
-	//查看分片的情况
-	db.nihao.getShardDistribution()
-
-
- 8.2 range 分片  有个默认块 一般大于64M 才会均衡数据
-
- 测试  改变一下块大小否则数据太小无法看出来
-  use config
-  db.settings.save({_id: &quot;chunksize&quot;, value: 2})
-  db.settings.find({_id: &quot;chunksize&quot;})
-
-
-  sh.enableSharding(&quot;zyc&quot;)  需要分片的数据库  
-  sh.shardCollection(&quot;zyc.shenghuo&quot;,{&quot;userid&quot;:1})     
-
-  for (i= 10000; i &amp;lt;=200000; i++){
-   db.shenghuo.insert({age:(i%100), name:&quot;user&quot;+i,userid:i})
-  } 
-
-  //查看分片的情况
-	db.nihao.getShardDistribution()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="mongo" /><summary type="html">1.mongdb 版本 –4.2 版本 （bind_ip 只能绑定一个ip 我草 无情） 分片服务 （副本集） mongo3.4 以后必须的 配置服务器（副本集） mongo 3.4 以后必须的 routes 路由 mongos （可以一台） 什么是副本集，自己百度一下 （就是有mongo主服务器，多个从服务器 当某个从服务器挂了 主服务器会从服务器找个运行正常的使用，如果主服务器挂了 就从从服务器找个作为主服务器） 一般为3个一个副本集 每个副本集请至少保证剩余2台机器，否则不能用，如果多台机器挂掉后剩余2台后，不能再挂掉，否则不能使用 （&amp;lt;2 台 副本集就不能用了 ） （自己测试） 3.安装 暂时没有使用默认端口 （只在一台做实验） routes 127.0.0.1 27000 配置服务器 （一个副本集） config_set 127.0.0.1 27001 127.0.0.1 27002 127.0.0.1 27003 分片节点 （2个副本集） share1 127.0.0.1 27004 127.0.0.1 27005 127.0.0.1 27006</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="go" /><summary type="html">偷偷的告诉你go语言map的底层实现是这样的</summary></entry></feed>
