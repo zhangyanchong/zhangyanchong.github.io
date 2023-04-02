@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-04-02T17:52:01+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">张三的技术.博客</title><subtitle>张三的个人博客</subtitle><author><name>张艳冲</name></author><entry><title type="html">php 加密解密</title><link href="http://localhost:4000/2023/04/01/php%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/" rel="alternate" type="text/html" title="php 加密解密" /><published>2023-04-01T00:00:00+08:00</published><updated>2023-04-01T00:00:00+08:00</updated><id>http://localhost:4000/2023/04/01/php%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86</id><content type="html" xml:base="http://localhost:4000/2023/04/01/php%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/">&lt;h3 id=&quot;1php加密解密使用&quot;&gt;1、php加密解密使用&lt;/h3&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-04-02T18:04:51+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">张三的技术.博客</title><subtitle>张三的个人博客</subtitle><author><name>张艳冲</name></author><entry><title type="html">php 加密解密</title><link href="http://localhost:4000/2023/04/01/php%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/" rel="alternate" type="text/html" title="php 加密解密" /><published>2023-04-01T00:00:00+08:00</published><updated>2023-04-01T00:00:00+08:00</updated><id>http://localhost:4000/2023/04/01/php%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86</id><content type="html" xml:base="http://localhost:4000/2023/04/01/php%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/">&lt;h3 id=&quot;1php加密解密使用&quot;&gt;1、php加密解密使用&lt;/h3&gt;
 
 &lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$str&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;123123&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
@@ -75,7 +75,73 @@ ini_set(&quot;session.cookie_domain&quot;,&apos;.nbsay.cn&apos;);//注：此句�
 session_start();
 echo &quot;&amp;lt;pre&amp;gt;&quot;;print_r($_SESSION);
 ~                              
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="php" /><summary type="html">1、php二级域名共享session</summary></entry><entry><title type="html">这是用gin搭建的app用例,如果你是小白，那它适合你练手！</title><link href="http://localhost:4000/2023/03/22/%E5%B0%8F%E7%99%BD%E5%AD%A6%E4%B9%A0gin%E6%A1%86%E6%9E%B6%E5%86%99%E6%9C%8D%E5%8A%A1/" rel="alternate" type="text/html" title="这是用gin搭建的app用例,如果你是小白，那它适合你练手！" /><published>2023-03-22T00:00:00+08:00</published><updated>2023-03-22T00:00:00+08:00</updated><id>http://localhost:4000/2023/03/22/%20%E5%B0%8F%E7%99%BD%E5%AD%A6%E4%B9%A0gin%E6%A1%86%E6%9E%B6%E5%86%99%E6%9C%8D%E5%8A%A1</id><content type="html" xml:base="http://localhost:4000/2023/03/22/%E5%B0%8F%E7%99%BD%E5%AD%A6%E4%B9%A0gin%E6%A1%86%E6%9E%B6%E5%86%99%E6%9C%8D%E5%8A%A1/">&lt;p&gt;这是用gin搭建的app用例,如果你是小白，那它适合你练手！&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="php" /><summary type="html">1、php二级域名共享session</summary></entry><entry><title type="html">php 导出高级excel</title><link href="http://localhost:4000/2023/03/28/PHP%E5%AF%BC%E5%87%BA%E9%AB%98%E7%BA%A7excel/" rel="alternate" type="text/html" title="php 导出高级excel" /><published>2023-03-28T00:00:00+08:00</published><updated>2023-03-28T00:00:00+08:00</updated><id>http://localhost:4000/2023/03/28/PHP%E5%AF%BC%E5%87%BA%E9%AB%98%E7%BA%A7excel</id><content type="html" xml:base="http://localhost:4000/2023/03/28/PHP%E5%AF%BC%E5%87%BA%E9%AB%98%E7%BA%A7excel/">&lt;p&gt;1 php 导出高级的excel 可导出比较复杂的excel&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/php/excelsuper.png&quot; alt=&quot;aa1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;可导出合并单元格，颜色，大小 具体用法是 （什么样的都能实现）&lt;/p&gt;
+
+&lt;p&gt;2  php 写法&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    
+  /**
+ * 导出文件
+ * @return string
+ */
+public  function  export()
+{
+$file_name = &quot;成绩单-&quot;.date(&quot;Y-m-d H:i:s&quot;,time());
+$file_suffix = &quot;xls&quot;;
+$data[&apos;a&apos;]=1;
+$data[&apos;b&apos;]=&quot;zhangsan&quot;;
+header(&quot;Content-Type: application/vnd.ms-excel&quot;);
+header(&quot;Content-Disposition: attachment; filename=$file_name.$file_suffix&quot;);
+//根据业务，自己进行模板赋值。
+$this-&amp;gt;display(&quot;1.php&quot;,$data);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;3  模板写法 1.php  （只要页面能写出来的excel 样式） 就能导出什么样格式的的excel&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;html xmlns:o=&quot;urn:schemas-microsoft-com:office:office&quot;
+xmlns:x=&quot;urn:schemas-microsoft-com:office:excel&quot;
+xmlns=&quot;http://www.w3.org/TR/REC-html40&quot;&amp;gt;
+&amp;lt;head&amp;gt;
+&amp;lt;meta http-equiv=Content-Type content=&quot;text/html; charset=utf-8&quot;&amp;gt;
+&amp;lt;meta name=ProgId content=Excel.Sheet&amp;gt;
+&amp;lt;meta name=Generator content=&quot;Microsoft Excel 11&quot;&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+&amp;lt;table border=1 cellpadding=0 cellspacing=0 width=&quot;100%&quot; &amp;gt;
+     &amp;lt;tr&amp;gt;
+         &amp;lt;td colspan=&quot;5&quot; align=&quot;center&quot;&amp;gt;
+             &amp;lt;h2&amp;gt;成绩单&amp;lt;/h2&amp;gt;
+         &amp;lt;/td&amp;gt;
+     &amp;lt;/tr&amp;gt;
+     &amp;lt;tr&amp;gt;
+         &amp;lt;td style=&apos;width:54pt&apos; align=&quot;center&quot;&amp;gt;编号&amp;lt;/td&amp;gt;
+         &amp;lt;td style=&apos;width:54pt&apos; align=&quot;center&quot;&amp;gt;姓名&amp;lt;/td&amp;gt;
+         &amp;lt;td style=&apos;width:54pt&apos; align=&quot;center&quot;&amp;gt;语文&amp;lt;/td&amp;gt;
+         &amp;lt;td style=&apos;width:54pt&apos; align=&quot;center&quot;&amp;gt;数学&amp;lt;/td&amp;gt;
+         &amp;lt;td style=&apos;width:54pt&apos; align=&quot;center&quot;&amp;gt;英语&amp;lt;/td&amp;gt;
+     &amp;lt;/tr&amp;gt;
+     &amp;lt;tr&amp;gt;
+        &amp;lt;td align=&quot;center&quot;&amp;gt;1&amp;lt;/td&amp;gt;
+        &amp;lt;td style=&quot;background-color: #00CC00;&quot; align=&quot;center&quot;&amp;gt;&amp;lt;?php $data[&apos;a&apos;] ?&amp;gt;&amp;lt;/td&amp;gt;
+        &amp;lt;td style=&quot;background-color: #00adee;&quot; align=&quot;center&quot;&amp;gt;90&amp;lt;/td&amp;gt;
+        &amp;lt;td style=&quot;background-color: #00CC00;&quot; align=&quot;center&quot;&amp;gt;85&amp;lt;/td&amp;gt;
+        &amp;lt;td style=&quot;background-color: #00adee;&quot; align=&quot;center&quot;&amp;gt;100&amp;lt;/td&amp;gt;
+     &amp;lt;/tr&amp;gt;
+    &amp;lt;tr&amp;gt;
+        &amp;lt;td align=&quot;center&quot;&amp;gt;2&amp;lt;/td&amp;gt;
+        &amp;lt;td style=&quot;background-color: #00CC00;&quot; align=&quot;center&quot;&amp;gt;Tom&amp;lt;/td&amp;gt;
+        &amp;lt;td style=&quot;background-color: #00adee;&quot; align=&quot;center&quot;&amp;gt;99&amp;lt;/td&amp;gt;
+        &amp;lt;td style=&quot;background-color: #00CC00;&quot; align=&quot;center&quot;&amp;gt;85&amp;lt;/td&amp;gt;
+        &amp;lt;td style=&quot;background-color: #00adee;&quot; align=&quot;center&quot;&amp;gt;80&amp;lt;/td&amp;gt;
+    &amp;lt;/tr&amp;gt;
+&amp;lt;/table&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="php" /><summary type="html">1 php 导出高级的excel 可导出比较复杂的excel</summary></entry><entry><title type="html">这是用gin搭建的app用例,如果你是小白，那它适合你练手！</title><link href="http://localhost:4000/2023/03/22/%E5%B0%8F%E7%99%BD%E5%AD%A6%E4%B9%A0gin%E6%A1%86%E6%9E%B6%E5%86%99%E6%9C%8D%E5%8A%A1/" rel="alternate" type="text/html" title="这是用gin搭建的app用例,如果你是小白，那它适合你练手！" /><published>2023-03-22T00:00:00+08:00</published><updated>2023-03-22T00:00:00+08:00</updated><id>http://localhost:4000/2023/03/22/%20%E5%B0%8F%E7%99%BD%E5%AD%A6%E4%B9%A0gin%E6%A1%86%E6%9E%B6%E5%86%99%E6%9C%8D%E5%8A%A1</id><content type="html" xml:base="http://localhost:4000/2023/03/22/%E5%B0%8F%E7%99%BD%E5%AD%A6%E4%B9%A0gin%E6%A1%86%E6%9E%B6%E5%86%99%E6%9C%8D%E5%8A%A1/">&lt;p&gt;这是用gin搭建的app用例,如果你是小白，那它适合你练手！&lt;/p&gt;
 &lt;h2 id=&quot;gin-框架文档&quot;&gt;gin 框架文档&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://gin-gonic.com/docs&quot;&gt;https://gin-gonic.com/docs&lt;/a&gt;&lt;/p&gt;
 
@@ -1308,195 +1374,4 @@ shardsvr=true
 
   //查看分片的情况
 	db.nihao.getShardDistribution()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="mongo" /><summary type="html">1.mongdb 版本 –4.2 版本 （bind_ip 只能绑定一个ip 我草 无情） 分片服务 （副本集） mongo3.4 以后必须的 配置服务器（副本集） mongo 3.4 以后必须的 routes 路由 mongos （可以一台） 什么是副本集，自己百度一下 （就是有mongo主服务器，多个从服务器 当某个从服务器挂了 主服务器会从服务器找个运行正常的使用，如果主服务器挂了 就从从服务器找个作为主服务器） 一般为3个一个副本集 每个副本集请至少保证剩余2台机器，否则不能用，如果多台机器挂掉后剩余2台后，不能再挂掉，否则不能使用 （&amp;lt;2 台 副本集就不能用了 ） （自己测试） 3.安装 暂时没有使用默认端口 （只在一台做实验） routes 127.0.0.1 27000 配置服务器 （一个副本集） config_set 127.0.0.1 27001 127.0.0.1 27002 127.0.0.1 27003 分片节点 （2个副本集） share1 127.0.0.1 27004 127.0.0.1 27005 127.0.0.1 27006</summary></entry><entry><title type="html">holmes服务性能指标监控，让bug无处遁行！</title><link href="http://localhost:4000/2021/03/23/holmes%E6%9C%8D%E5%8A%A1%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E7%9B%91%E6%8E%A7/" rel="alternate" type="text/html" title="holmes服务性能指标监控，让bug无处遁行！" /><published>2021-03-23T00:00:00+08:00</published><updated>2021-03-23T00:00:00+08:00</updated><id>http://localhost:4000/2021/03/23/%20holmes%E6%9C%8D%E5%8A%A1%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E7%9B%91%E6%8E%A7</id><content type="html" xml:base="http://localhost:4000/2021/03/23/holmes%E6%9C%8D%E5%8A%A1%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E7%9B%91%E6%8E%A7/">&lt;p&gt;作为一名”懒惰”的程序员，如何避免在线上Golang系统半夜宕机 （一般是OOM导致的）时起床保存现场呢？又或者如何dump压测时性能尖刺时刻的profile文件呢？
-holmes 或许能帮助您解决以上问题。&lt;/p&gt;
-
-&lt;h1 id=&quot;holmes性能指标监控&quot;&gt;holmes性能指标监控&lt;/h1&gt;
-
-&lt;h2 id=&quot;holmes是什么&quot;&gt;holmes是什么？&lt;/h2&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;对于系统的性能尖刺问题，我们通常使用 Go 官方内置的 pprof 包进行分析，但是难点是对于一闪而过的“尖刺”，
-
-开发人员很难及时保存现场：当你收到告警信息，从被窝中爬起来，打开电脑链接 VPN，系统说不定都已经重启三四趟了。
-
-MOSN 社区的 Holmes 是一个基于 Golang 实现的轻量级性能监控系统，当应用的性能指标发生了异常波动时，
-
-Holmes 会在第一时间保留现场，让你第二天上班可以一边做着大保健，一边追查问题的根因。
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;快速入门&quot;&gt;快速入门&lt;/h2&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
-
-import (
-	&quot;fmt&quot;
-	&quot;mosn.io/holmes&quot;
-	&quot;mosn.io/pkg/log&quot;
-	&quot;net/http&quot;
-	&quot;time&quot;
-)
-
-func init() {
-	http.HandleFunc(&quot;/make1gb&quot;, make1gbslice)
-	go http.ListenAndServe(&quot;:10003&quot;, nil)
-}
-
-var grReportCount int
-var cpuReportCount int
-var memReportCount int
-
-type ReporterImpl struct{}
-
-func (r *ReporterImpl) Report(pType string, buf []byte, reason string, eventID string) error {
-	fmt.Println(fmt.Sprintf(&quot;call %s report \n&quot;, pType))
-
-	switch pType {
-	case &quot;goroutine&quot;:
-		grReportCount++
-	case &quot;cpu&quot;:
-		cpuReportCount++
-	case &quot;mem&quot;:
-		memReportCount++
-
-	}
-	fmt.Println(&quot;type=&quot;, pType, &quot;reason=&quot;, reason, &quot;eventid=&quot;, eventID)
-	fmt.Println(&quot;content =&quot;, string(buf))
-	return nil
-
-}
-func main() {
-	r := &amp;amp;ReporterImpl{} // a implement of holmes.ProfileReporter Interface.
-
-	h, _ := holmes.New(
-		holmes.WithProfileReporter(r),
-		holmes.WithCollectInterval(&quot;2s&quot;),
-		holmes.WithDumpPath(&quot;/tmp/holmes&quot;),
-		//holmes.WithTextDump(),
-		holmes.WithMemDump(3, 25, 80, time.Minute),
-		holmes.WithCPUDump(1, 25, 80, time.Minute),
-		holmes.WithGCHeapDump(10, 20, 40, time.Minute),
-		holmes.WithGoroutineDump(5, 25, 20000, 0, time.Minute),
-		holmes.WithLogger(holmes.NewFileLog(&quot;/tmp/holmes/holmes.log&quot;, log.ERROR)),
-	)
-
-	h.EnableCPUDump().
-		EnableGoroutineDump().
-		EnableMemDump().
-		EnableGCHeapDump().Start()
-	time.Sleep(time.Hour)
-
-}
-
-func make1gbslice(wr http.ResponseWriter, req *http.Request) {
-
-	var a = make([]byte, 1073741824)
-	_ = a
-}
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;上面的代码是用来监控内存指标，超过咱们设置的规则，就会dump，并报警！
-然后执行上面的代码，这样服务就被监控起来了，哈哈哈。
-
-访问这个接口
-http://127.0.0.1:10003/make1gb
-
-你会发现在tmp/holmes目录下有个
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppDQs41&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/25/ppDQs41.png&quot; alt=&quot;ppDQs41.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;咱们现在进入该文件所在目录，开始分析这个文件
-
-go tool pprof mem..20230325130917.601.log
-
-使用 traces 就能很快找到内存泄漏的代码是哪一个，如下图所示
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppD1bnS&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/25/ppD1bnS.png&quot; alt=&quot;ppD1bnS.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;二使用说明&quot;&gt;二、使用说明&lt;/h2&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;类似于 holmes.WithGoroutineDump(min, diff, abs,max,2 * time.Minute) 的 API 
-每个 Profile 都可以配置 min、diff、abs、coolDown 四个指标，含义如下:
-
-当前指标小于 min 时，不视为异常。
-
-当前指标大于 (100+diff)100% 历史指标，说明系统此时产生了波动，视为异常。
-
-当前指标大于 abs (绝对值)时，视为异常。
-
-CPU 和 Goroutine 这两个 Profile 类型提供 Max 参数配置，基于以下考虑：
-
-CPU 的 Profiling 操作大约会有 5% 的性能损耗，所以当在 CPU 过高时，不应当进行 Profiling 操作，否则会拖垮系统。
-
-当 Goroutine 数过大时，Goroutine Dump 操作成本很高，会进行 STW 操作，从而拖垮系统。（详情见文末参考文章）
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;三profile-types&quot;&gt;三、Profile Types&lt;/h2&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Holmes 支持以下五种 Profile 类型，用户可以按需配置。
-
-Mem: 内存分配
-
-CPU: CPU 使用率
-
-Thread: 线程数
-
-Goroutine: 协程数
-
-GCHeap: 基于 GC 周期监控的内存分配
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;四warming-up&quot;&gt;四、Warming up&lt;/h2&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;当 Holmes 启动时，会根据 CollectInterval 周期采集十次各项指标，在这期间内采集到的指标只会存入循环链表中，不会进行规则判断。
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;五事件上报&quot;&gt;五、事件上报&lt;/h2&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;您可以通过实现 Reporter 来实现以下功能：
-
-发送告警信息，当 Holmes 触发 Dump 操作时。
-
-将 Profiles 上传到其他地方，以防实例被销毁，从而导致 Profile 丢失，或进行分析。
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-type ReporterImpl struct{}
-        func (r *ReporterImple) Report(pType string, buf []byte, reason string, eventID string) error{
-            // do something  
-        }
-        ......
-        r := &amp;amp;ReporterImpl{} // a implement of holmes.ProfileReporter Interface.
-      h, _ := holmes.New(
-            holmes.WithProfileReporter(reporter),
-            holmes.WithDumpPath(&quot;/tmp&quot;),
-            holmes.WithLogger(holmes.NewFileLog(&quot;/tmp/holmes.log&quot;, mlog.INFO)),
-            holmes.WithBinaryDump(),
-            holmes.WithMemoryLimit(100*1024*1024), // 100MB
-            holmes.WithGCHeapDump(10, 20, 40, time.Minute),
-)
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;参考资料&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[1]《Holmes 文档》https://github.com/mosn/holmes
-
-[2]《无人值守的自动 dump(一)》https://xargin.com/autodumper-for-go/
-
-[3]《无人值守的自动 dump(二)》https://xargin.com/autodumper-for-go-ii/
-
-[4]《go 语言 pprof heap profile 实现机制》https://uncledou.site/2022/go-pprof-heap/
-
-[5]《goroutines pprofiling STW》https://github.com/golang/go/issues/33250
-
-[6]《Holmes 使用案例文档》https://github.com/mosn/holmes/tree/master/example
-
-[7]《go pprof 性能损耗》https://medium.com/google-cloud/continuous-profiling-of-go-programs-96d4416af77b
-
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="go" /><summary type="html">作为一名”懒惰”的程序员，如何避免在线上Golang系统半夜宕机 （一般是OOM导致的）时起床保存现场呢？又或者如何dump压测时性能尖刺时刻的profile文件呢？ holmes 或许能帮助您解决以上问题。</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="mongo" /><summary type="html">1.mongdb 版本 –4.2 版本 （bind_ip 只能绑定一个ip 我草 无情） 分片服务 （副本集） mongo3.4 以后必须的 配置服务器（副本集） mongo 3.4 以后必须的 routes 路由 mongos （可以一台） 什么是副本集，自己百度一下 （就是有mongo主服务器，多个从服务器 当某个从服务器挂了 主服务器会从服务器找个运行正常的使用，如果主服务器挂了 就从从服务器找个作为主服务器） 一般为3个一个副本集 每个副本集请至少保证剩余2台机器，否则不能用，如果多台机器挂掉后剩余2台后，不能再挂掉，否则不能使用 （&amp;lt;2 台 副本集就不能用了 ） （自己测试） 3.安装 暂时没有使用默认端口 （只在一台做实验） routes 127.0.0.1 27000 配置服务器 （一个副本集） config_set 127.0.0.1 27001 127.0.0.1 27002 127.0.0.1 27003 分片节点 （2个副本集） share1 127.0.0.1 27004 127.0.0.1 27005 127.0.0.1 27006</summary></entry></feed>
