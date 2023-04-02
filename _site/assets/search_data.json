@@ -159,6 +159,18 @@
     } ,
   
     {
+      "title"    : "redis主从和哨兵",
+      "category" : "redis",
+      "url"      : "http://localhost:4000/2020/09/16/redis%E4%B8%BB%E4%BB%8E%E5%93%A8%E5%85%B5/"
+    } ,
+  
+    {
+      "title"    : "redis 集群",
+      "category" : "redis",
+      "url"      : "http://localhost:4000/2020/09/16/redis%E9%9B%86%E7%BE%A4/"
+    } ,
+  
+    {
       "title"    : "mysql从data 恢复数据库",
       "category" : "mysql",
       "url"      : "http://localhost:4000/2020/09/23/mysql%E4%BB%8Edata-%E6%81%A2%E5%A4%8D%E6%95%B0%E6%8D%AE%E5%BA%93/"

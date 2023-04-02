@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>redis主从和哨兵 &mdash; 张三的技术.博客</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2020/09/16/redis%E4%B8%BB%E4%BB%8E%E5%93%A8%E5%85%B5/">
+    <link rel="alternate" type="application/atom+xml" title="张三的技术.博客" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="redis主从和哨兵">
+      
+    <meta name="keywords" content="redis 集群 主从 哨兵">
+    <meta name="og:keywords" content="redis 集群 主从 哨兵">
+      
+    <meta name="description" content="1.redis 主  端口 6300    redis 从  端口 6301  redis 从  端口 6302主服务器修改  port 6300  pidfile /zyc/redis_sentry/zhucong/pid/redis_zhu.pid  logfile "/zyc/redis_sentry/zhucong/log/redis_zhu.log"   dir /zyc/redis_sentry/zhucong/dir/zhu从服务器修改  port 6301  pidfile /zyc/redis_sentry/zhucong/pid/redis_cong_1.pid  logfile "/zyc/redis_sentry/zhucong/log/redis_cong_1.log"   dir /zyc/redis_sentry/zhucong/dir/cong_1  slaveof 127.0.0.1 6300  port 6302  pidfile /zyc/redis_sentry/zhucong/pid/redis_cong_2.pid  logfile "/zyc/redis_sentry/zhucong/log/redis_cong_2.log"   dir /zyc/redis_sentry/zhucong/dir/cong_2  slaveof 127.0.0.1 6300启动/www/server/redis/src/redis-server  /zyc/redis_sentry/zhucong/conf/redis_zhu.conf &amp;/www/server/redis/src/redis-server  /zyc/redis_sentry/zhucong/conf/redis_cong_1.conf &amp;/www/server/redis/src/redis-server  /zyc/redis_sentry/zhucong/conf/redis_cong_2.conf &amp;">
+    <meta name="og:description" content="1.redis 主  端口 6300    redis 从  端口 6301  redis 从  端口 6302主服务器修改  port 6300  pidfile /zyc/redis_sentry/zhucong/pid/redis_zhu.pid  logfile "/zyc/redis_sentry/zhucong/log/redis_zhu.log"   dir /zyc/redis_sentry/zhucong/dir/zhu从服务器修改  port 6301  pidfile /zyc/redis_sentry/zhucong/pid/redis_cong_1.pid  logfile "/zyc/redis_sentry/zhucong/log/redis_cong_1.log"   dir /zyc/redis_sentry/zhucong/dir/cong_1  slaveof 127.0.0.1 6300  port 6302  pidfile /zyc/redis_sentry/zhucong/pid/redis_cong_2.pid  logfile "/zyc/redis_sentry/zhucong/log/redis_cong_2.log"   dir /zyc/redis_sentry/zhucong/dir/cong_2  slaveof 127.0.0.1 6300启动/www/server/redis/src/redis-server  /zyc/redis_sentry/zhucong/conf/redis_zhu.conf &amp;/www/server/redis/src/redis-server  /zyc/redis_sentry/zhucong/conf/redis_cong_1.conf &amp;/www/server/redis/src/redis-server  /zyc/redis_sentry/zhucong/conf/redis_cong_2.conf &amp;">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2020/09/16/redis%E4%B8%BB%E4%BB%8E%E5%93%A8%E5%85%B5/">
+    <meta property="og:site_name" content="张三的技术.博客">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2020-09-16">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="张三的技术.博客"><span class="octicon octicon-mark-github"></span> 张三的技术.博客</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="首页">首页</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="分类">分类</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="维基">维基</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="链接">链接</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="关于作者">关于作者</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+    <section class="collection-head small geopattern" data-pattern-id="redis主从和哨兵">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">redis主从和哨兵</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2020/09/16
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#redis" title="redis">redis</a>
+          </span>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.redis 主  端口 6300  
+  redis 从  端口 6301
+  redis 从  端口 6302
+
+主服务器修改
+  port 6300
+  pidfile /zyc/redis_sentry/zhucong/pid/redis_zhu.pid
+  logfile "/zyc/redis_sentry/zhucong/log/redis_zhu.log" 
+  dir /zyc/redis_sentry/zhucong/dir/zhu
+
+从服务器修改
+  port 6301
+  pidfile /zyc/redis_sentry/zhucong/pid/redis_cong_1.pid
+  logfile "/zyc/redis_sentry/zhucong/log/redis_cong_1.log" 
+  dir /zyc/redis_sentry/zhucong/dir/cong_1
+  slaveof 127.0.0.1 6300
+
+  port 6302
+  pidfile /zyc/redis_sentry/zhucong/pid/redis_cong_2.pid
+  logfile "/zyc/redis_sentry/zhucong/log/redis_cong_2.log" 
+  dir /zyc/redis_sentry/zhucong/dir/cong_2
+  slaveof 127.0.0.1 6300
+
+
+
+启动
+/www/server/redis/src/redis-server  /zyc/redis_sentry/zhucong/conf/redis_zhu.conf &amp;
+/www/server/redis/src/redis-server  /zyc/redis_sentry/zhucong/conf/redis_cong_1.conf &amp;
+/www/server/redis/src/redis-server  /zyc/redis_sentry/zhucong/conf/redis_cong_2.conf &amp;
+
+
+2.哨兵的作用的主服务器down 掉以后 ，从服务器变为主服务器  很大程度保证可用性
+哨兵服务器
+pidfile /zyc/redis_sentry/shaobing/pid/shaobing1.pid
+后面的1 代码一个哨兵  mymaster  随便命名   127.0.0.1  6300  主服务器名称和端口
+sentinel monitor mymaster 127.0.0.1 6300 1
+先启动哨兵再起动主从 才生效    
+/www/server/redis/src/redis-sentinel  /zyc/redis_sentry/shaobing/conf/sentinel_1.conf &amp;
+
+	
+&lt;?php
+//初始化redis对象
+$redis = new Redis();
+//连接sentinel服务 host为ip，port为端口，哨兵的ip和端口号  随便一个哨兵
+$redis-&gt;connect( "127.0.0.1", "26379");
+	
+//獲取主庫列表及其狀態資訊  不好使用不知道为什么
+$result = $redis-&gt;rawCommand('SENTINEL', 'masters');
+	
+//master_name应该由运维告知（也可以由上一步的信息中获取 配置文件）
+$master_name="mymaster";  //哨兵的配置文件
+$result = $redis-&gt;rawCommand('SENTINEL', 'master', $master_name);  //获取主服务器信息
+$zhu= ['ip'=&gt;$result[3], 'port'=&gt;$result[5]];
+	
+//根据所配置的主库redis名称获取其对应从库列表及其信息
+$result = $redis-&gt;rawCommand('SENTINEL', 'slaves', $master_name);  //获取多个从服务器信息
+$slaves = [];
+	
+foreach ($result as $val)
+{
+	 $slaves[] = ['ip'=&gt;$val[3], 'port'=&gt;$val[5]];
+}
+	
+$data['zhu']=$zhu;
+$data['cong']=$slaves;
+//echo "&lt;pre&gt;";print_r($data);
+	
+//获取特定名称的redis主库地址
+$result = $redis-&gt;rawCommand('SENTINEL', 'get-master-addr-by-name', $master_name);
+//以上部分可以获取到主库的ip和对应端口，程序可以直接像链接单台redis一样链接操作使用
+	
+echo "&lt;pre&gt;";print_r($result);
+</code></pre></div></div>
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: decodeURI('/2020/09/16/redis%E4%B8%BB%E4%BB%8E%E5%93%A8%E5%85%B5/'),
+            clientID: '8b219ee2ae6e026b9aef',
+            clientSecret: 'bf75351baf3c53614a859649a96c98d18b713391',
+            repo: 'zhangyanchong.github.io',
+            owner: 'zhangyanchong',
+            admin: ['zhangyanchong'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2020
+                    <span title="张艳冲">张艳冲</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="https://github.com/zhangyanchong/zhangyanchong.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="首页" target="">首页</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="分类" target="">分类</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="维基" target="">维基</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="链接" target="">链接</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="关于作者" target="">关于作者</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>
