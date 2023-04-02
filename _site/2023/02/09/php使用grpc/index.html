@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>php 使用grpc例子 &mdash; 张三的技术.博客</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2023/02/09/php%E4%BD%BF%E7%94%A8grpc/">
+    <link rel="alternate" type="application/atom+xml" title="张三的技术.博客" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="php 使用grpc例子">
+      
+    <meta name="keywords" content="php grpc  使用">
+    <meta name="og:keywords" content="php grpc  使用">
+      
+    <meta name="description" content="php 使用grpc例子">
+    <meta name="og:description" content="php 使用grpc例子">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2023/02/09/php%E4%BD%BF%E7%94%A8grpc/">
+    <meta property="og:site_name" content="张三的技术.博客">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2023-02-09">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="张三的技术.博客"><span class="octicon octicon-mark-github"></span> 张三的技术.博客</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="首页">首页</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="分类">分类</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="维基">维基</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="链接">链接</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="关于作者">关于作者</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+    <section class="collection-head small geopattern" data-pattern-id="php 使用grpc例子">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">php 使用grpc例子</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2023/02/09
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#php" title="php">php</a>
+          </span>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <h3 id="php-使用grpc例子">php 使用grpc例子</h3>
+
+<h1 id="grpc">grpc</h1>
+<p><strong>php做客户端 go做服务器</strong><br />
+第一步 需要安装php扩展 protobuf  grpc</p>
+<blockquote>
+  <ul>
+    <li>个人安装的protobuf 为 3.6.1</li>
+    <li>grpc的版本为1.14.1</li>
+  </ul>
+</blockquote>
+
+<p>相关文章  git clone github.com/grpc/grpc.git</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone github.com/grpc/grpc.git
+git submodule update --init
+make
+make install
+#为了生成grpc client stub code，最好make grpc_php_plugin
+make grpc_php_plugin
+</code></pre></div></div>
+
+<p>不一定成功 跟服务有关 如果遇到问题可参考 git 文章</p>
+
+<p>生成的命令
+ <code class="language-plaintext highlighter-rouge">/usr/local/protobuf/bin/protoc  --plugin=protoc-gen-php='/tmp/php-protobuf-master/protoc-gen-php.php'     --proto_path='/www/tmp'     --php_out=':./'     '/www/tmp/sms.proto'</code>   经常不好用 可以用下面的这个</p>
+
+<p>`  /usr/local/protobuf/bin/protoc –proto_path=/www/tmp –php_out=/www/tmp  –grpc_out=/www/tmp 
+ –plugin=protoc-gen-grpc=/usr/local/bin/grpc_php_plugin   /www/tmp/push.proto
+`</p>
+
+<p>解释一下</p>
+<ol>
+  <li>/usr/local/protobuf/bin/protoc  为安装的protobuf的产生的 如果找不到 find / -name protoc   此处为绝对的路径</li>
+  <li>–plugin=protoc-gen-php=’/tmp/php-protobuf-master/protoc-gen-php.php’   代表刚才git clone 下来的文件里面的 /tmp/php-protobuf-master/protoc-gen-php.php  也是绝对路径</li>
+  <li>–proto_path=’/www/tmp’    此处指的是sms.proto 的路径</li>
+  <li>–php_out=’:./’  此处为生成的php 代码路径 此处指当前路径</li>
+  <li>‘/www/tmp/sms.proto’  此处为真实的sms.proto</li>
+</ol>
+
+<p>生成为以后使用 <br />
+1.需要一些类库 例如composer.json <br />
+   “grpc/grpc”: “^v1.3.0”<br />
+    “google/protobuf”: “^v3.3.0”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+    "name": "laravel/lumen",
+    "description": "The Laravel Lumen Framework.",
+    "keywords": ["framework", "laravel", "lumen"],
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "php": "&gt;=5.6.4",
+        "laravel/lumen-framework": "5.5.*",
+        "vlucas/phpdotenv": "~2.2",
+        "aliyuncs/oss-sdk-php": "^2.3",
+        "grpc/grpc": "^v1.3.0",
+        "google/protobuf": "^v3.3.0"
+    }
+} 
+</code></pre></div></div>
+
+<p>2 生成的代码都有一个 *client.php 比如user.proto 生成UserClient.php <br />
+  此处有相关的使用方法<br />
+  生成代码例如有<br />
+  UserClient.php<br />
+  UserBaseInfo.php<br />
+  AuthTypeInfo.php<br />
+  BatchFetchUserBaseInfoByUUIDReply.php</p>
+
+<p>3 代码展示<br />
+  使用时候注意一下命名空间 包含和引用的问题</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$hostname="127.12.175.176:1234";
+$userId="155984201";
+ $request=new  GetUserBaseInfoRequest();
+$request-&gt;setUserID($userId);
+$client=new UserClient($hostname,[
+'credentials' =&gt; \Grpc\ChannelCredentials::createInsecure(),
+]);
+list($result, $status) = $client-&gt;GetUserBaseInfo($request)-&gt;wait();
+$client-&gt;close();
+$obj=($result-&gt;getInfo());
+echo $obj-&gt;getUuid();
+echo $obj-&gt;getName();
+</code></pre></div></div>
+
+<p>-&gt;wait(); 这句很重要</p>
+
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: decodeURI('/2023/02/09/php%E4%BD%BF%E7%94%A8grpc/'),
+            clientID: '8b219ee2ae6e026b9aef',
+            clientSecret: 'bf75351baf3c53614a859649a96c98d18b713391',
+            repo: 'zhangyanchong.github.io',
+            owner: 'zhangyanchong',
+            admin: ['zhangyanchong'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2020
+                    <span title="张艳冲">张艳冲</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="https://github.com/zhangyanchong/zhangyanchong.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="首页" target="">首页</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="分类" target="">分类</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="维基" target="">维基</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="链接" target="">链接</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="关于作者" target="">关于作者</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>
