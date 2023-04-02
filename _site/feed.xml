@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-04-02T18:11:45+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">张三的技术.博客</title><subtitle>张三的个人博客</subtitle><author><name>张艳冲</name></author><entry><title type="html">php 加密解密</title><link href="http://localhost:4000/2023/04/01/php%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/" rel="alternate" type="text/html" title="php 加密解密" /><published>2023-04-01T00:00:00+08:00</published><updated>2023-04-01T00:00:00+08:00</updated><id>http://localhost:4000/2023/04/01/php%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86</id><content type="html" xml:base="http://localhost:4000/2023/04/01/php%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/">&lt;h3 id=&quot;1php加密解密使用&quot;&gt;1、php加密解密使用&lt;/h3&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-04-02T18:28:39+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">张三的技术.博客</title><subtitle>张三的个人博客</subtitle><author><name>张艳冲</name></author><entry><title type="html">php 加密解密</title><link href="http://localhost:4000/2023/04/01/php%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/" rel="alternate" type="text/html" title="php 加密解密" /><published>2023-04-01T00:00:00+08:00</published><updated>2023-04-01T00:00:00+08:00</updated><id>http://localhost:4000/2023/04/01/php%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86</id><content type="html" xml:base="http://localhost:4000/2023/04/01/php%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/">&lt;h3 id=&quot;1php加密解密使用&quot;&gt;1、php加密解密使用&lt;/h3&gt;
 
 &lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$str&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;123123&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
@@ -48,34 +48,7 @@
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
 &lt;span class=&quot;cp&quot;&gt;?&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="php" /><summary type="html">1、php加密解密使用</summary></entry><entry><title type="html">php 二级域名共享session</title><link href="http://localhost:4000/2023/03/29/php%E5%85%B1%E4%BA%ABsession/" rel="alternate" type="text/html" title="php 二级域名共享session" /><published>2023-03-29T00:00:00+08:00</published><updated>2023-03-29T00:00:00+08:00</updated><id>http://localhost:4000/2023/03/29/php%E5%85%B1%E4%BA%ABsession</id><content type="html" xml:base="http://localhost:4000/2023/03/29/php%E5%85%B1%E4%BA%ABsession/">&lt;h3 id=&quot;1php二级域名共享session&quot;&gt;1、php二级域名共享session&lt;/h3&gt;
-
-&lt;p&gt;配置方法一：在php.ini配置文件中设置   session.cookie_domain   的域名值，重启php-fpm&lt;br /&gt;
-php
-session.cookie_domain = .zixuephp.net&lt;br /&gt;
-配置方法二：在php公共代码前设置
-php
-ini_set(‘session.cookie_domain’,’.zixuephp.net’);&lt;/p&gt;
-
-&lt;p&gt;代码如下：&lt;/p&gt;
-
-&lt;p&gt;1.php&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;?php
-ini_set(&quot;session.cookie_domain&quot;,&apos;.nbsay.cn&apos;);//注：此句必须放在session_start()之前
-session_start();
-$_SESSION[&apos;abc&apos;]=4556;
-echo &quot;&amp;lt;a href=&apos;http://my.nbsay.cn/2.php&apos;&amp;gt;tiaozhuan&amp;lt;a&amp;gt;&quot;;            
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;2.php&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;?php
-ini_set(&quot;session.cookie_domain&quot;,&apos;.nbsay.cn&apos;);//注：此句必须放在session_start()之前  
-session_start();
-echo &quot;&amp;lt;pre&amp;gt;&quot;;print_r($_SESSION);
-~                              
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="php" /><summary type="html">1、php二级域名共享session</summary></entry><entry><title type="html">php 导出高级excel</title><link href="http://localhost:4000/2023/03/28/PHP%E5%AF%BC%E5%87%BA%E9%AB%98%E7%BA%A7excel/" rel="alternate" type="text/html" title="php 导出高级excel" /><published>2023-03-28T00:00:00+08:00</published><updated>2023-03-28T00:00:00+08:00</updated><id>http://localhost:4000/2023/03/28/PHP%E5%AF%BC%E5%87%BA%E9%AB%98%E7%BA%A7excel</id><content type="html" xml:base="http://localhost:4000/2023/03/28/PHP%E5%AF%BC%E5%87%BA%E9%AB%98%E7%BA%A7excel/">&lt;p&gt;1 php 导出高级的excel 可导出比较复杂的excel&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="php" /><summary type="html">1、php加密解密使用</summary></entry><entry><title type="html">php 导出高级excel</title><link href="http://localhost:4000/2023/03/28/PHP%E5%AF%BC%E5%87%BA%E9%AB%98%E7%BA%A7excel/" rel="alternate" type="text/html" title="php 导出高级excel" /><published>2023-03-28T00:00:00+08:00</published><updated>2023-03-28T00:00:00+08:00</updated><id>http://localhost:4000/2023/03/28/PHP%E5%AF%BC%E5%87%BA%E9%AB%98%E7%BA%A7excel</id><content type="html" xml:base="http://localhost:4000/2023/03/28/PHP%E5%AF%BC%E5%87%BA%E9%AB%98%E7%BA%A7excel/">&lt;p&gt;1 php 导出高级的excel 可导出比较复杂的excel&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/posts/php/excelsuper.png&quot; alt=&quot;aa1&quot; /&gt;&lt;/p&gt;
 
@@ -141,7 +114,139 @@ xmlns=&quot;http://www.w3.org/TR/REC-html40&quot;&amp;gt;
 &amp;lt;/table&amp;gt;
 &amp;lt;/body&amp;gt;
 &amp;lt;/html&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="php" /><summary type="html">1 php 导出高级的excel 可导出比较复杂的excel</summary></entry><entry><title type="html">这是用gin搭建的app用例,如果你是小白，那它适合你练手！</title><link href="http://localhost:4000/2023/03/22/%E5%B0%8F%E7%99%BD%E5%AD%A6%E4%B9%A0gin%E6%A1%86%E6%9E%B6%E5%86%99%E6%9C%8D%E5%8A%A1/" rel="alternate" type="text/html" title="这是用gin搭建的app用例,如果你是小白，那它适合你练手！" /><published>2023-03-22T00:00:00+08:00</published><updated>2023-03-22T00:00:00+08:00</updated><id>http://localhost:4000/2023/03/22/%20%E5%B0%8F%E7%99%BD%E5%AD%A6%E4%B9%A0gin%E6%A1%86%E6%9E%B6%E5%86%99%E6%9C%8D%E5%8A%A1</id><content type="html" xml:base="http://localhost:4000/2023/03/22/%E5%B0%8F%E7%99%BD%E5%AD%A6%E4%B9%A0gin%E6%A1%86%E6%9E%B6%E5%86%99%E6%9C%8D%E5%8A%A1/">&lt;p&gt;这是用gin搭建的app用例,如果你是小白，那它适合你练手！&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="php" /><summary type="html">1 php 导出高级的excel 可导出比较复杂的excel</summary></entry><entry><title type="html">php 平滑重启服务</title><link href="http://localhost:4000/2023/03/15/php%E5%B9%B3%E6%BB%91%E9%87%8D%E5%90%AF/" rel="alternate" type="text/html" title="php 平滑重启服务" /><published>2023-03-15T00:00:00+08:00</published><updated>2023-03-15T00:00:00+08:00</updated><id>http://localhost:4000/2023/03/15/php%E5%B9%B3%E6%BB%91%E9%87%8D%E5%90%AF</id><content type="html" xml:base="http://localhost:4000/2023/03/15/php%E5%B9%B3%E6%BB%91%E9%87%8D%E5%90%AF/">&lt;h3 id=&quot;php-平滑重启服务方式&quot;&gt;php 平滑重启服务方式&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PHP
+查看到php-fpm的master进程号后，使用信号控制重启php-fpm：
+
+INT，TERM：立刻终止  
+QUIT：平滑终止  
+USR1：重新打开日志文件  
+USR2：平滑重载所有worker进程并重新载入配置和二进制模块    
+
+1264 主进程号
+根据信号控制重启php-fpm执行命令：kill -USR2 1264，即可重启php-fpm。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="php" /><summary type="html">php 平滑重启服务方式</summary></entry><entry><title type="html">mongo的备份与恢复</title><link href="http://localhost:4000/2022/09/08/mongo%E7%9A%84%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/" rel="alternate" type="text/html" title="mongo的备份与恢复" /><published>2022-09-08T00:00:00+08:00</published><updated>2022-09-08T00:00:00+08:00</updated><id>http://localhost:4000/2022/09/08/mongo%E7%9A%84%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D</id><content type="html" xml:base="http://localhost:4000/2022/09/08/mongo%E7%9A%84%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/">&lt;h2 id=&quot;1mongo-分片-备份--和--恢复&quot;&gt;1.mongo 分片 备份  和  恢复&lt;/h2&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;备份指定库   
+	
+mongodump --host 127.0.0.1 --port 27000  -d zyc -o /zyc/mongo_share/tmp  
+它会在/tmp/目录下面生成一个mydb的目录   
+	 
+备份所有库   
+mongodump --host 127.0.0.1 --port 20000 -o /tmp/mongobak/alldatabase   
+	 
+指定备份集合   
+mongodump --host 127.0.0.1 --port 20000 -d mydb -c c1 -o /tmp/mongobak/   
+它依然会生成mydb目录，再在这目录下面生成两个文件   
+	
+导出集合为json文件   
+mongoexport --host 127.0.0.1 --port 20000 -d mydb -c c1 -o /tmp/mydb2/1.json 
+
+
+	
+恢复所有库   
+mongorestore -h 127.0.0.1 --port 20000 --drop dir/ //其中dir是备份所有库的目录名字，其中--drop可选，意思是当恢复之前先把之前的数据删除，不建议使用   
+	
+恢复指定库   mongorestore -d zyc /zyc/mongo_share/tmp/zyc  //-d跟要恢复的库名字，dir就是该库备份时所在的目录  
+	
+恢复集合  mongorestore -d mydb -c testc dir/mydb/testc.bson // -c后面跟要恢复的集合名字，dir是备份mydb库时生成文件所在路径，这里是一个bson文件的路径   
+	
+导入集合   mongoimport -d mydb -c testc --file /tmp/testc.json  
+
+恢复带密码的指定库 
+/mnt/mongo_share/mongodb42/bin/mongorestore   -h 127.0.0.1:27017  -d calorie_log /mnt/bak_mongo_data/20210127/calorie_log   -u 用户名 -p 密码  --authenticationDatabase admin
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="mongo" /><summary type="html">1.mongo 分片 备份 和 恢复</summary></entry><entry><title type="html">go语言内存逃逸场景分析</title><link href="http://localhost:4000/2022/05/06/%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8%E5%9C%BA%E6%99%AF/" rel="alternate" type="text/html" title="go语言内存逃逸场景分析" /><published>2022-05-06T00:00:00+08:00</published><updated>2022-05-06T00:00:00+08:00</updated><id>http://localhost:4000/2022/05/06/%20%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8%E5%9C%BA%E6%99%AF</id><content type="html" xml:base="http://localhost:4000/2022/05/06/%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8%E5%9C%BA%E6%99%AF/">&lt;p&gt;内存逃逸是由编译器来决定内存分配的位置（是在栈上还是在堆上分配内存），而不是由程序员来决定的！
+在函数中申请一个新的对象：&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1、如果分配在栈中，则函数执行结束后可自行将内存回收
+2、如果分配在堆中，则函数执行结束后可交给GC(垃圾回收)处理。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;内存逃逸场景&quot;&gt;内存逃逸场景&lt;/h1&gt;
+
+&lt;h2 id=&quot;1指针逃逸&quot;&gt;1、指针逃逸&lt;/h2&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;我们知道Go可以返回局部变量指针，这其实是一个典型的变量逃逸案例。
+
+type Student struct {
+	Name string
+}
+
+func Say() *Student {
+	stu := Student{}
+	stu.Name = &quot;张三&quot;
+	return &amp;amp;stu
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppwnhE6&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/23/ppwnhE6.png&quot; alt=&quot;ppwnhE6.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;2栈空间不足逃逸&quot;&gt;2、栈空间不足逃逸&lt;/h2&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;很多函数的参数为interface 类型，比如 fmt.Println(a ...interface{}),编译期间很难确定其参数的具体类型，也会产生逃逸
+
+func slice() {
+	s := make([]int, 10000, 10000)
+
+	for index, _ := range s {
+		s[index] = index
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppwnjVP&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/23/ppwnjVP.png&quot; alt=&quot;ppwnjVP.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;3动态类型逃逸&quot;&gt;3、动态类型逃逸&lt;/h2&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;s := &quot;sbc&quot;
+fmt.Println(s)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppwuEV0&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/23/ppwuEV0.png&quot; alt=&quot;ppwuEV0.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;4闭包引用对象逃逸&quot;&gt;4、闭包引用对象逃逸&lt;/h2&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func bibao() func() int {
+	a, b := 0, 1
+
+	return func() int {
+		a, b = b, a+b
+		return a
+	}
+}
+
+该函数返回一个闭包，闭包引用了函数的局部变量a和b,使用时通过该函数获取闭包,a,b只能放到堆中，所以产生了逃逸。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppwunGF&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/23/ppwunGF.png&quot; alt=&quot;ppwunGF.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;小结：&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;栈上分配内存比在堆中分配内存有更高的效率；
+栈上分配的内存不需要GC处理；
+逃逸分析的目的是决定分配地址是栈还是堆；
+逃逸分析在编译阶段完成；
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="go" /><summary type="html">内存逃逸是由编译器来决定内存分配的位置（是在栈上还是在堆上分配内存），而不是由程序员来决定的！ 在函数中申请一个新的对象： 1、如果分配在栈中，则函数执行结束后可自行将内存回收 2、如果分配在堆中，则函数执行结束后可交给GC(垃圾回收)处理。</summary></entry><entry><title type="html">php 二级域名共享session</title><link href="http://localhost:4000/2022/03/29/php%E5%85%B1%E4%BA%ABsession/" rel="alternate" type="text/html" title="php 二级域名共享session" /><published>2022-03-29T00:00:00+08:00</published><updated>2022-03-29T00:00:00+08:00</updated><id>http://localhost:4000/2022/03/29/php%E5%85%B1%E4%BA%ABsession</id><content type="html" xml:base="http://localhost:4000/2022/03/29/php%E5%85%B1%E4%BA%ABsession/">&lt;h3 id=&quot;1php二级域名共享session&quot;&gt;1、php二级域名共享session&lt;/h3&gt;
+
+&lt;p&gt;配置方法一：在php.ini配置文件中设置   session.cookie_domain   的域名值，重启php-fpm&lt;br /&gt;
+php
+session.cookie_domain = .zixuephp.net&lt;br /&gt;
+配置方法二：在php公共代码前设置
+php
+ini_set(‘session.cookie_domain’,’.zixuephp.net’);&lt;/p&gt;
+
+&lt;p&gt;代码如下：&lt;/p&gt;
+
+&lt;p&gt;1.php&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;?php
+ini_set(&quot;session.cookie_domain&quot;,&apos;.nbsay.cn&apos;);//注：此句必须放在session_start()之前
+session_start();
+$_SESSION[&apos;abc&apos;]=4556;
+echo &quot;&amp;lt;a href=&apos;http://my.nbsay.cn/2.php&apos;&amp;gt;tiaozhuan&amp;lt;a&amp;gt;&quot;;            
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;2.php&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;?php
+ini_set(&quot;session.cookie_domain&quot;,&apos;.nbsay.cn&apos;);//注：此句必须放在session_start()之前  
+session_start();
+echo &quot;&amp;lt;pre&amp;gt;&quot;;print_r($_SESSION);
+~                              
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="php" /><summary type="html">1、php二级域名共享session</summary></entry><entry><title type="html">这是用gin搭建的app用例,如果你是小白，那它适合你练手！</title><link href="http://localhost:4000/2022/03/22/%E5%B0%8F%E7%99%BD%E5%AD%A6%E4%B9%A0gin%E6%A1%86%E6%9E%B6%E5%86%99%E6%9C%8D%E5%8A%A1/" rel="alternate" type="text/html" title="这是用gin搭建的app用例,如果你是小白，那它适合你练手！" /><published>2022-03-22T00:00:00+08:00</published><updated>2022-03-22T00:00:00+08:00</updated><id>http://localhost:4000/2022/03/22/%20%E5%B0%8F%E7%99%BD%E5%AD%A6%E4%B9%A0gin%E6%A1%86%E6%9E%B6%E5%86%99%E6%9C%8D%E5%8A%A1</id><content type="html" xml:base="http://localhost:4000/2022/03/22/%E5%B0%8F%E7%99%BD%E5%AD%A6%E4%B9%A0gin%E6%A1%86%E6%9E%B6%E5%86%99%E6%9C%8D%E5%8A%A1/">&lt;p&gt;这是用gin搭建的app用例,如果你是小白，那它适合你练手！&lt;/p&gt;
 &lt;h2 id=&quot;gin-框架文档&quot;&gt;gin 框架文档&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://gin-gonic.com/docs&quot;&gt;https://gin-gonic.com/docs&lt;/a&gt;&lt;/p&gt;
 
@@ -331,421 +436,7 @@ make run
 
 &lt;h3 id=&quot;7-访问swagger接口文档&quot;&gt;7) 访问swagger接口文档&lt;/h3&gt;
 
-&lt;p&gt;http://localhost:8081/swagger/index.html&lt;/p&gt;</content><author><name>张艳冲</name></author><category term="go" /><summary type="html">这是用gin搭建的app用例,如果你是小白，那它适合你练手！ gin 框架文档 https://gin-gonic.com/docs</summary></entry><entry><title type="html">小白学习docker入门到放弃</title><link href="http://localhost:4000/2023/03/17/docker%E5%B0%8F%E7%99%BD%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%89%8B%E8%AE%B0/" rel="alternate" type="text/html" title="小白学习docker入门到放弃" /><published>2023-03-17T00:00:00+08:00</published><updated>2023-03-17T00:00:00+08:00</updated><id>http://localhost:4000/2023/03/17/%20docker%E5%B0%8F%E7%99%BD%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%89%8B%E8%AE%B0</id><content type="html" xml:base="http://localhost:4000/2023/03/17/docker%E5%B0%8F%E7%99%BD%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%89%8B%E8%AE%B0/">&lt;h2 id=&quot;docker-自学笔记&quot;&gt;docker 自学笔记&lt;/h2&gt;
-
-&lt;h3 id=&quot;一docker-安装&quot;&gt;一、docker 安装&lt;/h3&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1、mac下安装
-brew install docker
-
-2、docker配置
-{
-  &quot;builder&quot;: {
-    &quot;gc&quot;: {
-      &quot;defaultKeepStorage&quot;: &quot;20GB&quot;,
-      &quot;enabled&quot;: true
-    }
-  },
-  &quot;experimental&quot;: false,
-  &quot;features&quot;: {
-    &quot;buildkit&quot;: true
-  },
-  &quot;insecure-registries&quot;: [
-    &quot;127.0.0.1:5000&quot;
-  ],
-  &quot;registry-mirrors&quot;: [
-    &quot;https://dfggrvdfvdf.mirror.aliyuncs.com&quot;
-  ]
-}
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;二容器三要素&quot;&gt;二、容器三要素&lt;/h3&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;容器，镜像，仓库
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;三ubuntu-安装&quot;&gt;三、ubuntu 安装&lt;/h3&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; 1、拉镜像
- docker pull ubuntu
- 
- 2、使用镜像创建ubuntu容器
- docker run -it --name=mylinux -d ubuntu  /bin/bash
- 
- 3、查看运行的所有容器
- docker ps -a
- 
- 4、进入容器交互终端
- docker exec -it mylinux /bin/bash
- 
- 5、强制删除容器
- docker rm -f mylinux
- 
- 6、停止容器
- docker stop  mylinux
- 
- 7、删除容器
- docker rm mylinux
- 
- 8、查看容器的进程
- docker top mylinux
- 
- 9、将容器的内容拷贝到宿主机
- docker cp 00293c6120d5:/home/a.txt  /tmp/
- 
- 10、将容器被导出
- docker export 00293c6120d5 &amp;gt; abc.tar
- 
- 11、将容器导出镜像
- cat abc.tar| docker import - lft/ubuntu:3.9
- 
- 12、还原容器
- docker run -it --name=newlinux -d a97f0637883b  /bin/bash
- 
- 
- 13、提交容器副本
- docker commit -m=&quot;new linux image&quot; -a=&quot;zhangsan&quot; 8ab3fe9feda7 newubuntu:1.8
- 
- 14、启动新生成的镜像
- docker run -it --name=mylinux -d  9bb4ce12c704  /bin/bash
- 
- 注意⚠️
- docker exec 不会退出容器
- docker attach 会退出容器
- 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;四私有库搭建&quot;&gt;四、私有库搭建&lt;/h3&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  1、docker pull registry
-  
-  2、docker run -d --name registry -p 5000:5000 -v /tmp/docker/registry:/tmp/registry registry
-  
-  3、docker tag hello:v1 127.0.0.1:5000/hello:v1
-  
-  4、配置daemon.json并重启docker
-  { 
-    &quot;insecure-registries&quot; : [ &quot;your-server-ip:5000&quot; ] 
-  }
-  
-  5、推送到私有库
-  docker push 127.0.0.1:5000/hello:v1
-  
-  6、拉取镜像
-  docker pull 127.0.0.1:5000/hello:v1
-    
-  7、跑起来  
-  docker run -it --name hello -p 8080:8080 -d 127.0.0.1:5000/hello:v1
-  
-    
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;五容器卷&quot;&gt;五、容器卷&lt;/h3&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; 1、目录挂载
- docker run -it --name mylinux  --privileged=true -v /tmp/mylinux/data:/tmp/data ubuntu /bin/bash
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;六安装tomcat&quot;&gt;六、安装tomcat&lt;/h3&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run -it --name mytomcat  -p 8888:8080 -d tomcat:8.0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;七安装mysql&quot;&gt;七、安装mysql&lt;/h3&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1、简单安装
-docker run --name my-mysql -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306 -d mysql:8.0
-
-2、企业级安装
-docker run -d -p 3306:3306 --privileged=true \
--v /Users/liufangting/home/mysql/log:/var/log/mysql \
--v /Users/liufangting/home/mysql/data:/var/lib/mysql \
--v /Users/liufangting/home/mysql/conf:/etc/mysql/conf.d \
--e MYSQL_ROOT_PASSWORD=123456 \
---name mysql-master \
-mysql
-
-
-[client]
-default-character-set=utf8
-
-[mysqld]
-character-set-server=utf8
-default-storage-engine=INNODB
-
-
-3、集群步骤
-1)新建mysql主服务
-docker run -d -p 3307:3306 --privileged=true \
--v /Users/liufangting/home/mysql/3307/log:/var/log/mysql \
--v /Users/liufangting/home/mysql/3307/data:/var/lib/mysql \
--v /Users/liufangting/home/mysql/3307/conf:/etc/mysql \
--e MYSQL_ROOT_PASSWORD=123456 \
---name mysql-master \
-mysql:5.7
-2)mysql-master的文件配置
-
-
-3)mysql-master重启
-docker restart mysql-master
-
-4)登陆-mysql-master创建从服务账号
-
-CREATE USER &apos;slave&apos;@&apos;%&apos; IDENTIFIED BY &apos;123456&apos;;
-#给master用户配置复制权限,可访问库为所有,可访问地址为所有
-grant replication slave ,replication client on *.* to &apos;slave&apos;@&apos;%&apos;;
-
-5)新建从服务器
-docker run -d -p 3308:3306 --privileged=true \
--v /Users/liufangting/home/mysql/3308/log:/var/log/mysql \
--v /Users/liufangting/home/mysql/3308/data:/var/lib/mysql \
--v /Users/liufangting/home/mysql/3308/conf:/etc/mysql \
--e MYSQL_ROOT_PASSWORD=123456 \
---name mysql-slave \
-mysql:5.7
-
-6)修改mysql-slave文件的配置
-[mysqld]
-## 设置server ID 同一局域网中需要唯一
-server_id=102
-## 指定不需要同步的数据库名称
-binlog-ignore-db=mysql
-## 开启二进制日志功能
-log-bin=mall-mysql-bin
-## 设置二进制日志使用内存大小
-binlog_cache_size=1M
-## 设置使用二进制的日志格式
-binlog_format=mixed
-## 二进制日志过期清理时间
-expire_logs_days=7
-## 跳过主层复制遇到的错误
-slave_skip_errors=1062
-
-## 配置中继日志
-reply_log=mall-mysql-repay-bin
-##slave 将复制事件写进自己的二进制日志
-log_slave_updates=1
-## slave设置为只读
-read_only=1
-
-7)重启mysql-slave
-docker restart mysql-slave
-
-
-8)登陆mysql-master查看同步状态
-show master status;
-
-9)从数据库配置主层复制
-
-change master to master_host=&quot;172.17.0.2&quot;,
-master_user=&quot;slave&quot;,master_password=&apos;123456&apos;,master_port=3306,
-master_log_file=&apos;mall-mysql-bin.000001&apos;,master_log_pos=1097,
-master_connect_retry=30;
-
-
-show slave status\G;
-Slave_IO_Running: No
-Slave_SQL_Running: No
-
-10)从数据库开启主从同步
-start slave
-
-show slave status\G;
-
-Slave_IO_Running: Yes
-Slave_SQL_Running: Yes
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;八redis-安装&quot;&gt;八、redis 安装&lt;/h3&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1、拉取镜像
-docker pull redis
-
-2、简单安装redis服务
-docker run -it --name myredis -d redis
-
-3、企业级安装
-docker run -d -p 6379:6379  --privileged=true \
--v /Users/liufangting/home/redis/conf:/usr/local/etc/redis \
--v /Users/liufangting/home/redis/data:/data \
---name myredis redis redis-server /usr/local/etc/redis/redis.conf 
-  
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;九docker自定义网络&quot;&gt;九、docker自定义网络&lt;/h3&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1、新建网络
-docker network create lft
-
-2、使用自己新建的网络运行容器
-docker run -it --name mytomcat  -p 8888:8080  --network lft -d tomcat:8.0
-
-docker run -it --name mytomcat2  -p 8889:8080  --network lft -d tomcat:8.0
-
-docker exec -it mytomcat /bin/bash
-
-ping mytomcat2
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;十docker-compose-使用&quot;&gt;十、docker-compose 使用&lt;/h3&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; mac桌面版已经安装了docker-compose
- 
- 1、开发微服务项目
- 
- 2、配置dockerfile文件生成镜像
- 
- 3、配置docker-compose文件启动容器
-  docker-compose up
-  相当于把多个docker run 一健运行
-  
-  
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;十一监控docker容器&quot;&gt;十一、监控docker容器&lt;/h3&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run -p 9000:9000 -p 8000:8000 --name portainer \
---restart=always \
--v /var/run/docker.sock:/var/run/docker.sock \
--v /Users/liufangting/home/portainer/data:/data \
--d portainer/portainer
- 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;十二使用docker创建etcd容器&quot;&gt;十二、使用docker创建etcd容器&lt;/h3&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;version: &apos;3&apos;
-
-networks:
-  etcd-network:
-
-services:
-  etcd:
-    container_name: &quot;etcd_server&quot;
-    image: bitnami/etcd:latest
-    privileged: true
-    ports:
-      - &quot;2379:2379&quot;
-      - &quot;2380:2380&quot;
-    environment:
-      - &quot;ETCD_ADVERTISE_CLIENT_URLS=http://0.0.0.0:2379&quot;
-      - &quot;ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379&quot;
-      - &quot;ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380&quot;
-      - &quot;ETCD_INITIAL_ADVERTISE_PEER_URLS=http://0.0.0.0:2380&quot;
-      - &quot;ALLOW_NONE_AUTHENTICATION=no&quot;
-      - &quot;ETCD_ROOT_PASSWORD=123456&quot;
-
-    volumes:
-      - /Users/liufangting/home/etcd3/data:/bitnami/etcd/data
-    networks:
-      - etcd-network
-  etcd_keeper:
-    hostname: etcdkeeper
-    container_name: &quot;etcdkeeper&quot;
-    image: evildecay/etcdkeeper:latest
-    ports:
-      - &quot;8099:8080&quot;
-    networks:
-      - etcd-network
-
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;十三etcd管理界面&quot;&gt;十三、etcd管理界面&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppNlO00&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/20/ppNlO00.png&quot; alt=&quot;ppNlO00.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;web ui
-
-需要指定etcd服务地址，这里我指定容器名称，因为etcd keeper 和etcd是在同一网络下，所以可以通过
-容器名称作为域名，是互相能ping通的
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="other" /><summary type="html">docker 自学笔记</summary></entry><entry><title type="html">mongo的备份与恢复</title><link href="http://localhost:4000/2022/09/08/mongo%E7%9A%84%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/" rel="alternate" type="text/html" title="mongo的备份与恢复" /><published>2022-09-08T00:00:00+08:00</published><updated>2022-09-08T00:00:00+08:00</updated><id>http://localhost:4000/2022/09/08/mongo%E7%9A%84%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D</id><content type="html" xml:base="http://localhost:4000/2022/09/08/mongo%E7%9A%84%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/">&lt;h2 id=&quot;1mongo-分片-备份--和--恢复&quot;&gt;1.mongo 分片 备份  和  恢复&lt;/h2&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;备份指定库   
-	
-mongodump --host 127.0.0.1 --port 27000  -d zyc -o /zyc/mongo_share/tmp  
-它会在/tmp/目录下面生成一个mydb的目录   
-	 
-备份所有库   
-mongodump --host 127.0.0.1 --port 20000 -o /tmp/mongobak/alldatabase   
-	 
-指定备份集合   
-mongodump --host 127.0.0.1 --port 20000 -d mydb -c c1 -o /tmp/mongobak/   
-它依然会生成mydb目录，再在这目录下面生成两个文件   
-	
-导出集合为json文件   
-mongoexport --host 127.0.0.1 --port 20000 -d mydb -c c1 -o /tmp/mydb2/1.json 
-
-
-	
-恢复所有库   
-mongorestore -h 127.0.0.1 --port 20000 --drop dir/ //其中dir是备份所有库的目录名字，其中--drop可选，意思是当恢复之前先把之前的数据删除，不建议使用   
-	
-恢复指定库   mongorestore -d zyc /zyc/mongo_share/tmp/zyc  //-d跟要恢复的库名字，dir就是该库备份时所在的目录  
-	
-恢复集合  mongorestore -d mydb -c testc dir/mydb/testc.bson // -c后面跟要恢复的集合名字，dir是备份mydb库时生成文件所在路径，这里是一个bson文件的路径   
-	
-导入集合   mongoimport -d mydb -c testc --file /tmp/testc.json  
-
-恢复带密码的指定库 
-/mnt/mongo_share/mongodb42/bin/mongorestore   -h 127.0.0.1:27017  -d calorie_log /mnt/bak_mongo_data/20210127/calorie_log   -u 用户名 -p 密码  --authenticationDatabase admin
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="mongo" /><summary type="html">1.mongo 分片 备份 和 恢复</summary></entry><entry><title type="html">go语言内存逃逸场景分析</title><link href="http://localhost:4000/2022/05/06/%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8%E5%9C%BA%E6%99%AF/" rel="alternate" type="text/html" title="go语言内存逃逸场景分析" /><published>2022-05-06T00:00:00+08:00</published><updated>2022-05-06T00:00:00+08:00</updated><id>http://localhost:4000/2022/05/06/%20%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8%E5%9C%BA%E6%99%AF</id><content type="html" xml:base="http://localhost:4000/2022/05/06/%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8%E5%9C%BA%E6%99%AF/">&lt;p&gt;内存逃逸是由编译器来决定内存分配的位置（是在栈上还是在堆上分配内存），而不是由程序员来决定的！
-在函数中申请一个新的对象：&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1、如果分配在栈中，则函数执行结束后可自行将内存回收
-2、如果分配在堆中，则函数执行结束后可交给GC(垃圾回收)处理。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;内存逃逸场景&quot;&gt;内存逃逸场景&lt;/h1&gt;
-
-&lt;h2 id=&quot;1指针逃逸&quot;&gt;1、指针逃逸&lt;/h2&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;我们知道Go可以返回局部变量指针，这其实是一个典型的变量逃逸案例。
-
-type Student struct {
-	Name string
-}
-
-func Say() *Student {
-	stu := Student{}
-	stu.Name = &quot;张三&quot;
-	return &amp;amp;stu
-}
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppwnhE6&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/23/ppwnhE6.png&quot; alt=&quot;ppwnhE6.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;2栈空间不足逃逸&quot;&gt;2、栈空间不足逃逸&lt;/h2&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;很多函数的参数为interface 类型，比如 fmt.Println(a ...interface{}),编译期间很难确定其参数的具体类型，也会产生逃逸
-
-func slice() {
-	s := make([]int, 10000, 10000)
-
-	for index, _ := range s {
-		s[index] = index
-	}
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppwnjVP&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/23/ppwnjVP.png&quot; alt=&quot;ppwnjVP.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;3动态类型逃逸&quot;&gt;3、动态类型逃逸&lt;/h2&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;s := &quot;sbc&quot;
-fmt.Println(s)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppwuEV0&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/23/ppwuEV0.png&quot; alt=&quot;ppwuEV0.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;4闭包引用对象逃逸&quot;&gt;4、闭包引用对象逃逸&lt;/h2&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func bibao() func() int {
-	a, b := 0, 1
-
-	return func() int {
-		a, b = b, a+b
-		return a
-	}
-}
-
-该函数返回一个闭包，闭包引用了函数的局部变量a和b,使用时通过该函数获取闭包,a,b只能放到堆中，所以产生了逃逸。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppwunGF&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/23/ppwunGF.png&quot; alt=&quot;ppwunGF.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;小结：&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;栈上分配内存比在堆中分配内存有更高的效率；
-栈上分配的内存不需要GC处理；
-逃逸分析的目的是决定分配地址是栈还是堆；
-逃逸分析在编译阶段完成；
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="go" /><summary type="html">内存逃逸是由编译器来决定内存分配的位置（是在栈上还是在堆上分配内存），而不是由程序员来决定的！ 在函数中申请一个新的对象： 1、如果分配在栈中，则函数执行结束后可自行将内存回收 2、如果分配在堆中，则函数执行结束后可交给GC(垃圾回收)处理。</summary></entry><entry><title type="html">php 一行一行输出</title><link href="http://localhost:4000/2022/03/08/php%E4%B8%80%E8%A1%8C%E4%B8%80%E8%A1%8C%E8%BE%93%E5%87%BA/" rel="alternate" type="text/html" title="php 一行一行输出" /><published>2022-03-08T00:00:00+08:00</published><updated>2022-03-08T00:00:00+08:00</updated><id>http://localhost:4000/2022/03/08/php%E4%B8%80%E8%A1%8C%E4%B8%80%E8%A1%8C%E8%BE%93%E5%87%BA</id><content type="html" xml:base="http://localhost:4000/2022/03/08/php%E4%B8%80%E8%A1%8C%E4%B8%80%E8%A1%8C%E8%BE%93%E5%87%BA/">&lt;h3 id=&quot;php-一行一行输出&quot;&gt;php 一行一行输出&lt;/h3&gt;
+&lt;p&gt;http://localhost:8081/swagger/index.html&lt;/p&gt;</content><author><name>张艳冲</name></author><category term="go" /><summary type="html">这是用gin搭建的app用例,如果你是小白，那它适合你练手！ gin 框架文档 https://gin-gonic.com/docs</summary></entry><entry><title type="html">php 一行一行输出</title><link href="http://localhost:4000/2022/03/08/php%E4%B8%80%E8%A1%8C%E4%B8%80%E8%A1%8C%E8%BE%93%E5%87%BA/" rel="alternate" type="text/html" title="php 一行一行输出" /><published>2022-03-08T00:00:00+08:00</published><updated>2022-03-08T00:00:00+08:00</updated><id>http://localhost:4000/2022/03/08/php%E4%B8%80%E8%A1%8C%E4%B8%80%E8%A1%8C%E8%BE%93%E5%87%BA</id><content type="html" xml:base="http://localhost:4000/2022/03/08/php%E4%B8%80%E8%A1%8C%E4%B8%80%E8%A1%8C%E8%BE%93%E5%87%BA/">&lt;h3 id=&quot;php-一行一行输出&quot;&gt;php 一行一行输出&lt;/h3&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;?php
 header(&quot;X-Accel-Buffering: no&quot;);
@@ -759,7 +450,44 @@ sleep(1);
 echo &quot;daa&quot;;
 
 exit;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="php" /><summary type="html">php 一行一行输出</summary></entry><entry><title type="html">你说你会用反射，我觉得你在吹牛逼</title><link href="http://localhost:4000/2022/01/20/%E4%BD%A0%E7%9A%84%E9%A1%B9%E7%9B%AE%E6%98%AF%E5%90%A6%E7%94%A8%E5%88%B0%E4%BA%86%E5%8F%8D%E5%B0%84/" rel="alternate" type="text/html" title="你说你会用反射，我觉得你在吹牛逼" /><published>2022-01-20T00:00:00+08:00</published><updated>2022-01-20T00:00:00+08:00</updated><id>http://localhost:4000/2022/01/20/%20%E4%BD%A0%E7%9A%84%E9%A1%B9%E7%9B%AE%E6%98%AF%E5%90%A6%E7%94%A8%E5%88%B0%E4%BA%86%E5%8F%8D%E5%B0%84</id><content type="html" xml:base="http://localhost:4000/2022/01/20/%E4%BD%A0%E7%9A%84%E9%A1%B9%E7%9B%AE%E6%98%AF%E5%90%A6%E7%94%A8%E5%88%B0%E4%BA%86%E5%8F%8D%E5%B0%84/">&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;我想让你知道：
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="php" /><summary type="html">php 一行一行输出</summary></entry><entry><title type="html">php 通过web方式更新git</title><link href="http://localhost:4000/2022/02/01/php-%E9%80%9A%E8%BF%87web%E7%AB%AF%E6%9B%B4%E6%96%B0git/" rel="alternate" type="text/html" title="php 通过web方式更新git" /><published>2022-02-01T00:00:00+08:00</published><updated>2022-02-01T00:00:00+08:00</updated><id>http://localhost:4000/2022/02/01/php%20%E9%80%9A%E8%BF%87web%E7%AB%AF%E6%9B%B4%E6%96%B0git</id><content type="html" xml:base="http://localhost:4000/2022/02/01/php-%E9%80%9A%E8%BF%87web%E7%AB%AF%E6%9B%B4%E6%96%B0git/">&lt;p&gt;php需要打开ssh2 扩展 
+   这是比较简单的方式&lt;br /&gt;
+    其他的方式 直接浏览器访问需要输入git用户名和密码，或者不是超管很麻烦 &lt;br /&gt;
+    例如&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;shell_exec(&quot;/usr/bin/sh /www/wwwroot/bjldjjybproject2023/crmeb/public/bushu.sh 2&amp;gt;&amp;amp;1&quot;);  
+2&amp;gt;&amp;amp;1 必须写才能从页面看到报错信息   基本       1.脚本 bushu.sh 
+
+#!/bin/bash
+cd  /www/wwwroot/gitdir
+git pull origin master
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;2.php脚本bushu.php&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;php web端执行shell 比较方便的方式
+
+$user=&quot;user&quot;;  //用户名
+  
+$pass=&quot;password&quot;;  //密码
+
+$connection=ssh2_connect(&apos;8.131.85.159&apos;,22);
+
+ssh2_auth_password($connection,$user,$pass);
+
+// 查看家目录的命令
+
+$cmd=&quot;/usr/bin/sh /www/wwwroot/bjldjjybproject2023/crmeb/public/bushu.sh&quot;;
+
+$ret=ssh2_exec($connection,$cmd);
+
+stream_set_blocking($ret, true);
+
+echo (stream_get_contents($ret));
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;3.浏览器访问&lt;br /&gt;
+    http://www.web.com/bushu.php&lt;/p&gt;</content><author><name>张艳冲</name></author><category term="php" /><summary type="html">php需要打开ssh2 扩展 这是比较简单的方式 其他的方式 直接浏览器访问需要输入git用户名和密码，或者不是超管很麻烦 例如 shell_exec(&quot;/usr/bin/sh /www/wwwroot/bjldjjybproject2023/crmeb/public/bushu.sh 2&amp;gt;&amp;amp;1&quot;); 2&amp;gt;&amp;amp;1 必须写才能从页面看到报错信息 基本 1.脚本 bushu.sh</summary></entry><entry><title type="html">你说你会用反射，我觉得你在吹牛逼</title><link href="http://localhost:4000/2022/01/20/%E4%BD%A0%E7%9A%84%E9%A1%B9%E7%9B%AE%E6%98%AF%E5%90%A6%E7%94%A8%E5%88%B0%E4%BA%86%E5%8F%8D%E5%B0%84/" rel="alternate" type="text/html" title="你说你会用反射，我觉得你在吹牛逼" /><published>2022-01-20T00:00:00+08:00</published><updated>2022-01-20T00:00:00+08:00</updated><id>http://localhost:4000/2022/01/20/%20%E4%BD%A0%E7%9A%84%E9%A1%B9%E7%9B%AE%E6%98%AF%E5%90%A6%E7%94%A8%E5%88%B0%E4%BA%86%E5%8F%8D%E5%B0%84</id><content type="html" xml:base="http://localhost:4000/2022/01/20/%E4%BD%A0%E7%9A%84%E9%A1%B9%E7%9B%AE%E6%98%AF%E5%90%A6%E7%94%A8%E5%88%B0%E4%BA%86%E5%8F%8D%E5%B0%84/">&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;我想让你知道：
 1、反射可以将interface类型变量转换称反射对象
 2、反射可以将反射对象还原成interface对象
 3、反射对象可以修改，value值必须是可设置的
@@ -1062,75 +790,4 @@ func main() {
 	reflects.ImportDb(path+&quot;/applyhelp.xlsx&quot;, &amp;amp;list)
 	
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="go" /><summary type="html">``` 我想让你知道： 1、反射可以将interface类型变量转换称反射对象 2、反射可以将反射对象还原成interface对象 3、反射对象可以修改，value值必须是可设置的</summary></entry><entry><title type="html">偷偷的告诉你go语言map的底层实现是这样的</title><link href="http://localhost:4000/2021/12/01/map%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/" rel="alternate" type="text/html" title="偷偷的告诉你go语言map的底层实现是这样的" /><published>2021-12-01T00:00:00+08:00</published><updated>2021-12-01T00:00:00+08:00</updated><id>http://localhost:4000/2021/12/01/%20map%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86</id><content type="html" xml:base="http://localhost:4000/2021/12/01/map%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/">&lt;p&gt;偷偷的告诉你go语言map的底层实现是这样的&lt;/p&gt;
-
-&lt;h2 id=&quot;map的底层实现&quot;&gt;map的底层实现？&lt;/h2&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;map底层是用hash表实现的，一个hash表有多个bucket，而每个bucket保存map中的一个或多组键值对
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;2map底层结构是hmap&quot;&gt;2、map底层结构是hmap&lt;/h2&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;type hmap struct {
-	count      int            //当前保存元素的个数
-	B          uint           //bucket 数组大小
-	buckets    unsafe.Pointer //bucket数组，数组长度为2^B
-	oldbuckets unsafe.Pointer //老旧bucket数组，用于扩容
-}
-每个元素经过hash运算后会落到每个桶中
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;3bucket数据结构&quot;&gt;3、bucket数据结构&lt;/h2&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;type bmap struct {
-	tophash  [8]uint8 //存储hash值的高8位
-	data     []byte   //key value  数据：key/key/key/key/key..../value/value/value/value
-	overflow *bmap    //溢出bucket的地址
-}
-
-1）hash值相同的键存入当前桶的时候，会将hash值高8位存储在该数组中,以便后续匹配
-2）data存放的是key-value数据，存放顺序是key/key/key/key/key..../value/value/value/value ,
-   如此存放是为了节省字节对齐带来的空间浪费
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;4hash冲突&quot;&gt;4、hash冲突&lt;/h2&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;当有两个或者以上数量的键被hash到了同一个桶时，我们称这些键发生了冲突，go使用链地址法来解决键冲突。
-由于每个bucket可以存放8个键值对，所以同一个bucket存放超过8个键值对时就会再创建一个键值对，用类似
-链表的方式将bucket连接起来。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;5负载因子&quot;&gt;5、负载因子&lt;/h2&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;负载因子用于衡量一个hash表冲突的情况，公示为
-负载因子 = 键数量/bucket 数量
-
-负载因子过小或过大都不理想
-负载因子过大，说明冲突严重，存储效率低
-
-负载因子过小，可能预分配的空间空间太大，也可能是大部分元素被删除造成的。随着元素不断的添加到map中
-负载因子会逐渐升高
-
-负载因子过大，需要申请更多的bucket，并对所有的键值对重新组织，使其均匀的分布到这些bucket中，这个过程叫rehash.
-go语言中map的负载因子达到6.5会触发rehash。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;h2 id=&quot;6扩容条件&quot;&gt;6、扩容条件&lt;/h2&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;负载因子大于6.5
-overflow的数量大于2^15
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;7增量扩容&quot;&gt;7、增量扩容&lt;/h2&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;当负载因子过大时，就会新建一个bucket数组，新的bucket数组的长度是原来的2倍，然后旧的bucket数组中的数据搬迁到新的
-bucket数组中。
-考虑到map存储了数亿亿计的键值对，那么一次搬迁会造成较大的延迟，go采用逐步搬迁策略，每次访问map的时会触发一次搬迁，每次
-搬迁两个键值对
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;h2 id=&quot;8等量扩容&quot;&gt;8、等量扩容&lt;/h2&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;就是重新搬迁，把松散的键值对重新排列一次，以使bucket的使用率更高，进而保证更快的存储速度。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;h2 id=&quot;9增删改查&quot;&gt;9、增删改查&lt;/h2&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;查找过程
-1）根据key值计算hash值
-2）取hash值低位与hmap.B取模来确定bucket的位置
-3）取hash值高位，在tophash数组中查询定位到key高八位位置
-4）在data数组中通过key在tophash高8位对应的位置找到对应的key
-5) 比较要找的key是否在data数组中，如果存在，就取key对应的value
-6) 如果没有找到，就继续从溢出的bucket中查找
-7）如果当前map处于搬迁的过程，那么优先从oldbuckets 数组中查找，不再从新的buckets数组中查找
-8) 如果查询不到，那么也不会返回nil,而是会返回相应类型的零值。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="go" /><summary type="html">偷偷的告诉你go语言map的底层实现是这样的</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="go" /><summary type="html">``` 我想让你知道： 1、反射可以将interface类型变量转换称反射对象 2、反射可以将反射对象还原成interface对象 3、反射对象可以修改，value值必须是可设置的</summary></entry></feed>
