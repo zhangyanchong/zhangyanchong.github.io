@@ -105,12 +105,6 @@
     } ,
   
     {
-      "title"    : "react-express-mongodb",
-      "category" : "js",
-      "url"      : "http://localhost:4000/2020/06/04/react-express-mongodb/"
-    } ,
-  
-    {
       "title"    : "babel 基本使用",
       "category" : "js",
       "url"      : "http://localhost:4000/2020/06/08/babel-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"
@@ -147,12 +141,6 @@
     } ,
   
     {
-      "title"    : "自动切换node 版本",
-      "category" : "js",
-      "url"      : "http://localhost:4000/2020/07/20/%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2node%E7%89%88%E6%9C%AC-copy/"
-    } ,
-  
-    {
       "title"    : "nginx代理配置",
       "category" : "nginx",
       "url"      : "http://localhost:4000/2020/07/20/nginx%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/"
@@ -180,18 +168,6 @@
       "title"    : "mysql从data 恢复数据库",
       "category" : "mysql",
       "url"      : "http://localhost:4000/2020/09/23/mysql%E4%BB%8Edata-%E6%81%A2%E5%A4%8D%E6%95%B0%E6%8D%AE%E5%BA%93/"
-    } ,
-  
-    {
-      "title"    : "Mac &amp;&amp; iOS safari 屏幕滚动橡皮筋效果取消已经无法滚动问题",
-      "category" : "mac",
-      "url"      : "http://localhost:4000/2020/10/15/Mac-&&-iOS-safari-%E5%B1%8F%E5%B9%95%E6%BB%9A%E5%8A%A8%E6%A9%A1%E7%9A%AE%E7%AD%8B%E6%95%88%E6%9E%9C%E5%8F%96%E6%B6%88%E5%B7%B2%E7%BB%8F%E6%97%A0%E6%B3%95%E6%BB%9A%E5%8A%A8%E9%97%AE%E9%A2%98/"
-    } ,
-  
-    {
-      "title"    : "Vue  如何设置tab标识符为空格",
-      "category" : "js",
-      "url"      : "http://localhost:4000/2020/12/12/Vue-codemirror-%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AEtab%E6%A0%87%E8%AF%86%E7%AC%A6%E4%B8%BA%E7%A9%BA%E6%A0%BC/"
     } ,
   
     {
