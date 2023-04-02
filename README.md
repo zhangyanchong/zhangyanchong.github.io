@@ -1,6 +1,6 @@
 # 博客模板
 
-我的个人博客：<https://echo-music.github.io/>，欢迎 Star 和 Fork。
+我的个人博客：<https://zhangyanchong.github.io/>，欢迎 Star 和 Fork。
 
 ## 概览
 
@@ -16,7 +16,7 @@
 
 ## 效果预览
 
-**[在线预览 &rarr;](https://echo-music.github.io)**
+**[在线预览 &rarr;](https://zhangyanchong.github.io)**
 
 ![WX20200527-113252@2x.png](https://i.loli.net/2020/05/27/yX54sV7DALcSNbO.png)
 
