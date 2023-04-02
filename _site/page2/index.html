@@ -108,6 +108,46 @@
                 
                 <li class="repo-list-item">
                     <h3 class="repo-list-name">
+                      <a href="http://localhost:4000/2021/04/28/mongo%E7%9A%84%E5%88%86%E7%89%87/">mongo分片</a>
+                    </h3>
+                    <p class="repo-list-description">
+                        1.mongdb 版本  –4.2 版本    （bind_ip 只能绑定一个ip 我草 无情）
+
+  分片服务 （副本集）  mongo3.4 以后必须的  
+配置服务器（副本集） mongo 3.4 以后必须的
+routes 路由 mongos   （可以一台）    
+什么是副本集，自己百度一下  （就是有mongo主服务器，多个从服务器 当某个从服务器挂了 主服务器会从服务器找个运行正常的使用，如果主服务器挂了 就从从服务器找个作为主服务器） 一般为3个一个副本集 
+每个副本集请至少保证剩余2台机器，否则不能用，如果多台机器挂掉后剩余2台后，不能再挂掉，否则不能使用 （&lt;2 台 副本集就不能用了 ）   （自己测试）
+
+
+3.安装  暂时没有使用默认端口 （只在一台做实验）
+
+  routes         
+    127.0.0.1     27000  
+  配置服务器 （一个副本集）   config_set  
+    127.0.0.1     27001  
+    127.0.0.1     27002  
+    127.0.0.1     27003   
+  分片节点    （2个副本集） share1  
+    127.0.0.1     27004  
+    127.0.0.1     27005   
+    127.0.0.1     27006
+                    </p>
+                    <p class="repo-list-meta">
+                        <span class="meta-info">
+                          <span class="octicon octicon-calendar"></span> 2021/04/28
+                        </span>
+                        
+                        <span class="meta-info">
+                          <span class="octicon octicon-file-directory"></span>
+                          <a href="http://localhost:4000/categories/#mongo" title="mongo">mongo</a>
+                        </span>
+                        
+                    </p>
+                </li>
+                
+                <li class="repo-list-item">
+                    <h3 class="repo-list-name">
                       <a href="http://localhost:4000/2021/03/23/holmes%E6%9C%8D%E5%8A%A1%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E7%9B%91%E6%8E%A7/">holmes服务性能指标监控，让bug无处遁行！</a>
                     </h3>
                     <p class="repo-list-description">
@@ -242,27 +282,6 @@ holmes 或许能帮助您解决以上问题。
                         <span class="meta-info">
                           <span class="octicon octicon-file-directory"></span>
                           <a href="http://localhost:4000/categories/#mac" title="mac">mac</a>
-                        </span>
-                        
-                    </p>
-                </li>
-                
-                <li class="repo-list-item">
-                    <h3 class="repo-list-name">
-                      <a href="http://localhost:4000/2020/07/20/nginx%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/">nginx代理配置</a>
-                    </h3>
-                    <p class="repo-list-description">
-                        1、查询是否安装nginx
-brew search nginx  // 查询要安装的软件是否存在
-                    </p>
-                    <p class="repo-list-meta">
-                        <span class="meta-info">
-                          <span class="octicon octicon-calendar"></span> 2020/07/20
-                        </span>
-                        
-                        <span class="meta-info">
-                          <span class="octicon octicon-file-directory"></span>
-                          <a href="http://localhost:4000/categories/#nginx" title="nginx">nginx</a>
                         </span>
                         
                     </p>

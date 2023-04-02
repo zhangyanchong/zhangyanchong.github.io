@@ -231,8 +231,14 @@
     } ,
   
     {
-      "title"    : "Php加密解密",
-      "category" : "",
+      "title"    : "php 二级域名共享session",
+      "category" : "php",
+      "url"      : "http://localhost:4000/2023/03/29/php%E5%85%B1%E4%BA%ABsession/"
+    } ,
+  
+    {
+      "title"    : "php 加密解密",
+      "category" : "php",
       "url"      : "http://localhost:4000/2023/04/01/php%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/"
     } ,
   

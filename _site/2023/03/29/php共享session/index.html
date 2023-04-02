@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>php 加密解密 &mdash; 张三的技术.博客</title>
+    <title>php 二级域名共享session &mdash; 张三的技术.博客</title>
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
@@ -21,28 +21,28 @@
     
 
     
-    <link rel="canonical" href="http://localhost:4000/2023/04/01/php%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/">
+    <link rel="canonical" href="http://localhost:4000/2023/03/29/php%E5%85%B1%E4%BA%ABsession/">
     <link rel="alternate" type="application/atom+xml" title="张三的技术.博客" href="http://localhost:4000/feed.xml">
     <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
     
-    <meta property="og:title" content="php 加密解密">
+    <meta property="og:title" content="php 二级域名共享session">
       
-    <meta name="keywords" content="php 加密解密">
-    <meta name="og:keywords" content="php 加密解密">
+    <meta name="keywords" content="php 共享session 二级 域名">
+    <meta name="og:keywords" content="php 共享session 二级 域名">
       
-    <meta name="description" content="1、php加密解密使用">
-    <meta name="og:description" content="1、php加密解密使用">
+    <meta name="description" content="1、php二级域名共享session">
+    <meta name="og:description" content="1、php二级域名共享session">
       
     
     
         
     
-    <meta property="og:url" content="http://localhost:4000/2023/04/01/php%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/">
+    <meta property="og:url" content="http://localhost:4000/2023/03/29/php%E5%85%B1%E4%BA%ABsession/">
     <meta property="og:site_name" content="张三的技术.博客">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="zh_CN" />
     
-    <meta property="article:published_time" content="2023-04-01">
+    <meta property="article:published_time" content="2023-03-29">
     
     <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
@@ -83,16 +83,16 @@
     </header>
     <!-- / header -->
 
-    <section class="collection-head small geopattern" data-pattern-id="php 加密解密">
+    <section class="collection-head small geopattern" data-pattern-id="php 二级域名共享sessi">
 <div class="container">
   <div class="columns">
     <div class="column three-fourths">
       <div class="collection-title">
-        <h1 class="collection-header">php 加密解密</h1>
+        <h1 class="collection-header">php 二级域名共享session</h1>
         <div class="collection-info">
           
           <span class="meta-info">
-            <span class="octicon octicon-calendar"></span> 2023/04/01
+            <span class="octicon octicon-calendar"></span> 2023/03/29
           </span>
           
           
@@ -112,57 +112,35 @@
 <div class="columns">
   <div class="column three-fourths" >
     <article class="article-content markdown-body">
-    <h3 id="1php加密解密使用">1、php加密解密使用</h3>
+    <h3 id="1php二级域名共享session">1、php二级域名共享session</h3>
 
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
-<span class="k">echo</span> <span class="nv">$str</span><span class="o">=</span><span class="s2">"123123"</span><span class="p">;</span>
-<span class="nv">$key</span><span class="o">=</span><span class="s2">"!@#abc"</span><span class="p">;</span>
-<span class="k">echo</span> <span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
-<span class="k">echo</span>  <span class="nv">$val</span><span class="o">=</span><span class="nf">jiami</span><span class="p">(</span><span class="nv">$str</span><span class="p">,</span><span class="nv">$key</span><span class="p">);</span>
-<span class="k">echo</span> <span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
-<span class="k">echo</span> <span class="nf">jiemi</span><span class="p">(</span><span class="nv">$val</span><span class="p">,</span><span class="nv">$key</span><span class="p">);</span>
+<p>配置方法一：在php.ini配置文件中设置   session.cookie_domain   的域名值，重启php-fpm<br />
+php
+session.cookie_domain = .zixuephp.net<br />
+配置方法二：在php公共代码前设置
+php
+ini_set(‘session.cookie_domain’,’.zixuephp.net’);</p>
 
-<span class="k">function</span> <span class="n">jiami</span><span class="p">(</span><span class="nv">$val</span><span class="p">,</span><span class="nv">$str</span><span class="p">){</span>
-    <span class="nv">$iv</span> <span class="o">=</span> <span class="s2">"123456781234567812345678"</span><span class="p">;</span>  <span class="c1">//跟解密一样  可以写到缓存中 这个是变化的才会生成变化的加密字符串</span>
-    <span class="nv">$result</span> <span class="o">=</span> <span class="nb">openssl_encrypt</span><span class="p">(</span><span class="nv">$val</span><span class="p">,</span> <span class="s2">"aes-128-cbc"</span><span class="p">,</span> <span class="nv">$str</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span><span class="nv">$iv</span><span class="p">);</span>
-    <span class="k">return</span> <span class="nb">base64_encode</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
-<span class="p">}</span>
+<p>代码如下：</p>
 
-<span class="k">function</span> <span class="n">jiemi</span><span class="p">(</span><span class="nv">$val</span><span class="p">,</span><span class="nv">$str</span><span class="p">){</span>
-    <span class="nv">$iv</span> <span class="o">=</span> <span class="s2">"123456781234567812345678"</span><span class="p">;</span>  <span class="c1">//跟加密一样 可以写到缓存中</span>
-    <span class="nv">$val</span><span class="o">=</span><span class="nb">base64_decode</span><span class="p">(</span><span class="nv">$val</span><span class="p">);</span>
-     <span class="nv">$result</span> <span class="o">=</span> <span class="nb">openssl_decrypt</span><span class="p">(</span><span class="nv">$val</span><span class="p">,</span> <span class="s2">"aes-128-cbc"</span><span class="p">,</span> <span class="nv">$str</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span><span class="nv">$iv</span><span class="p">);</span>
-    <span class="nb">var_dump</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
-    <span class="k">return</span> <span class="nv">$result</span><span class="p">;</span>
-<span class="p">}</span>
+<p>1.php</p>
 
-
-
-
-<span class="kd">class</span> <span class="nc">Encrypt</span> <span class="p">{</span>
-    <span class="n">protect</span>  <span class="nv">$pass</span><span class="o">=</span> <span class="nb">md5</span><span class="p">(</span><span class="nb">base64_encode</span><span class="p">(</span><span class="s2">"123abc456"</span><span class="p">));</span>
-	<span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="n">encryptAes</span><span class="p">(</span><span class="nv">$data</span> <span class="o">=</span> <span class="s1">''</span><span class="p">)</span> <span class="p">{</span>
-	    
-
-		<span class="k">if</span><span class="p">(</span><span class="nb">function_exists</span><span class="p">(</span><span class="s1">'openssl_encrypt'</span><span class="p">))</span> <span class="p">{</span>
-			<span class="k">return</span> <span class="nb">openssl_encrypt</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="s2">"aes128"</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">pass</span><span class="p">);</span>
-		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-			<span class="c1">//TODO</span>
-		<span class="p">}</span>
-		
-	<span class="p">}</span>
-
-	<span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="n">decryptAes</span><span class="p">(</span><span class="nv">$data</span> <span class="o">=</span> <span class="s1">''</span><span class="p">)</span> <span class="p">{</span>
-	
-		<span class="k">if</span><span class="p">(</span><span class="nb">function_exists</span><span class="p">(</span><span class="s1">'openssl_decrypt'</span><span class="p">))</span> <span class="p">{</span>
-			<span class="k">return</span> <span class="nb">openssl_decrypt</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="s2">"aes128"</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">pass</span><span class="p">);</span>
-		<span class="p">}</span>
-		
-	<span class="p">}</span>
-<span class="p">}</span>
-
-<span class="cp">?&gt;</span>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;?php
+ini_set("session.cookie_domain",'.nbsay.cn');//注：此句必须放在session_start()之前
+session_start();
+$_SESSION['abc']=4556;
+echo "&lt;a href='http://my.nbsay.cn/2.php'&gt;tiaozhuan&lt;a&gt;";            
 </code></pre></div></div>
+
+<p>2.php</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;?php
+ini_set("session.cookie_domain",'.nbsay.cn');//注：此句必须放在session_start()之前  
+session_start();
+echo "&lt;pre&gt;";print_r($_SESSION);
+~                              
+</code></pre></div></div>
+
 
     </article>
     <div class="share">
@@ -179,7 +157,7 @@
         <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
         <script>
         var gitalk = new Gitalk({
-            id: decodeURI('/2023/04/01/php%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/'),
+            id: decodeURI('/2023/03/29/php%E5%85%B1%E4%BA%ABsession/'),
             clientID: '8b219ee2ae6e026b9aef',
             clientSecret: 'bf75351baf3c53614a859649a96c98d18b713391',
             repo: 'zhangyanchong.github.io',
