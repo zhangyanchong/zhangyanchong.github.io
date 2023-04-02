@@ -1,195 +1,63 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-04-02T11:02:02+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">张三的技术.博客</title><subtitle>张三的个人博客</subtitle><author><name>张艳冲</name></author><entry><title type="html">holmes服务性能指标监控，让bug无处遁行！</title><link href="http://localhost:4000/2023/03/23/holmes%E6%9C%8D%E5%8A%A1%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E7%9B%91%E6%8E%A7/" rel="alternate" type="text/html" title="holmes服务性能指标监控，让bug无处遁行！" /><published>2023-03-23T00:00:00+08:00</published><updated>2023-03-23T00:00:00+08:00</updated><id>http://localhost:4000/2023/03/23/%20holmes%E6%9C%8D%E5%8A%A1%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E7%9B%91%E6%8E%A7</id><content type="html" xml:base="http://localhost:4000/2023/03/23/holmes%E6%9C%8D%E5%8A%A1%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E7%9B%91%E6%8E%A7/">&lt;p&gt;作为一名”懒惰”的程序员，如何避免在线上Golang系统半夜宕机 （一般是OOM导致的）时起床保存现场呢？又或者如何dump压测时性能尖刺时刻的profile文件呢？
-holmes 或许能帮助您解决以上问题。&lt;/p&gt;
-
-&lt;h1 id=&quot;holmes性能指标监控&quot;&gt;holmes性能指标监控&lt;/h1&gt;
-
-&lt;h2 id=&quot;holmes是什么&quot;&gt;holmes是什么？&lt;/h2&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;对于系统的性能尖刺问题，我们通常使用 Go 官方内置的 pprof 包进行分析，但是难点是对于一闪而过的“尖刺”，
-
-开发人员很难及时保存现场：当你收到告警信息，从被窝中爬起来，打开电脑链接 VPN，系统说不定都已经重启三四趟了。
-
-MOSN 社区的 Holmes 是一个基于 Golang 实现的轻量级性能监控系统，当应用的性能指标发生了异常波动时，
-
-Holmes 会在第一时间保留现场，让你第二天上班可以一边做着大保健，一边追查问题的根因。
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;快速入门&quot;&gt;快速入门&lt;/h2&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
-
-import (
-	&quot;fmt&quot;
-	&quot;mosn.io/holmes&quot;
-	&quot;mosn.io/pkg/log&quot;
-	&quot;net/http&quot;
-	&quot;time&quot;
-)
-
-func init() {
-	http.HandleFunc(&quot;/make1gb&quot;, make1gbslice)
-	go http.ListenAndServe(&quot;:10003&quot;, nil)
-}
-
-var grReportCount int
-var cpuReportCount int
-var memReportCount int
-
-type ReporterImpl struct{}
-
-func (r *ReporterImpl) Report(pType string, buf []byte, reason string, eventID string) error {
-	fmt.Println(fmt.Sprintf(&quot;call %s report \n&quot;, pType))
-
-	switch pType {
-	case &quot;goroutine&quot;:
-		grReportCount++
-	case &quot;cpu&quot;:
-		cpuReportCount++
-	case &quot;mem&quot;:
-		memReportCount++
-
-	}
-	fmt.Println(&quot;type=&quot;, pType, &quot;reason=&quot;, reason, &quot;eventid=&quot;, eventID)
-	fmt.Println(&quot;content =&quot;, string(buf))
-	return nil
-
-}
-func main() {
-	r := &amp;amp;ReporterImpl{} // a implement of holmes.ProfileReporter Interface.
-
-	h, _ := holmes.New(
-		holmes.WithProfileReporter(r),
-		holmes.WithCollectInterval(&quot;2s&quot;),
-		holmes.WithDumpPath(&quot;/tmp/holmes&quot;),
-		//holmes.WithTextDump(),
-		holmes.WithMemDump(3, 25, 80, time.Minute),
-		holmes.WithCPUDump(1, 25, 80, time.Minute),
-		holmes.WithGCHeapDump(10, 20, 40, time.Minute),
-		holmes.WithGoroutineDump(5, 25, 20000, 0, time.Minute),
-		holmes.WithLogger(holmes.NewFileLog(&quot;/tmp/holmes/holmes.log&quot;, log.ERROR)),
-	)
-
-	h.EnableCPUDump().
-		EnableGoroutineDump().
-		EnableMemDump().
-		EnableGCHeapDump().Start()
-	time.Sleep(time.Hour)
-
-}
-
-func make1gbslice(wr http.ResponseWriter, req *http.Request) {
-
-	var a = make([]byte, 1073741824)
-	_ = a
-}
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;上面的代码是用来监控内存指标，超过咱们设置的规则，就会dump，并报警！
-然后执行上面的代码，这样服务就被监控起来了，哈哈哈。
-
-访问这个接口
-http://127.0.0.1:10003/make1gb
-
-你会发现在tmp/holmes目录下有个
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppDQs41&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/25/ppDQs41.png&quot; alt=&quot;ppDQs41.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;咱们现在进入该文件所在目录，开始分析这个文件
-
-go tool pprof mem..20230325130917.601.log
-
-使用 traces 就能很快找到内存泄漏的代码是哪一个，如下图所示
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppD1bnS&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/25/ppD1bnS.png&quot; alt=&quot;ppD1bnS.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;二使用说明&quot;&gt;二、使用说明&lt;/h2&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;类似于 holmes.WithGoroutineDump(min, diff, abs,max,2 * time.Minute) 的 API 
-每个 Profile 都可以配置 min、diff、abs、coolDown 四个指标，含义如下:
-
-当前指标小于 min 时，不视为异常。
-
-当前指标大于 (100+diff)100% 历史指标，说明系统此时产生了波动，视为异常。
-
-当前指标大于 abs (绝对值)时，视为异常。
-
-CPU 和 Goroutine 这两个 Profile 类型提供 Max 参数配置，基于以下考虑：
-
-CPU 的 Profiling 操作大约会有 5% 的性能损耗，所以当在 CPU 过高时，不应当进行 Profiling 操作，否则会拖垮系统。
-
-当 Goroutine 数过大时，Goroutine Dump 操作成本很高，会进行 STW 操作，从而拖垮系统。（详情见文末参考文章）
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;三profile-types&quot;&gt;三、Profile Types&lt;/h2&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Holmes 支持以下五种 Profile 类型，用户可以按需配置。
-
-Mem: 内存分配
-
-CPU: CPU 使用率
-
-Thread: 线程数
-
-Goroutine: 协程数
-
-GCHeap: 基于 GC 周期监控的内存分配
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;四warming-up&quot;&gt;四、Warming up&lt;/h2&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;当 Holmes 启动时，会根据 CollectInterval 周期采集十次各项指标，在这期间内采集到的指标只会存入循环链表中，不会进行规则判断。
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;五事件上报&quot;&gt;五、事件上报&lt;/h2&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;您可以通过实现 Reporter 来实现以下功能：
-
-发送告警信息，当 Holmes 触发 Dump 操作时。
-
-将 Profiles 上传到其他地方，以防实例被销毁，从而导致 Profile 丢失，或进行分析。
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-type ReporterImpl struct{}
-        func (r *ReporterImple) Report(pType string, buf []byte, reason string, eventID string) error{
-            // do something  
-        }
-        ......
-        r := &amp;amp;ReporterImpl{} // a implement of holmes.ProfileReporter Interface.
-      h, _ := holmes.New(
-            holmes.WithProfileReporter(reporter),
-            holmes.WithDumpPath(&quot;/tmp&quot;),
-            holmes.WithLogger(holmes.NewFileLog(&quot;/tmp/holmes.log&quot;, mlog.INFO)),
-            holmes.WithBinaryDump(),
-            holmes.WithMemoryLimit(100*1024*1024), // 100MB
-            holmes.WithGCHeapDump(10, 20, 40, time.Minute),
-)
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;参考资料&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[1]《Holmes 文档》https://github.com/mosn/holmes
-
-[2]《无人值守的自动 dump(一)》https://xargin.com/autodumper-for-go/
-
-[3]《无人值守的自动 dump(二)》https://xargin.com/autodumper-for-go-ii/
-
-[4]《go 语言 pprof heap profile 实现机制》https://uncledou.site/2022/go-pprof-heap/
-
-[5]《goroutines pprofiling STW》https://github.com/golang/go/issues/33250
-
-[6]《Holmes 使用案例文档》https://github.com/mosn/holmes/tree/master/example
-
-[7]《go pprof 性能损耗》https://medium.com/google-cloud/continuous-profiling-of-go-programs-96d4416af77b
-
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="go" /><summary type="html">作为一名”懒惰”的程序员，如何避免在线上Golang系统半夜宕机 （一般是OOM导致的）时起床保存现场呢？又或者如何dump压测时性能尖刺时刻的profile文件呢？ holmes 或许能帮助您解决以上问题。</summary></entry><entry><title type="html">这是用gin搭建的app用例,如果你是小白，那它适合你练手！</title><link href="http://localhost:4000/2023/03/22/%E5%B0%8F%E7%99%BD%E5%AD%A6%E4%B9%A0gin%E6%A1%86%E6%9E%B6%E5%86%99%E6%9C%8D%E5%8A%A1/" rel="alternate" type="text/html" title="这是用gin搭建的app用例,如果你是小白，那它适合你练手！" /><published>2023-03-22T00:00:00+08:00</published><updated>2023-03-22T00:00:00+08:00</updated><id>http://localhost:4000/2023/03/22/%20%E5%B0%8F%E7%99%BD%E5%AD%A6%E4%B9%A0gin%E6%A1%86%E6%9E%B6%E5%86%99%E6%9C%8D%E5%8A%A1</id><content type="html" xml:base="http://localhost:4000/2023/03/22/%E5%B0%8F%E7%99%BD%E5%AD%A6%E4%B9%A0gin%E6%A1%86%E6%9E%B6%E5%86%99%E6%9C%8D%E5%8A%A1/">&lt;p&gt;这是用gin搭建的app用例,如果你是小白，那它适合你练手！&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-04-02T17:42:55+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">张三的技术.博客</title><subtitle>张三的个人博客</subtitle><author><name>张艳冲</name></author><entry><title type="html">Php加密解密</title><link href="http://localhost:4000/2023/04/01/php%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/" rel="alternate" type="text/html" title="Php加密解密" /><published>2023-04-01T00:00:00+08:00</published><updated>2023-04-01T00:00:00+08:00</updated><id>http://localhost:4000/2023/04/01/php%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86</id><content type="html" xml:base="http://localhost:4000/2023/04/01/php%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/">&lt;hr /&gt;
+&lt;p&gt;layout: post
+title: php 加密解密
+categories: php
+path: php
+description: php 加密解密
+keywords: php 加密解密
+—&lt;/p&gt;
+
+&lt;h3 id=&quot;1php加密解密使用&quot;&gt;1、php加密解密使用&lt;/h3&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$str&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;123123&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;!@#abc&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&amp;lt;br&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt;  &lt;span class=&quot;nv&quot;&gt;$val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;jiami&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&amp;lt;br&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;jiemi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;jiami&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$iv&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;123456781234567812345678&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;//跟解密一样  可以写到缓存中 这个是变化的才会生成变化的加密字符串&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;openssl_encrypt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;aes-128-cbc&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$iv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;base64_encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;jiemi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$iv&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;123456781234567812345678&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;//跟加密一样 可以写到缓存中&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;base64_decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+     &lt;span class=&quot;nv&quot;&gt;$result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;openssl_decrypt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;aes-128-cbc&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$iv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;var_dump&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+
+
+
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Encrypt&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;protect&lt;/span&gt;  &lt;span class=&quot;nv&quot;&gt;$pass&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;md5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;base64_encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;123abc456&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encryptAes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	    
+
+		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;function_exists&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;openssl_encrypt&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+			&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;openssl_encrypt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;aes128&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+		&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+			&lt;span class=&quot;c1&quot;&gt;//TODO&lt;/span&gt;
+		&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+		
+	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+	&lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;decryptAes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	
+		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;function_exists&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;openssl_decrypt&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+			&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;openssl_decrypt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;aes128&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+		&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+		
+	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;cp&quot;&gt;?&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><summary type="html">layout: post title: php 加密解密 categories: php path: php description: php 加密解密 keywords: php 加密解密 —</summary></entry><entry><title type="html">这是用gin搭建的app用例,如果你是小白，那它适合你练手！</title><link href="http://localhost:4000/2023/03/22/%E5%B0%8F%E7%99%BD%E5%AD%A6%E4%B9%A0gin%E6%A1%86%E6%9E%B6%E5%86%99%E6%9C%8D%E5%8A%A1/" rel="alternate" type="text/html" title="这是用gin搭建的app用例,如果你是小白，那它适合你练手！" /><published>2023-03-22T00:00:00+08:00</published><updated>2023-03-22T00:00:00+08:00</updated><id>http://localhost:4000/2023/03/22/%20%E5%B0%8F%E7%99%BD%E5%AD%A6%E4%B9%A0gin%E6%A1%86%E6%9E%B6%E5%86%99%E6%9C%8D%E5%8A%A1</id><content type="html" xml:base="http://localhost:4000/2023/03/22/%E5%B0%8F%E7%99%BD%E5%AD%A6%E4%B9%A0gin%E6%A1%86%E6%9E%B6%E5%86%99%E6%9C%8D%E5%8A%A1/">&lt;p&gt;这是用gin搭建的app用例,如果你是小白，那它适合你练手！&lt;/p&gt;
 &lt;h2 id=&quot;gin-框架文档&quot;&gt;gin 框架文档&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://gin-gonic.com/docs&quot;&gt;https://gin-gonic.com/docs&lt;/a&gt;&lt;/p&gt;
 
@@ -379,230 +247,7 @@ make run
 
 &lt;h3 id=&quot;7-访问swagger接口文档&quot;&gt;7) 访问swagger接口文档&lt;/h3&gt;
 
-&lt;p&gt;http://localhost:8081/swagger/index.html&lt;/p&gt;</content><author><name>张艳冲</name></author><category term="go" /><summary type="html">这是用gin搭建的app用例,如果你是小白，那它适合你练手！ gin 框架文档 https://gin-gonic.com/docs</summary></entry><entry><title type="html">性能分析工具pprof找出程序潜在的bug</title><link href="http://localhost:4000/2023/03/18/pprof%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/" rel="alternate" type="text/html" title="性能分析工具pprof找出程序潜在的bug" /><published>2023-03-18T00:00:00+08:00</published><updated>2023-03-18T00:00:00+08:00</updated><id>http://localhost:4000/2023/03/18/%20pprof%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8</id><content type="html" xml:base="http://localhost:4000/2023/03/18/pprof%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/">&lt;h1 id=&quot;性能分析工具pprof的使用&quot;&gt;性能分析工具pprof的使用&lt;/h1&gt;
-
-&lt;h2 id=&quot;一什么是pprof&quot;&gt;一、什么是pprof？&lt;/h2&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pprof可以对程序运行时占用CPU、内存、磁盘 IO、网络这些指标数据进行采样分析，并且提供了可视化的功能。
-它包含了两个库：
-1、runtime/pprof 对于只跑一次的程序，例如每天只跑一次的离线预处理程序，调用 pprof 包提供的函数，手动开启性能数据采集。
-2、net/http/pprof 对于在线服务，对于一个 HTTP Server，访问 pprof 提供的 HTTP 接口，获得性能数据。
-当然，实际上这里底层也是调用的 runtime/pprof 提供的函数，封装成接口对外提供网络访问。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;二影响程序性能指标数据有哪些&quot;&gt;二、影响程序性能指标数据有哪些？&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppwLHsA&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/23/ppwLHsA.png&quot; alt=&quot;ppwLHsA.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1、当 CPU 性能分析启用后，Go runtime 会每 10ms 就暂停一下，记录当前运行的 goroutine 的调用堆栈及相关数据。
-   当性能分析数据保存到硬盘后，我们就可以分析代码中的热点了。
-2、内存性能分析则是在堆（Heap）分配的时候，记录一下调用堆栈。默认情况下，是每 1000 次分配，取样一次，这个数值可以改变。
-  栈(Stack)分配 由于会随时释放，因此不会被内存分析所记录。由于内存分析是取样方式，并且也因为其记录的是分配内存，而不是使用内存。
-  因此使用内存性能分析工具来准确判断程序具体的内存使用是比较困难的。   
-3、阻塞分析是一个很独特的分析，它有点儿类似于 CPU 性能分析，但是它所记录的是 goroutine 等待资源所花的时间。
-  阻塞分析对分析程序并发瓶颈非常有帮助，阻塞性能分析可以显示出什么时候出现了大批的 goroutine 被阻塞了。阻塞性能分析是特殊的分析工具，
-  在排除 CPU 和内存瓶颈前，不应该用它来分析。  
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;三pprof如何使用&quot;&gt;三、pprof如何使用？&lt;/h2&gt;
-
-&lt;h3 id=&quot;runtimepprof&quot;&gt;runtime/pprof&lt;/h3&gt;
-
-&lt;p&gt;1、创建一个main.go文件,编写如下代码&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func main(){
-	f, _ := os.OpenFile(&quot;cpu.profile&quot;, os.O_CREATE|os.O_RDWR, 0644)
-	defer f.Close()
-	pprof.StartCPUProfile(f)
-	defer pprof.StopCPUProfile()
-	sayHellowold()
- 
- }
- func sayHellowold() {
-	hellowold(10000)
-	say(100000)
-}
-
-func hellowold(times int) {
-	time.Sleep(time.Second * 2)
-	var counter int
-	for i := 0; i &amp;lt; times; i++ {
-		for j := 0; j &amp;lt; times; j++ {
-			counter++
-		}
-	}
-}
-
-func say(times int) {
-	time.Sleep(time.Second * 2)
-	var counter int
-	for i := 0; i &amp;lt; times; i++ {
-		for j := 0; j &amp;lt; times; j++ {
-			counter++
-		}
-	}
-}
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;2、使用go run main.go执行程序&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; go run main.go 生成需要分析的cpu或内存的文件 
- example: cpu.profile
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppNJssJ&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/20/ppNJssJ.png&quot; alt=&quot;ppNJssJ.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;3、对采集的程序指标数据进行分析&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; 另启一个终端 go tool pprof [文件路径] 分析cpu 或内存的使用情况
- example:  go tool pprof  cpu.profile|pprof.samples.cpu.032.pb.gz
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppNY3Y6&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/20/ppNY3Y6.png&quot; alt=&quot;ppNY3Y6.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;发现cpu执行时间较长的是say函数,使用list main.say查看详情：
-&lt;a href=&quot;https://imgse.com/i/ppNYDtP&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/20/ppNYDtP.png&quot; alt=&quot;ppNYDtP.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;nethttppprof&quot;&gt;net/http/pprof&lt;/h3&gt;
-
-&lt;p&gt;1、创建一个main.go文件,编写如下代码&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func main() {
-
-	http.HandleFunc(&quot;/&quot;, sayHelloHandler) //	设置访问路由
-	log.Fatal(http.ListenAndServe(&quot;:9999&quot;, nil))
-
-}
-
-func sayHelloHandler(w http.ResponseWriter, r *http.Request) {
-
-	hellowold(10000)
-	fmt.Println(&quot;path&quot;, r.URL.Path)
-	fmt.Println(&quot;scheme&quot;, r.URL.Scheme)
-	fmt.Fprintf(w, &quot;Hello world!\n&quot;) //这个写入到w的是输出到客户端的
-	say(100000)
-}
-
-func hellowold(times int) {
-	time.Sleep(time.Second * 2)
-	var counter int
-	for i := 0; i &amp;lt; times; i++ {
-		for j := 0; j &amp;lt; times; j++ {
-			counter++
-		}
-	}
-}
-
-func say(times int) {
-	time.Sleep(time.Second * 2)
-	var counter int
-	for i := 0; i &amp;lt; times; i++ {
-		for j := 0; j &amp;lt; times; j++ {
-			counter++
-		}
-	}
-}
-
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;2、使用go run main.go执行程序&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;服务启动后，直接在浏览器上访问：
-
-http://localhost:9999/debug/pprof/
-
-得到了一个性能指标数据的汇总页面。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppwOOX9&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/23/ppwOOX9.png&quot; alt=&quot;ppwOOX9.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;可以直接点击上面的链接，进入子页面，查看相关的汇总信息。
-
-关于 goroutine 的信息有两个链接，goroutine 和 full goroutine stack dump，前者是一个汇总的消息，可以查看 goroutines 的总体情况，后者则可以看到每一个 goroutine 的状态
-点击 profile 和 trace 则会在后台进行一段时间的数据采样(默认30秒)，采样完成后，返回给浏览器一个 profile 文件，之后在本地通过 go tool pprof 工具进行分析。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppwXntf&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/23/ppwXntf.png&quot; alt=&quot;ppwXntf.png&quot; /&gt;&lt;/a&gt;
-然后使用list查看命令占用cpu时间最长的函数的时间消耗详情
-&lt;a href=&quot;https://imgse.com/i/ppwX4jH&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/23/ppwX4jH.png&quot; alt=&quot;ppwX4jH.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;当然如果不想通过浏览器下载，也可以通过交互模式采集并下载要分析的指标数据文件
-
-go tool pprof http://localhost:9999/debug/pprof/profile
-
-默认采集时间30秒，当然你可以重新设置采集时间，像下面这样：
-go tool pprof http://localhost:9999/debug/pprof/profile\?seconds\=60
-
-其他采集命令：
-# 下载 cpu profile，默认从当前开始收集 30s 的 cpu 使用情况，需要等待 30s
-go tool pprof http://localhost:9999/debug/pprof/profile
-# wait 120s
-go tool pprof http://localhost:9999/debug/pprof/profile?seconds=120     
-
-# 下载 heap profile
-go tool pprof -inuse_space http://127.0.0.1:9999/debug/pprof/heap\?seconds\=60
-go tool pprof http://localhost:9999/debug/pprof/heap
-
-# 下载 goroutine profile
-go tool pprof http://localhost:9999/debug/pprof/goroutine
-
-# 下载 block profile
-go tool pprof http://localhost:9999/debug/pprof/block
-
-# 下载 mutex profile
-go tool pprof http://localhost:9999/debug/pprof/mutex
-
-
-
-在采集的过程中，也别忘了访问你觉得有性能的接口，比如
-
-http://localhost:9999/
-
-采集完成后会直接进入交互模式。如下图所示：
-红框部分就行采集后生成的cpu性能指标数据文件
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppwvFeA&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/23/ppwvFeA.png&quot; alt=&quot;ppwvFeA.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;如果在以上交互模式下退出，还可以继续使用如下命令进入交互模式
-go tool pprof [文件路径] 分析cpu 或内存的使用情况,比如下面例子：
-go tool pprof /Users/liufangting/pprof/pprof.samples.cpu.042.pb.gz  
-
-如果不想在终端交互模式下做指标数据性能分析，那还可以在浏览器里进行交互
-go tool pprof -http :8081  [采集信息文件路径]或者 采集url
-
-example:
-go tool pprof -http :8081 cpu.profile
-go tool pprof -http :8081 /Users/liufangting/pprof/pprof.samples.cpu.042.pb.gz
-go tool pprof -http :8081  http://localhost:8080/debug/pprof/profile\?seconds\=60
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppwzVxS&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/23/ppwzVxS.png&quot; alt=&quot;ppwzVxS.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;3 如果查看火焰图？&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  y 轴表示调用栈，每一层都是一个函数。调用栈越深，火焰就越高，下方就是正在执行的函数，顶部都是它的父函数
-  x 轴表示抽样数，如果一个函数在 x 轴占据的宽度越宽，就表示它被抽到的次数多，即执行的时间长。注意，x 轴不代表时间，而是所有的调用栈合并后，按字母顺序排列的。
-  火焰图就是看顶层的哪个函数占据的宽度最大。只要有&quot;平顶&quot;（plateaus），就表示该函数可能存在性能问题
-  
-  //https://www.ruanyifeng.com/blog/2017/09/flame-graph.html
-  
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppwzOds&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/23/ppwzOds.png&quot; alt=&quot;ppwzOds.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;4 测试代码地址&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/echo-music/go-learn/blob/master/monitor/pprofs/cmd/main.go&quot;&gt;示例完整代码&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;总结
-使用pprof进行性能指标分析两大步：&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;第一步：性能指标数据采集
-1、代码中采集并保存文件；runtime/pprof
-2、终端采集自动生成可分析的指标数据文件；net/http/pprof
-3、web端访问击 profile 和 trace 采集；net/http/pprof
-
-第一步：对采集的性能指标数据进行分析
-1、终端交互模式下使用top,list,traces 分析；
-2、web端交互模式下，查看火焰图，程序的调用图进行性能分析；
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="go" /><summary type="html">性能分析工具pprof的使用</summary></entry><entry><title type="html">小白学习docker入门到放弃</title><link href="http://localhost:4000/2023/03/17/docker%E5%B0%8F%E7%99%BD%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%89%8B%E8%AE%B0/" rel="alternate" type="text/html" title="小白学习docker入门到放弃" /><published>2023-03-17T00:00:00+08:00</published><updated>2023-03-17T00:00:00+08:00</updated><id>http://localhost:4000/2023/03/17/%20docker%E5%B0%8F%E7%99%BD%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%89%8B%E8%AE%B0</id><content type="html" xml:base="http://localhost:4000/2023/03/17/docker%E5%B0%8F%E7%99%BD%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%89%8B%E8%AE%B0/">&lt;h2 id=&quot;docker-自学笔记&quot;&gt;docker 自学笔记&lt;/h2&gt;
+&lt;p&gt;http://localhost:8081/swagger/index.html&lt;/p&gt;</content><author><name>张艳冲</name></author><category term="go" /><summary type="html">这是用gin搭建的app用例,如果你是小白，那它适合你练手！ gin 框架文档 https://gin-gonic.com/docs</summary></entry><entry><title type="html">小白学习docker入门到放弃</title><link href="http://localhost:4000/2023/03/17/docker%E5%B0%8F%E7%99%BD%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%89%8B%E8%AE%B0/" rel="alternate" type="text/html" title="小白学习docker入门到放弃" /><published>2023-03-17T00:00:00+08:00</published><updated>2023-03-17T00:00:00+08:00</updated><id>http://localhost:4000/2023/03/17/%20docker%E5%B0%8F%E7%99%BD%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%89%8B%E8%AE%B0</id><content type="html" xml:base="http://localhost:4000/2023/03/17/docker%E5%B0%8F%E7%99%BD%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%89%8B%E8%AE%B0/">&lt;h2 id=&quot;docker-自学笔记&quot;&gt;docker 自学笔记&lt;/h2&gt;
 
 &lt;h3 id=&quot;一docker-安装&quot;&gt;一、docker 安装&lt;/h3&gt;
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1、mac下安装
@@ -1645,115 +1290,418 @@ shardsvr=true
 
   //查看分片的情况
 	db.nihao.getShardDistribution()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="mongo" /><summary type="html">1.mongdb 版本 –4.2 版本 （bind_ip 只能绑定一个ip 我草 无情） 分片服务 （副本集） mongo3.4 以后必须的 配置服务器（副本集） mongo 3.4 以后必须的 routes 路由 mongos （可以一台） 什么是副本集，自己百度一下 （就是有mongo主服务器，多个从服务器 当某个从服务器挂了 主服务器会从服务器找个运行正常的使用，如果主服务器挂了 就从从服务器找个作为主服务器） 一般为3个一个副本集 每个副本集请至少保证剩余2台机器，否则不能用，如果多台机器挂掉后剩余2台后，不能再挂掉，否则不能使用 （&amp;lt;2 台 副本集就不能用了 ） （自己测试） 3.安装 暂时没有使用默认端口 （只在一台做实验） routes 127.0.0.1 27000 配置服务器 （一个副本集） config_set 127.0.0.1 27001 127.0.0.1 27002 127.0.0.1 27003 分片节点 （2个副本集） share1 127.0.0.1 27004 127.0.0.1 27005 127.0.0.1 27006</summary></entry><entry><title type="html">你说你搞懂了defer？我不信！</title><link href="http://localhost:4000/2020/12/20/%E4%BD%A0%E8%AF%B4%E4%BD%A0%E6%90%9E%E6%87%82%E4%BA%86defer/" rel="alternate" type="text/html" title="你说你搞懂了defer？我不信！" /><published>2020-12-20T00:00:00+08:00</published><updated>2020-12-20T00:00:00+08:00</updated><id>http://localhost:4000/2020/12/20/%20%E4%BD%A0%E8%AF%B4%E4%BD%A0%E6%90%9E%E6%87%82%E4%BA%86defer</id><content type="html" xml:base="http://localhost:4000/2020/12/20/%E4%BD%A0%E8%AF%B4%E4%BD%A0%E6%90%9E%E6%87%82%E4%BA%86defer/">&lt;p&gt;defer不仅可以用于资源释放，也可以用于流程控制和异常处理，但defer关键字只能用于函数或函数调用。&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="mongo" /><summary type="html">1.mongdb 版本 –4.2 版本 （bind_ip 只能绑定一个ip 我草 无情） 分片服务 （副本集） mongo3.4 以后必须的 配置服务器（副本集） mongo 3.4 以后必须的 routes 路由 mongos （可以一台） 什么是副本集，自己百度一下 （就是有mongo主服务器，多个从服务器 当某个从服务器挂了 主服务器会从服务器找个运行正常的使用，如果主服务器挂了 就从从服务器找个作为主服务器） 一般为3个一个副本集 每个副本集请至少保证剩余2台机器，否则不能用，如果多台机器挂掉后剩余2台后，不能再挂掉，否则不能使用 （&amp;lt;2 台 副本集就不能用了 ） （自己测试） 3.安装 暂时没有使用默认端口 （只在一台做实验） routes 127.0.0.1 27000 配置服务器 （一个副本集） config_set 127.0.0.1 27001 127.0.0.1 27002 127.0.0.1 27003 分片节点 （2个副本集） share1 127.0.0.1 27004 127.0.0.1 27005 127.0.0.1 27006</summary></entry><entry><title type="html">holmes服务性能指标监控，让bug无处遁行！</title><link href="http://localhost:4000/2021/03/23/holmes%E6%9C%8D%E5%8A%A1%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E7%9B%91%E6%8E%A7/" rel="alternate" type="text/html" title="holmes服务性能指标监控，让bug无处遁行！" /><published>2021-03-23T00:00:00+08:00</published><updated>2021-03-23T00:00:00+08:00</updated><id>http://localhost:4000/2021/03/23/%20holmes%E6%9C%8D%E5%8A%A1%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E7%9B%91%E6%8E%A7</id><content type="html" xml:base="http://localhost:4000/2021/03/23/holmes%E6%9C%8D%E5%8A%A1%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E7%9B%91%E6%8E%A7/">&lt;p&gt;作为一名”懒惰”的程序员，如何避免在线上Golang系统半夜宕机 （一般是OOM导致的）时起床保存现场呢？又或者如何dump压测时性能尖刺时刻的profile文件呢？
+holmes 或许能帮助您解决以上问题。&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;defer关键字后接一个匿名函数
-defer func(){
-    fmt.Println(&quot;hello world!&quot;)
-}
+&lt;h1 id=&quot;holmes性能指标监控&quot;&gt;holmes性能指标监控&lt;/h1&gt;
 
-defer关键字后接一个函数调用：
-file,err :=os.open(name)
-if err != nil {
+&lt;h2 id=&quot;holmes是什么&quot;&gt;holmes是什么？&lt;/h2&gt;
 
-   return nil,err
-}
-defer file.Close()
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;对于系统的性能尖刺问题，我们通常使用 Go 官方内置的 pprof 包进行分析，但是难点是对于一闪而过的“尖刺”，
+
+开发人员很难及时保存现场：当你收到告警信息，从被窝中爬起来，打开电脑链接 VPN，系统说不定都已经重启三四趟了。
+
+MOSN 社区的 Holmes 是一个基于 Golang 实现的轻量级性能监控系统，当应用的性能指标发生了异常波动时，
+
+Holmes 会在第一时间保留现场，让你第二天上班可以一边做着大保健，一边追查问题的根因。
+
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;1使用场景&quot;&gt;1、使用场景&lt;/h2&gt;
+&lt;h2 id=&quot;快速入门&quot;&gt;快速入门&lt;/h2&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1）释放资源
-m.mutex.Lock()
-defer m.mutex.Unlock()
-defer 常用于文件句柄、数据库连接，停止定时器 Ticker 以及关闭管道等资源清理场景 。
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
 
-2）流程控制
-var wg wait.group
-defer wg.Wait()
-defer 也用于控制函数的执行顺序，比如配合wait.Group实现等待携程的退出。 
+import (
+	&quot;fmt&quot;
+	&quot;mosn.io/holmes&quot;
+	&quot;mosn.io/pkg/log&quot;
+	&quot;net/http&quot;
+	&quot;time&quot;
+)
 
-3）异常处理
-defer 常用于处理异常，与recover配合可以消除panic,另外recover只能用于defer函数。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;2行为规则&quot;&gt;2、行为规则&lt;/h2&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1）规则一：延迟函数的参数在defer语句出现的时候就已经确定了
-官方给出的例子如下图所示：
-func f(){
-    i :=0
-    defer fmt.Println(i)
-    i++
-    return
+func init() {
+	http.HandleFunc(&quot;/make1gb&quot;, make1gbslice)
+	go http.ListenAndServe(&quot;:10003&quot;, nil)
 }
 
-defer语句中的fmt.Println()参数i值在defer出现时就已经确定了，实际上是复制了一份。后面对变量i的修改
-不会影响fmt.Println()函数的执行，仍然打印0。
+var grReportCount int
+var cpuReportCount int
+var memReportCount int
 
-2) 规则二：延迟函数按照先进后出的顺序执行，也就是说在函数中，最先出现的defer最后执行。
+type ReporterImpl struct{}
 
+func (r *ReporterImpl) Report(pType string, buf []byte, reason string, eventID string) error {
+	fmt.Println(fmt.Sprintf(&quot;call %s report \n&quot;, pType))
 
-3）规则三：延迟函数可能影响主函数的返回值
-定义defer的函数可能有名字的返回值，也可能是没名字的返回值！延迟函数可能会影响到返回值。
+	switch pType {
+	case &quot;goroutine&quot;:
+		grReportCount++
+	case &quot;cpu&quot;:
+		cpuReportCount++
+	case &quot;mem&quot;:
+		memReportCount++
 
-那如果想要理解延迟函数是如何影响主函数返回值的，只要明白函数是如何返回就够了。
-（1）有个事实必须要清楚，关键字return不是一个原子操作，实际上return只代表汇编指令ret,即跳转程序的执行。
-    比如return i,实际上是分两步执行，即先将i值存入栈中作为返回值，然后执行跳转，而defer的执行时机介于返回值
-    入栈与跳转之间。这意味着defer是有机会操作返回值的。
-    
-    那举个例子：
-    func deferResult() (res int){
-        i :=1
-        
-        defer func(){
-            res++
+	}
+	fmt.Println(&quot;type=&quot;, pType, &quot;reason=&quot;, reason, &quot;eventid=&quot;, eventID)
+	fmt.Println(&quot;content =&quot;, string(buf))
+	return nil
+
+}
+func main() {
+	r := &amp;amp;ReporterImpl{} // a implement of holmes.ProfileReporter Interface.
+
+	h, _ := holmes.New(
+		holmes.WithProfileReporter(r),
+		holmes.WithCollectInterval(&quot;2s&quot;),
+		holmes.WithDumpPath(&quot;/tmp/holmes&quot;),
+		//holmes.WithTextDump(),
+		holmes.WithMemDump(3, 25, 80, time.Minute),
+		holmes.WithCPUDump(1, 25, 80, time.Minute),
+		holmes.WithGCHeapDump(10, 20, 40, time.Minute),
+		holmes.WithGoroutineDump(5, 25, 20000, 0, time.Minute),
+		holmes.WithLogger(holmes.NewFileLog(&quot;/tmp/holmes/holmes.log&quot;, log.ERROR)),
+	)
+
+	h.EnableCPUDump().
+		EnableGoroutineDump().
+		EnableMemDump().
+		EnableGCHeapDump().Start()
+	time.Sleep(time.Hour)
+
+}
+
+func make1gbslice(wr http.ResponseWriter, req *http.Request) {
+
+	var a = make([]byte, 1073741824)
+	_ = a
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;上面的代码是用来监控内存指标，超过咱们设置的规则，就会dump，并报警！
+然后执行上面的代码，这样服务就被监控起来了，哈哈哈。
+
+访问这个接口
+http://127.0.0.1:10003/make1gb
+
+你会发现在tmp/holmes目录下有个
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppDQs41&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/25/ppDQs41.png&quot; alt=&quot;ppDQs41.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;咱们现在进入该文件所在目录，开始分析这个文件
+
+go tool pprof mem..20230325130917.601.log
+
+使用 traces 就能很快找到内存泄漏的代码是哪一个，如下图所示
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppD1bnS&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/25/ppD1bnS.png&quot; alt=&quot;ppD1bnS.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;二使用说明&quot;&gt;二、使用说明&lt;/h2&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;类似于 holmes.WithGoroutineDump(min, diff, abs,max,2 * time.Minute) 的 API 
+每个 Profile 都可以配置 min、diff、abs、coolDown 四个指标，含义如下:
+
+当前指标小于 min 时，不视为异常。
+
+当前指标大于 (100+diff)100% 历史指标，说明系统此时产生了波动，视为异常。
+
+当前指标大于 abs (绝对值)时，视为异常。
+
+CPU 和 Goroutine 这两个 Profile 类型提供 Max 参数配置，基于以下考虑：
+
+CPU 的 Profiling 操作大约会有 5% 的性能损耗，所以当在 CPU 过高时，不应当进行 Profiling 操作，否则会拖垮系统。
+
+当 Goroutine 数过大时，Goroutine Dump 操作成本很高，会进行 STW 操作，从而拖垮系统。（详情见文末参考文章）
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;三profile-types&quot;&gt;三、Profile Types&lt;/h2&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Holmes 支持以下五种 Profile 类型，用户可以按需配置。
+
+Mem: 内存分配
+
+CPU: CPU 使用率
+
+Thread: 线程数
+
+Goroutine: 协程数
+
+GCHeap: 基于 GC 周期监控的内存分配
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;四warming-up&quot;&gt;四、Warming up&lt;/h2&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;当 Holmes 启动时，会根据 CollectInterval 周期采集十次各项指标，在这期间内采集到的指标只会存入循环链表中，不会进行规则判断。
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;五事件上报&quot;&gt;五、事件上报&lt;/h2&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;您可以通过实现 Reporter 来实现以下功能：
+
+发送告警信息，当 Holmes 触发 Dump 操作时。
+
+将 Profiles 上传到其他地方，以防实例被销毁，从而导致 Profile 丢失，或进行分析。
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+type ReporterImpl struct{}
+        func (r *ReporterImple) Report(pType string, buf []byte, reason string, eventID string) error{
+            // do something  
         }
-    
-        return i    
-    }
-    该函数的return语句可以拆分成下面两行：
-    result = i
-    return
-    前面说过延迟函数在return之前执行
-    result = i //1
-    result++ //2
-    return
-    
-    所以上面的返回值是 result++ 的值
-    
-   （2）主函数有匿名函数返回值，则返回字面值。
-    一个主函数拥有一个匿名返回值，比如说1，2，3，&quot;hello&quot;等，那么defer是无法操作返回值的
-    比如下面一个返回字面值的函数：
-    func f() int{
-        var i int
-        defer func(){
-            i++
-        }
-        return 1
-    }
-    
-    上面的return语句直接把1写入栈中作为返回值，延迟函数无法操作该返回值，索引就无法影响到该返回值。
-    
-   （3）主函数拥有匿名返回值，返回变量。
-    一个主函数拥有一个匿名返回值，返回本地变量或者局部变量，这种情况下defer可以引用返回值，但不会改变返回值。
-    一个返回本地变量的函数如下：
-    func f() int{
-      var i int
-      defer func (){
-        i++
-      }
-      return i
-    
-    }
-    
-    上面的函数返回一个局部变量，同时defer函数也会操作这个局部变量。对于一个匿名返回值来说，可以假定一个匿名变量
-    来存储该返回值，那么上面的返回值可以拆分以下步骤：
-    
-    anony = i
-    i++
-    return
-    
-    由于i是整数，会将值复制给anony,所以defer语句中的修改不会函数返回值造成影响
+        ......
+        r := &amp;amp;ReporterImpl{} // a implement of holmes.ProfileReporter Interface.
+      h, _ := holmes.New(
+            holmes.WithProfileReporter(reporter),
+            holmes.WithDumpPath(&quot;/tmp&quot;),
+            holmes.WithLogger(holmes.NewFileLog(&quot;/tmp/holmes.log&quot;, mlog.INFO)),
+            holmes.WithBinaryDump(),
+            holmes.WithMemoryLimit(100*1024*1024), // 100MB
+            holmes.WithGCHeapDump(10, 20, 40, time.Minute),
+)
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="go" /><summary type="html">defer不仅可以用于资源释放，也可以用于流程控制和异常处理，但defer关键字只能用于函数或函数调用。</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;参考资料&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[1]《Holmes 文档》https://github.com/mosn/holmes
+
+[2]《无人值守的自动 dump(一)》https://xargin.com/autodumper-for-go/
+
+[3]《无人值守的自动 dump(二)》https://xargin.com/autodumper-for-go-ii/
+
+[4]《go 语言 pprof heap profile 实现机制》https://uncledou.site/2022/go-pprof-heap/
+
+[5]《goroutines pprofiling STW》https://github.com/golang/go/issues/33250
+
+[6]《Holmes 使用案例文档》https://github.com/mosn/holmes/tree/master/example
+
+[7]《go pprof 性能损耗》https://medium.com/google-cloud/continuous-profiling-of-go-programs-96d4416af77b
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="go" /><summary type="html">作为一名”懒惰”的程序员，如何避免在线上Golang系统半夜宕机 （一般是OOM导致的）时起床保存现场呢？又或者如何dump压测时性能尖刺时刻的profile文件呢？ holmes 或许能帮助您解决以上问题。</summary></entry><entry><title type="html">性能分析工具pprof找出程序潜在的bug</title><link href="http://localhost:4000/2021/03/18/pprof%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/" rel="alternate" type="text/html" title="性能分析工具pprof找出程序潜在的bug" /><published>2021-03-18T00:00:00+08:00</published><updated>2021-03-18T00:00:00+08:00</updated><id>http://localhost:4000/2021/03/18/%20pprof%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8</id><content type="html" xml:base="http://localhost:4000/2021/03/18/pprof%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/">&lt;h1 id=&quot;性能分析工具pprof的使用&quot;&gt;性能分析工具pprof的使用&lt;/h1&gt;
+
+&lt;h2 id=&quot;一什么是pprof&quot;&gt;一、什么是pprof？&lt;/h2&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pprof可以对程序运行时占用CPU、内存、磁盘 IO、网络这些指标数据进行采样分析，并且提供了可视化的功能。
+它包含了两个库：
+1、runtime/pprof 对于只跑一次的程序，例如每天只跑一次的离线预处理程序，调用 pprof 包提供的函数，手动开启性能数据采集。
+2、net/http/pprof 对于在线服务，对于一个 HTTP Server，访问 pprof 提供的 HTTP 接口，获得性能数据。
+当然，实际上这里底层也是调用的 runtime/pprof 提供的函数，封装成接口对外提供网络访问。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;二影响程序性能指标数据有哪些&quot;&gt;二、影响程序性能指标数据有哪些？&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppwLHsA&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/23/ppwLHsA.png&quot; alt=&quot;ppwLHsA.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1、当 CPU 性能分析启用后，Go runtime 会每 10ms 就暂停一下，记录当前运行的 goroutine 的调用堆栈及相关数据。
+   当性能分析数据保存到硬盘后，我们就可以分析代码中的热点了。
+2、内存性能分析则是在堆（Heap）分配的时候，记录一下调用堆栈。默认情况下，是每 1000 次分配，取样一次，这个数值可以改变。
+  栈(Stack)分配 由于会随时释放，因此不会被内存分析所记录。由于内存分析是取样方式，并且也因为其记录的是分配内存，而不是使用内存。
+  因此使用内存性能分析工具来准确判断程序具体的内存使用是比较困难的。   
+3、阻塞分析是一个很独特的分析，它有点儿类似于 CPU 性能分析，但是它所记录的是 goroutine 等待资源所花的时间。
+  阻塞分析对分析程序并发瓶颈非常有帮助，阻塞性能分析可以显示出什么时候出现了大批的 goroutine 被阻塞了。阻塞性能分析是特殊的分析工具，
+  在排除 CPU 和内存瓶颈前，不应该用它来分析。  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;三pprof如何使用&quot;&gt;三、pprof如何使用？&lt;/h2&gt;
+
+&lt;h3 id=&quot;runtimepprof&quot;&gt;runtime/pprof&lt;/h3&gt;
+
+&lt;p&gt;1、创建一个main.go文件,编写如下代码&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func main(){
+	f, _ := os.OpenFile(&quot;cpu.profile&quot;, os.O_CREATE|os.O_RDWR, 0644)
+	defer f.Close()
+	pprof.StartCPUProfile(f)
+	defer pprof.StopCPUProfile()
+	sayHellowold()
+ 
+ }
+ func sayHellowold() {
+	hellowold(10000)
+	say(100000)
+}
+
+func hellowold(times int) {
+	time.Sleep(time.Second * 2)
+	var counter int
+	for i := 0; i &amp;lt; times; i++ {
+		for j := 0; j &amp;lt; times; j++ {
+			counter++
+		}
+	}
+}
+
+func say(times int) {
+	time.Sleep(time.Second * 2)
+	var counter int
+	for i := 0; i &amp;lt; times; i++ {
+		for j := 0; j &amp;lt; times; j++ {
+			counter++
+		}
+	}
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;2、使用go run main.go执行程序&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; go run main.go 生成需要分析的cpu或内存的文件 
+ example: cpu.profile
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppNJssJ&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/20/ppNJssJ.png&quot; alt=&quot;ppNJssJ.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;3、对采集的程序指标数据进行分析&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; 另启一个终端 go tool pprof [文件路径] 分析cpu 或内存的使用情况
+ example:  go tool pprof  cpu.profile|pprof.samples.cpu.032.pb.gz
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppNY3Y6&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/20/ppNY3Y6.png&quot; alt=&quot;ppNY3Y6.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;发现cpu执行时间较长的是say函数,使用list main.say查看详情：
+&lt;a href=&quot;https://imgse.com/i/ppNYDtP&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/20/ppNYDtP.png&quot; alt=&quot;ppNYDtP.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nethttppprof&quot;&gt;net/http/pprof&lt;/h3&gt;
+
+&lt;p&gt;1、创建一个main.go文件,编写如下代码&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func main() {
+
+	http.HandleFunc(&quot;/&quot;, sayHelloHandler) //	设置访问路由
+	log.Fatal(http.ListenAndServe(&quot;:9999&quot;, nil))
+
+}
+
+func sayHelloHandler(w http.ResponseWriter, r *http.Request) {
+
+	hellowold(10000)
+	fmt.Println(&quot;path&quot;, r.URL.Path)
+	fmt.Println(&quot;scheme&quot;, r.URL.Scheme)
+	fmt.Fprintf(w, &quot;Hello world!\n&quot;) //这个写入到w的是输出到客户端的
+	say(100000)
+}
+
+func hellowold(times int) {
+	time.Sleep(time.Second * 2)
+	var counter int
+	for i := 0; i &amp;lt; times; i++ {
+		for j := 0; j &amp;lt; times; j++ {
+			counter++
+		}
+	}
+}
+
+func say(times int) {
+	time.Sleep(time.Second * 2)
+	var counter int
+	for i := 0; i &amp;lt; times; i++ {
+		for j := 0; j &amp;lt; times; j++ {
+			counter++
+		}
+	}
+}
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;2、使用go run main.go执行程序&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;服务启动后，直接在浏览器上访问：
+
+http://localhost:9999/debug/pprof/
+
+得到了一个性能指标数据的汇总页面。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppwOOX9&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/23/ppwOOX9.png&quot; alt=&quot;ppwOOX9.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;可以直接点击上面的链接，进入子页面，查看相关的汇总信息。
+
+关于 goroutine 的信息有两个链接，goroutine 和 full goroutine stack dump，前者是一个汇总的消息，可以查看 goroutines 的总体情况，后者则可以看到每一个 goroutine 的状态
+点击 profile 和 trace 则会在后台进行一段时间的数据采样(默认30秒)，采样完成后，返回给浏览器一个 profile 文件，之后在本地通过 go tool pprof 工具进行分析。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppwXntf&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/23/ppwXntf.png&quot; alt=&quot;ppwXntf.png&quot; /&gt;&lt;/a&gt;
+然后使用list查看命令占用cpu时间最长的函数的时间消耗详情
+&lt;a href=&quot;https://imgse.com/i/ppwX4jH&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/23/ppwX4jH.png&quot; alt=&quot;ppwX4jH.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;当然如果不想通过浏览器下载，也可以通过交互模式采集并下载要分析的指标数据文件
+
+go tool pprof http://localhost:9999/debug/pprof/profile
+
+默认采集时间30秒，当然你可以重新设置采集时间，像下面这样：
+go tool pprof http://localhost:9999/debug/pprof/profile\?seconds\=60
+
+其他采集命令：
+# 下载 cpu profile，默认从当前开始收集 30s 的 cpu 使用情况，需要等待 30s
+go tool pprof http://localhost:9999/debug/pprof/profile
+# wait 120s
+go tool pprof http://localhost:9999/debug/pprof/profile?seconds=120     
+
+# 下载 heap profile
+go tool pprof -inuse_space http://127.0.0.1:9999/debug/pprof/heap\?seconds\=60
+go tool pprof http://localhost:9999/debug/pprof/heap
+
+# 下载 goroutine profile
+go tool pprof http://localhost:9999/debug/pprof/goroutine
+
+# 下载 block profile
+go tool pprof http://localhost:9999/debug/pprof/block
+
+# 下载 mutex profile
+go tool pprof http://localhost:9999/debug/pprof/mutex
+
+
+
+在采集的过程中，也别忘了访问你觉得有性能的接口，比如
+
+http://localhost:9999/
+
+采集完成后会直接进入交互模式。如下图所示：
+红框部分就行采集后生成的cpu性能指标数据文件
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppwvFeA&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/23/ppwvFeA.png&quot; alt=&quot;ppwvFeA.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;如果在以上交互模式下退出，还可以继续使用如下命令进入交互模式
+go tool pprof [文件路径] 分析cpu 或内存的使用情况,比如下面例子：
+go tool pprof /Users/liufangting/pprof/pprof.samples.cpu.042.pb.gz  
+
+如果不想在终端交互模式下做指标数据性能分析，那还可以在浏览器里进行交互
+go tool pprof -http :8081  [采集信息文件路径]或者 采集url
+
+example:
+go tool pprof -http :8081 cpu.profile
+go tool pprof -http :8081 /Users/liufangting/pprof/pprof.samples.cpu.042.pb.gz
+go tool pprof -http :8081  http://localhost:8080/debug/pprof/profile\?seconds\=60
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppwzVxS&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/23/ppwzVxS.png&quot; alt=&quot;ppwzVxS.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;3 如果查看火焰图？&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  y 轴表示调用栈，每一层都是一个函数。调用栈越深，火焰就越高，下方就是正在执行的函数，顶部都是它的父函数
+  x 轴表示抽样数，如果一个函数在 x 轴占据的宽度越宽，就表示它被抽到的次数多，即执行的时间长。注意，x 轴不代表时间，而是所有的调用栈合并后，按字母顺序排列的。
+  火焰图就是看顶层的哪个函数占据的宽度最大。只要有&quot;平顶&quot;（plateaus），就表示该函数可能存在性能问题
+  
+  //https://www.ruanyifeng.com/blog/2017/09/flame-graph.html
+  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://imgse.com/i/ppwzOds&quot;&gt;&lt;img src=&quot;https://s1.ax1x.com/2023/03/23/ppwzOds.png&quot; alt=&quot;ppwzOds.png&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;4 测试代码地址&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/echo-music/go-learn/blob/master/monitor/pprofs/cmd/main.go&quot;&gt;示例完整代码&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;总结
+使用pprof进行性能指标分析两大步：&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;第一步：性能指标数据采集
+1、代码中采集并保存文件；runtime/pprof
+2、终端采集自动生成可分析的指标数据文件；net/http/pprof
+3、web端访问击 profile 和 trace 采集；net/http/pprof
+
+第一步：对采集的性能指标数据进行分析
+1、终端交互模式下使用top,list,traces 分析；
+2、web端交互模式下，查看火焰图，程序的调用图进行性能分析；
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>张艳冲</name></author><category term="go" /><summary type="html">性能分析工具pprof的使用</summary></entry></feed>
