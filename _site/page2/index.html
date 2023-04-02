@@ -240,89 +240,7 @@ routes 路由 mongos   （可以一台）
                       <a href="http://localhost:4000/2020/09/16/redis%E9%9B%86%E7%BE%A4/">redis 集群</a>
                     </h3>
                     <p class="repo-list-description">
-                        在哨兵模式中，仍然只有一个Master节点。当并发写请求较大时，哨兵模式并不能缓解写压力。
-我们知道只有主节点才具有写能力，那如果在一个集群中，能够配置多个主节点，是不是就可以缓解写压力了呢？
-答：是的。这个就是redis-cluster集群模式。
-
-
-个人理解 集群的理念
-  集群 生成会变成多个主从服务， 可以多个主去写 当主挂掉后 从就变成主 （可长一主好几个从）
-  写入主要在主服务器上面
-
-
- php 连接集群不用去考虑里面具体的主从 只需要连接就可以(内部帮你实现)
-
-
-yum install ruby 
-yum -y install rubygems
-
-1. 服务器
-   redis  主 7001
-   redis  主 7002
-   redis  主 7003
-   redis  从 7004
-   redis  从 7005
-   redis  从 7006
-
-2. 配置文件
-   7001 7002   7003  7004  7005 7006
-
-  port 7001
-  pidfile /zyc/redis_sentry/jiqun/pid/redis_7001.pid
-  logfile "/zyc/redis_sentry/jiqun/log/redis_7001.log" 
-  dir /zyc/redis_sentry/jiqun/dir/7001
-  cluster-enabled yes
- 
-  port 7002
-  pidfile /zyc/redis_sentry/jiqun/pid/redis_7002.pid
-  logfile "/zyc/redis_sentry/jiqun/log/redis_7002.log" 
-  dir /zyc/redis_sentry/jiqun/dir/7002
-  cluster-enabled yes
- 
-
-  port 7003
-  pidfile /zyc/redis_sentry/jiqun/pid/redis_7003.pid
-  logfile "/zyc/redis_sentry/jiqun/log/redis_7003.log" 
-  dir /zyc/redis_sentry/jiqun/dir/7003
-  cluster-enabled yes
-
-
-  port 7004
-  pidfile /zyc/redis_sentry/jiqun/pid/redis_7004.pid
-  logfile "/zyc/redis_sentry/jiqun/log/redis_7004.log" 
-  dir /zyc/redis_sentry/jiqun/dir/7004
-  cluster-enabled yes
-
-
-    port 7005
-  pidfile /zyc/redis_sentry/jiqun/pid/redis_7005.pid
-  logfile "/zyc/redis_sentry/jiqun/log/redis_7005.log" 
-  dir /zyc/redis_sentry/jiqun/dir/7005
-  cluster-enabled yes
-
-    port 7006
-  pidfile /zyc/redis_sentry/jiqun/pid/redis_7006.pid
-  logfile "/zyc/redis_sentry/jiqun/log/redis_7006.log" 
-  dir /zyc/redis_sentry/jiqun/dir/7006
-  cluster-enabled yes
-
-
-  /www/server/redis/src/redis-server  /zyc/redis_sentry/jiqun/conf/redis_7001.conf &amp;
-  /www/server/redis/src/redis-server  /zyc/redis_sentry/jiqun/conf/redis_7002.conf &amp;
-  /www/server/redis/src/redis-server  /zyc/redis_sentry/jiqun/conf/redis_7003.conf &amp;
-  /www/server/redis/src/redis-server  /zyc/redis_sentry/jiqun/conf/redis_7004.conf &amp;
-  /www/server/redis/src/redis-server  /zyc/redis_sentry/jiqun/conf/redis_7005.conf &amp;
-  /www/server/redis/src/redis-server  /zyc/redis_sentry/jiqun/conf/redis_7006.conf &amp;
-
-
-
-/www/server/redis/src/redis-cli --cluster create  127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 127.0.0.1:7006 --cluster-replicas 1
-
-
-  命令的意义如下：
- create ， 这表示我们希望创建一个新的集群。
-	选项 --replicas 1 表示我们希望为集群中的每个主节点创建一个从节点。
-	之后跟着的其他参数则是实例的地址列表， 我们希望程序使用这些地址所指示的实例来创建新集群。
+                        redis集群
                     </p>
                     <p class="repo-list-meta">
                         <span class="meta-info">
@@ -342,35 +260,7 @@ yum -y install rubygems
                       <a href="http://localhost:4000/2020/09/16/redis%E4%B8%BB%E4%BB%8E%E5%93%A8%E5%85%B5/">redis主从和哨兵</a>
                     </h3>
                     <p class="repo-list-description">
-                        1.redis 主  端口 6300  
-  redis 从  端口 6301
-  redis 从  端口 6302
-
-主服务器修改
-  port 6300
-  pidfile /zyc/redis_sentry/zhucong/pid/redis_zhu.pid
-  logfile "/zyc/redis_sentry/zhucong/log/redis_zhu.log" 
-  dir /zyc/redis_sentry/zhucong/dir/zhu
-
-从服务器修改
-  port 6301
-  pidfile /zyc/redis_sentry/zhucong/pid/redis_cong_1.pid
-  logfile "/zyc/redis_sentry/zhucong/log/redis_cong_1.log" 
-  dir /zyc/redis_sentry/zhucong/dir/cong_1
-  slaveof 127.0.0.1 6300
-
-  port 6302
-  pidfile /zyc/redis_sentry/zhucong/pid/redis_cong_2.pid
-  logfile "/zyc/redis_sentry/zhucong/log/redis_cong_2.log" 
-  dir /zyc/redis_sentry/zhucong/dir/cong_2
-  slaveof 127.0.0.1 6300
-
-
-
-启动
-/www/server/redis/src/redis-server  /zyc/redis_sentry/zhucong/conf/redis_zhu.conf &amp;
-/www/server/redis/src/redis-server  /zyc/redis_sentry/zhucong/conf/redis_cong_1.conf &amp;
-/www/server/redis/src/redis-server  /zyc/redis_sentry/zhucong/conf/redis_cong_2.conf &amp;
+                        redis主从和哨兵
                     </p>
                     <p class="repo-list-meta">
                         <span class="meta-info">

@@ -30,8 +30,8 @@
     <meta name="keywords" content="redis 集群 主从 哨兵">
     <meta name="og:keywords" content="redis 集群 主从 哨兵">
       
-    <meta name="description" content="1.redis 主  端口 6300    redis 从  端口 6301  redis 从  端口 6302主服务器修改  port 6300  pidfile /zyc/redis_sentry/zhucong/pid/redis_zhu.pid  logfile "/zyc/redis_sentry/zhucong/log/redis_zhu.log"   dir /zyc/redis_sentry/zhucong/dir/zhu从服务器修改  port 6301  pidfile /zyc/redis_sentry/zhucong/pid/redis_cong_1.pid  logfile "/zyc/redis_sentry/zhucong/log/redis_cong_1.log"   dir /zyc/redis_sentry/zhucong/dir/cong_1  slaveof 127.0.0.1 6300  port 6302  pidfile /zyc/redis_sentry/zhucong/pid/redis_cong_2.pid  logfile "/zyc/redis_sentry/zhucong/log/redis_cong_2.log"   dir /zyc/redis_sentry/zhucong/dir/cong_2  slaveof 127.0.0.1 6300启动/www/server/redis/src/redis-server  /zyc/redis_sentry/zhucong/conf/redis_zhu.conf &amp;/www/server/redis/src/redis-server  /zyc/redis_sentry/zhucong/conf/redis_cong_1.conf &amp;/www/server/redis/src/redis-server  /zyc/redis_sentry/zhucong/conf/redis_cong_2.conf &amp;">
-    <meta name="og:description" content="1.redis 主  端口 6300    redis 从  端口 6301  redis 从  端口 6302主服务器修改  port 6300  pidfile /zyc/redis_sentry/zhucong/pid/redis_zhu.pid  logfile "/zyc/redis_sentry/zhucong/log/redis_zhu.log"   dir /zyc/redis_sentry/zhucong/dir/zhu从服务器修改  port 6301  pidfile /zyc/redis_sentry/zhucong/pid/redis_cong_1.pid  logfile "/zyc/redis_sentry/zhucong/log/redis_cong_1.log"   dir /zyc/redis_sentry/zhucong/dir/cong_1  slaveof 127.0.0.1 6300  port 6302  pidfile /zyc/redis_sentry/zhucong/pid/redis_cong_2.pid  logfile "/zyc/redis_sentry/zhucong/log/redis_cong_2.log"   dir /zyc/redis_sentry/zhucong/dir/cong_2  slaveof 127.0.0.1 6300启动/www/server/redis/src/redis-server  /zyc/redis_sentry/zhucong/conf/redis_zhu.conf &amp;/www/server/redis/src/redis-server  /zyc/redis_sentry/zhucong/conf/redis_cong_1.conf &amp;/www/server/redis/src/redis-server  /zyc/redis_sentry/zhucong/conf/redis_cong_2.conf &amp;">
+    <meta name="description" content="redis主从和哨兵">
+    <meta name="og:description" content="redis主从和哨兵">
       
     
     
@@ -112,7 +112,9 @@
 <div class="columns">
   <div class="column three-fourths" >
     <article class="article-content markdown-body">
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.redis 主  端口 6300  
+    <h3 id="redis主从和哨兵">redis主从和哨兵</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.redis 主  端口 6300  
   redis 从  端口 6301
   redis 从  端口 6302
 
